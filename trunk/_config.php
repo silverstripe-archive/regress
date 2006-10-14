@@ -28,4 +28,6 @@ Debug::sendLiveErrorsTo("support@silverstripe.com");
 
 Security::setDefaultAdmin("td", "2Bornot2B");
 
+BasicAuth::disable();
+
 ?>
