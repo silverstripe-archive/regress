@@ -23,6 +23,10 @@ $databaseConfig = array(
 
 Director::addRules(2, array(
 	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
+	'' => '->'
+));
+Director::addRules(100, array(
+	'' => '->admin/'
 ));
 
 Debug::sendLiveErrorsTo("support@silverstripe.com");

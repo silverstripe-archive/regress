@@ -18,16 +18,9 @@ class Page extends SiteTree {
 	
 	function getAllCMSActions() {
 		return new FieldSet(
-			new FormAction("callPageMethod", "Perform test", null, "cms_performTest"),
 			new FormAction("save", "Save changes")
 		);
 	}
-	function cms_performTest() {
-		return <<<JS
-			window.open(baseHref() + "testplan/perform/$this->ID/" , "performtest");
-JS;
-	}
-	
 	
 	function canCreate() {
 		return $this->class == "TestPlan" || $this->class == "TestSection";

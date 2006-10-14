@@ -19,10 +19,10 @@ class TestSession extends DataObject {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'fail'");
 	}
 	
-	function NumPasses() {
+	function getNumPasses() {
 		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'pass'")->value();
 	}
-	function NumFailures() {
+	function getNumFailures() {
 		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail'")->value();
 	}
 }

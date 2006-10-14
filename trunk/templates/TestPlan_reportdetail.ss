@@ -13,7 +13,8 @@
 <% end_control %>
 
 <% control TestSession %>
-<p>Tested on: $Created.Nice</p>
+<p>Test Session #: $ID<br />
+Tested on: $Created.Nice</p>
 
 <p>Passes: $NumPasses<br />
 Failures: $NumFailures</p>
