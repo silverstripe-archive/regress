@@ -1,0 +1,26 @@
+/**
+ * This typography file is included in the WYSIWYG editor
+ */
+* {
+	font-family: Arial;
+	font-size: 1em;
+
+}
+p, ul, td {
+	font-size: 1.2em;
+}
+
+ul ul {
+	font-size: 1em;
+}
+h1 {
+	font-size: 2em;
+	color: #0074C6;
+}
+h2 {
+	font-size: 1.8em;
+	color: #0074C6;
+}
+a {
+	color: #0066cc;
+}
