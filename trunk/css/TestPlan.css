@@ -1,0 +1,51 @@
+* {
+	font-family: Trebuchet MS;
+}
+
+
+.steps {
+	margin: 0;
+	padding: 0;
+}
+.steps li {
+	list-style-type: none;
+	margin: 1em 0;
+	padding: 0.3em;
+	background-color: #EEE;
+	border: 1px #CCC solid;
+}
+
+.steps li.fail {
+	background-color: #FF7777;
+}
+.steps li.pass {
+	background-color: #77DD44;
+}
+
+.passfail {
+	float: right;
+}
+
+.passfail label {
+	padding: 3px;
+}
+
+label.fail {
+	color: #CC4422;
+}
+label.fail.selected {
+	color: white;
+	background-color: #CC4422;
+}
+
+label.pass {
+	color: #118811;
+}
+label.pass.selected {
+	background-color: #118811;
+	color: white;
+}
+
+.failReason textarea {
+	width: 100%;
+}

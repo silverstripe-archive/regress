@@ -21,7 +21,8 @@ $databaseConfig = array(
 );
 
 
-Director::addRules(100, array(
+Director::addRules(2, array(
+	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
 ));
 
 Debug::sendLiveErrorsTo("support@silverstripe.com");
