@@ -12,8 +12,24 @@ class TestSection extends Page {
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
 		if(is_numeric($this->ID)){
-			$fields->addFieldToTab("Root.Edit", new TableField("Steps", "TestStep", 
-				array("Step" => "Test Steps"), array("Step" => 'TextareaField($fieldName, $fieldTitle, 2)'), "ParentID", $this->ID));
+			// TODO Limit Textareafield to two lines (passing arguments currently doesn't work in TableField)
+			$fields->addFieldToTab("Root.Edit", 
+				$stepsTF = new TableField(
+					"Steps", 
+					"TestStep", 
+					array(
+						"Step" => "Test Steps"
+					), 
+					array(
+						"Step" => 'TextareaField'
+					), 
+					null, 
+					"ParentID = {$this->ID}"
+				)
+			);
+			$stepsTF->setExtraData(array(
+				'ParentID' => $this->ID
+			));
 		}else{
 			$fields->addFieldToTab("Root.Edit", new Headerfield("Please save this before continuing",1));
 		}
