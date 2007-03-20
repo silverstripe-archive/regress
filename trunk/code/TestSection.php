@@ -11,10 +11,12 @@ class TestSection extends Page {
 	
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
-
-		$fields->addFieldToTab("Root.Edit", new TableField("Steps", "TestStep", 
-			array("Step" => "Test Steps"), array("Step" => 'TextareaField($fieldName, $fieldTitle, 2)'), "ParentID", $this->ID));
-		
+		if(is_numeric($this->ID)){
+			$fields->addFieldToTab("Root.Edit", new TableField("Steps", "TestStep", 
+				array("Step" => "Test Steps"), array("Step" => 'TextareaField($fieldName, $fieldTitle, 2)'), "ParentID", $this->ID));
+		}else{
+			$fields->addFieldToTab("Root.Edit", new Headerfield("Please save this before continuing",1));
+		}
 		return $fields;
 	}
 	

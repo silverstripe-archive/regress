@@ -21,10 +21,10 @@ Failures: $NumFailures</p>
 
 <% if Failures %>
 	<h2>Failures</h2>
-	<ul>
+	<ul id="FailureDetail">
 	<% control Failures %>
 	<li><b>$TestStep.Step.XML</b><br />
-	$FailReason</li>
+	$FailReason.XML</li>
 	<% end_control %>
 	</ul>
 <% end_if %>

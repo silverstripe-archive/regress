@@ -49,3 +49,13 @@ label.pass.selected {
 .failReason textarea {
 	width: 100%;
 }
+
+ul#FailureDetail {
+	padding: 0;
+}
+ul#FailureDetail li {
+	list-style-type: none;
+	border: 1px #CCC solid;
+	padding: 0.3em;
+	margin: 0.5em;
+}

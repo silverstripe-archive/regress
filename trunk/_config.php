@@ -29,7 +29,8 @@ Director::addRules(100, array(
 	'' => '->admin/'
 ));
 
-Debug::sendLiveErrorsTo("support@silverstripe.com");
+Director::set_environment_type("dev");
+Debug::sendLiveErrorsTo("sam@silverstripe.com");
 
 Security::setDefaultAdmin("td", "2Bornot2B");
 
