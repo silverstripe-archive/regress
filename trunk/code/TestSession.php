@@ -25,6 +25,10 @@ class TestSession extends DataObject {
 	function getNumFailures() {
 		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail'")->value();
 	}
+	
+	function Link() {
+		return 'testplan/reportdetail/' . $this->TestPlanID . '/' . $this->ID;
+	}
 }
 
 ?>

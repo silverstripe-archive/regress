@@ -13,6 +13,8 @@
 <input type="hidden" name="TestPlanID" value="$ID" />
 <h1>$Title</h1>
 
+$Content
+
 <% control Children %>
 	$PerformTestSection
 <% end_control %>

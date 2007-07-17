@@ -23,8 +23,19 @@ Failures: $NumFailures</p>
 	<h2>Failures</h2>
 	<ul id="FailureDetail">
 	<% control Failures %>
-	<li><b>$TestStep.Step.XML</b><br />
-	$FailReason.XML</li>
+	<li <% if ResolutionDate %>class="resolved"<% end_if %>>
+		<b>$TestStep.Step.XML</b><br />
+		$FailReason.XML
+
+		<% if ResolutionDate %>
+			<br /> 
+				<i class="resolutionInfo">Resolved on $ResolutionDate.Date
+				<a href="$UnresolveActionLink">mark as not resolved</a></i>
+	
+		<% else %>
+			<i class="resolutionInfo"><a href="$ResolveActionLink">mark as resolved</a></i>
+		<% end_if %>
+	</li>
 	<% end_control %>
 	</ul>
 <% end_if %>
