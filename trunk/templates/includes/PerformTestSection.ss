@@ -21,6 +21,7 @@ $Content
 			<li>$FailReason.XML (<a href="$TestSession.Link">see session results</a>)</li>
 			<% end_control %>
 			</ul>
+		</div>
 		<% end_if %>
 	</span>
 

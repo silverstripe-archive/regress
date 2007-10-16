@@ -10,13 +10,16 @@ class TestPlan extends Page {
 	
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
-		
-		$sessionReport = new TableListField("Sessions", "TestSession",
-			array("ID" => "Session #", "Created" => "Date", "NumPasses" => "# Passes", "NumFailures" => "# Failures"), "TestPlanID = '$this->ID'", "Created DESC"
-		);
-		$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/");
-		
-		$fields->addFieldToTab("Root.Results", $sessionReport);
+		if(is_numeric($this->ID)){
+			$sessionReport = new TableListField("Sessions", "TestSession",
+				array("ID" => "Session #", "Created" => "Date", "NumPasses" => "# Passes", "NumFailures" => "# Failures"), "TestPlanID = '$this->ID'", "Created DESC"
+			);
+			$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/");
+			
+			$fields->addFieldToTab("Root.Results", $sessionReport);
+		}else{
+			$fields->addFieldToTab("Root.Results", new Headerfield("Please save this before continuing",1));
+		}		
 		return $fields;
 	}
 
@@ -53,12 +56,13 @@ class TestPlan_Controller extends Controller {
 		
 	function saveperformance() {
 		$session = new TestSession();
+		$session->TestPlanID = $this->urlParams['ID'];
 		$session->write();
 		
 		foreach($_REQUEST[Outcome] as $stepID => $outcome) {
 			$result = new StepResult();
 			$result->TestStepID = $stepID;
-			$result->TestPlanID = $this->urlParams[ID];
+			$result->TestPlanID = $this->urlParams['ID'];
 			$result->TestSessionID = $session->ID;
 			$result->Outcome = $outcome;
 			$result->FailReason = $_REQUEST[FailReason][$stepID];
