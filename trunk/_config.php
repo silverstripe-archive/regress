@@ -1,11 +1,11 @@
 <?
 
-if($_SERVER[HTTP_HOST] == "test") {
-	header("Location: http://test.totallydigital.co.nz$_SERVER[REQUEST_URI]");
+if($_SERVER['HTTP_HOST'] == "test") {
+	header("Location: http://test.totallydigital.co.nz" . $_SERVER['REQUEST_URI']);
 	die();
 }
-if($_SERVER[HTTP_HOST] == "dev") {
-	header("Location: http://dev.totallydigital.co.nz$_SERVER[REQUEST_URI]");
+if($_SERVER['HTTP_HOST'] == "dev") {
+	header("Location: http://dev.totallydigital.co.nz" . $_SERVER['REQUEST_URI']);
 	die();
 }
 
@@ -29,8 +29,7 @@ Director::addRules(100, array(
 	'' => '->admin/'
 ));
 
-Director::set_environment_type("dev");
-Debug::sendLiveErrorsTo("sam@silverstripe.com");
+Debug::send_errors_to("sam@silverstripe.com");
 
 Security::setDefaultAdmin("td", "2Bornot2B");
 
