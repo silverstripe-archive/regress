@@ -16,15 +16,19 @@ class TestSection extends Page {
 			$fields->addFieldToTab("Root.Edit", 
 				$stepsTF = new TableField(
 					"Steps", 
-					"TestStep", 
+					"TestStep",
 					array(
-						"Step" => "Test Steps"
+						"Step" => "Test Steps",
+						'Sort' => 'Sort Order',
 					), 
 					array(
-						"Step" => 'TextareaField'
+						"Step" => 'TextareaField',
+						'Sort' => 'TextField', 
 					), 
 					null, 
-					"ParentID = {$this->ID}"
+					"ParentID = {$this->ID}",
+					null,
+					'Sort ASC'
 				)
 			);
 			$stepsTF->setExtraData(array(
@@ -38,6 +42,14 @@ class TestSection extends Page {
 	
 	function PerformTestSection() {
 		return $this->renderWith("PerformTestSection");
+	}
+	
+	function Steps() {
+	   return $this->getComponents(
+	      'Steps',
+	      null, // filter
+	      'Sort ASC'
+	   );
 	}
 }
 

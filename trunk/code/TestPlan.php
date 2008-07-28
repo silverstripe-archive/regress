@@ -11,15 +11,26 @@ class TestPlan extends Page {
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
 		if(is_numeric($this->ID)){
-			$sessionReport = new TableListField("Sessions", "TestSession",
-				array("ID" => "Session #", "Created" => "Date", "NumPasses" => "# Passes", "NumFailures" => "# Failures"), "TestPlanID = '$this->ID'", "Created DESC"
+			$sessionReport = new TableListField(
+			   "Sessions", 
+			   "TestSession",
+				array(
+				   "ID" => "Session #", 
+				   "Created" => "Date", 
+				   "NumPasses" => "# Passes", 
+				   "NumFailures" => "# Failures",
+				   'Author.Title' => 'Author', 
+				), 
+				"TestPlanID = '$this->ID'", 
+				"Created DESC"
 			);
 			$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/");
 			
 			$fields->addFieldToTab("Root.Results", $sessionReport);
 		}else{
 			$fields->addFieldToTab("Root.Results", new Headerfield("Please save this before continuing",1));
-		}		
+		}
+		
 		return $fields;
 	}
 
@@ -48,10 +59,10 @@ class TestPlan_Controller extends Controller {
 	}
 	
 	function TestPlan() {
-		return DataObject::get_by_id("TestPlan", $this->urlParams[ID]);
+		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 	}
 	function TestSession() {
-		return DataObject::get_by_id("TestSession", $this->urlParams[OtherID]);
+		return DataObject::get_by_id("TestSession", $this->urlParams['OtherID']);
 	}
 		
 	function saveperformance() {
@@ -59,17 +70,17 @@ class TestPlan_Controller extends Controller {
 		$session->TestPlanID = $this->urlParams['ID'];
 		$session->write();
 		
-		foreach($_REQUEST[Outcome] as $stepID => $outcome) {
+		foreach($_REQUEST['Outcome'] as $stepID => $outcome) {
 			$result = new StepResult();
 			$result->TestStepID = $stepID;
 			$result->TestPlanID = $this->urlParams['ID'];
 			$result->TestSessionID = $session->ID;
 			$result->Outcome = $outcome;
-			$result->FailReason = $_REQUEST[FailReason][$stepID];
+			$result->FailReason = $_REQUEST['FailReason'][$stepID];
 			$result->write();
 		}
-		
-		Director::redirect("testplan/reportdetail/$_REQUEST[TestPlanID]/$session->ID");
+
+		Director::redirect("testplan/reportdetail/" . (int)$_REQUEST['TestPlanID'] . "/$session->ID");
 	}
 	
 }

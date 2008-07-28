@@ -10,6 +10,9 @@ class Page extends SiteTree {
 		$fields->removeFieldFromTab("Root", "Content");
 		$fields->removeFieldFromTab("Root", "Behaviour");
 		$fields->removeFieldFromTab("Root", "Reports");
+		$fields->removeByName('To-do');
+		$fields->removeByName('To-do **');
+		$fields->removeByName('Access');
 		
 		$fields->addFieldToTab("Root.Edit", new TextField("Title", "Name"));
 		$fields->addFieldToTab("Root.Edit", new TextareaField("Content", "Description"));

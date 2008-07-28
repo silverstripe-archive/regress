@@ -6,10 +6,17 @@ class TestSession extends DataObject {
 	);
 	static $has_one = array(
 		"TestPlan" => "TestPlan",
+		'Author' => 'Member', 
 	);
 	static $has_many = array(
 		"Results" => "StepResult",
 	);
+	
+	function onBeforeWrite() {
+	   $this->AuthorID = Member::currentUserID();
+	   
+	   parent::onBeforeWrite();
+	}
 	
 	function Passes() {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'pass'");
