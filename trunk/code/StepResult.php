@@ -7,7 +7,7 @@ class StepResult extends DataObject {
 		"ResolutionDate" => "Datetime",
 	);
 	static $has_one = array(
-		"TestSession" => "TestSession",
+		"TestSession" => "TestSessionObj",
 		"TestPlan" => "TestPlan",
 		"TestStep" => "TestStep",
 	);

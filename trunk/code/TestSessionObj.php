@@ -1,6 +1,6 @@
 <?php
 
-class TestSession extends DataObject {
+class TestSessionObj extends DataObject {
 	static $db = array(
 	
 	);

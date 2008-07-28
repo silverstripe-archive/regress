@@ -5,7 +5,7 @@ class TestPlan extends Page {
 	static $default_child = "TestSection";
 	
 	static $has_many = array(
-		"Sessions" => "TestSession",
+		"Sessions" => "TestSessionObj",
 	);
 	
 	function getCMSFields() {
@@ -13,7 +13,7 @@ class TestPlan extends Page {
 		if(is_numeric($this->ID)){
 			$sessionReport = new TableListField(
 			   "Sessions", 
-			   "TestSession",
+			   "TestSessionObj",
 				array(
 				   "ID" => "Session #", 
 				   "Created" => "Date", 
@@ -61,12 +61,12 @@ class TestPlan_Controller extends Controller {
 	function TestPlan() {
 		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 	}
-	function TestSession() {
-		return DataObject::get_by_id("TestSession", $this->urlParams['OtherID']);
+	function TestSessionObj() {
+		return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
 	}
 		
 	function saveperformance() {
-		$session = new TestSession();
+		$session = new TestSessionObj();
 		$session->TestPlanID = $this->urlParams['ID'];
 		$session->write();
 		
