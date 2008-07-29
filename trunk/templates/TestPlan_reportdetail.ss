@@ -12,9 +12,9 @@
 <h1>Test Results for '$Title'</h1>
 <% end_control %>
 
-<% control TestSession %>
+<% control TestSessionObj %>
 <p>Test Session #: $ID<br />
-Tested on: $Created.Nice</p>
+Tested on: $Created.Nice by $Author.Title</p>
 
 <p>Passes: $NumPasses<br />
 Failures: $NumFailures</p>

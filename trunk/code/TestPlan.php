@@ -24,7 +24,8 @@ class TestPlan extends Page {
 				"TestPlanID = '$this->ID'", 
 				"Created DESC"
 			);
-			$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/");
+			$sessionReport->setPermissions(array('show','delete'));
+			$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/"); 
 			
 			$fields->addFieldToTab("Root.Results", $sessionReport);
 		}else{
