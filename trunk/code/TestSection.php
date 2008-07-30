@@ -25,10 +25,10 @@ class TestSection extends Page {
 						"Step" => 'TextareaField',
 						'Sort' => 'TextField', 
 					), 
-					null, 
-					"ParentID = {$this->ID}",
-					null,
-					'Sort ASC'
+					null, // filterfield
+					"ParentID = {$this->ID}", // filter
+					true, // edit existing
+					'Sort ASC' // sort
 				)
 			);
 			$stepsTF->setExtraData(array(
