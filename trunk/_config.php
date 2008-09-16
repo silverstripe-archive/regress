@@ -12,14 +12,10 @@ if($_SERVER['HTTP_HOST'] == "dev") {
 global $project;
 $project = "regress";
 
-$databaseConfig = array(
-	"type" => "MySQLDatabase",
-	"server" => "localhost", 
-	"username" => "silverstripe", 
-	"password" => "silverNli24yeg", 
-	"database" => "SS_regress",
-);
+global $database;
+$database = "SS_regress";
 
+require_once('conf/ConfigureFromEnv.php');
 
 Director::addRules(2, array(
 	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
@@ -29,10 +25,10 @@ Director::addRules(100, array(
 	'' => '->admin/'
 ));
 
-Debug::send_errors_to("sam@silverstripe.com");
-
-Security::setDefaultAdmin("td", "2Bornot2B");
+//Debug::send_errors_to("sam@silverstripe.com");
 
 BasicAuth::disable();
+
+Requirements::css("regress/css/TestPlan.css")
 
 ?>

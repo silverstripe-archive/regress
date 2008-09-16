@@ -44,8 +44,14 @@ class TestPlan extends Page {
 
 	function cms_performTest() {
 		return <<<JS
+			
 			var w = window.open(baseHref() + "testplan/perform/$this->ID/" , "performtest");
-			w.focus();
+			if (!w) {
+				alert('Please allow popup for this site.');
+			}
+			else {
+				w.focus();
+			}
 JS;
 	}	
 }

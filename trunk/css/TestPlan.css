@@ -84,3 +84,8 @@ ul#FailureDetail li.resolved {
 .resolutionInfo {
 	font-size: 80%;
 }
+
+table.data tr td { 
+	cursor: hand;
+	cursor: pointer;
+}
