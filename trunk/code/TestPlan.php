@@ -19,6 +19,7 @@ class TestPlan extends Page {
 				   "Created" => "Date", 
 				   "NumPasses" => "# Passes", 
 				   "NumFailures" => "# Failures",
+				   "NumSkips" => "# Skips",
 				   'Author.Title' => 'Author', 
 				), 
 				"TestPlanID = '$this->ID'", 
@@ -73,8 +74,22 @@ class TestPlan_Controller extends Controller {
 	}
 		
 	function saveperformance() {
-		$session = new TestSessionObj();
-		$session->TestPlanID = $this->urlParams['ID'];
+		// if there's no outcomes was set the redirect to the same page
+		if (!isset($_REQUEST['Outcome'])) {
+			Director::redirect("testplan/perform/" . $this->urlParams['ID']);
+			return;
+		}
+		
+		// get test session object data
+		$testSessionData = array();
+		if (isset($_REQUEST['Tester'])) { 
+			$testSessionData["Tester"] = $_REQUEST['Tester'];
+		}
+		if (isset($_REQUEST['OverallNote'])) { 
+			$testSessionData["OverallNote"] = $_REQUEST['OverallNote'];
+		}
+		$testSessionData["TestPlanID"] = $this->urlParams['ID'];
+		$session = new TestSessionObj($testSessionData);
 		$session->write();
 		
 		foreach($_REQUEST['Outcome'] as $stepID => $outcome) {
@@ -83,7 +98,8 @@ class TestPlan_Controller extends Controller {
 			$result->TestPlanID = $this->urlParams['ID'];
 			$result->TestSessionID = $session->ID;
 			$result->Outcome = $outcome;
-			$result->FailReason = $_REQUEST['FailReason'][$stepID];
+			if ($outcome=='pass') $result->ResolutionDate = date('Y-m-d h:i:s');
+			$result->Note = $_REQUEST['Note'][$stepID];
 			$result->write();
 		}
 

@@ -2,7 +2,7 @@
 <head>
 	<% base_tag %>
 </head>
-<body>
+<body class="Regress">
 $Content
 $Form
 </body>

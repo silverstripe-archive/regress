@@ -1,8 +1,6 @@
 * {
 	font-family: Trebuchet MS;
 }
-
-
 .steps {
 	margin: 0;
 	padding: 0;
@@ -22,15 +20,19 @@
 	background-color: #77DD44;
 }
 
-.steps .knownIssues {
+.steps li.skip {
+	background-color: #ccc;
+}
+
+.steps .stepNote {
 	margin-top: 0.5em;
 	padding: 0.3em;
 	background-color: #FFC;
 }
-.steps .knownIssues h4 {
+.steps .stepNote h4 {
 	margin: 0;
 }
-.steps .knownIssues li {
+.steps .stepNote li {
 	list-style-type: disc;
 	margin: 0;
 	padding: 0;
@@ -63,22 +65,39 @@ label.pass.selected {
 	color: white;
 }
 
-.failReason textarea {
-	width: 100%;
+label.skip {
+	color: #333;
+}
+label.skip.selected {
+	background-color: #666;
+	color: white;
 }
 
-ul#FailureDetail {
+.note textarea {
+	width: 100%;
+	height: 100px;
+}
+
+ul#NoteDetail {
 	padding: 0;
 }
-ul#FailureDetail li {
+ul#NoteDetail li {
 	list-style-type: none;
 	border: 1px #CCC solid;
 	padding: 0.3em;
 	margin: 0.5em;
 	background-color: #FFC;
 }
-ul#FailureDetail li.resolved {
+ul#NoteDetail li.pass {
 	background-color: #CFC;
+}
+
+ul#NoteDetail li.fail {
+	background-color: #EBD0CE;
+}
+
+ul#NoteDetail li.skip {
+	background-color: #ccc;
 }
 
 .resolutionInfo {

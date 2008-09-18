@@ -17,21 +17,27 @@
 Tested on: $Created.Nice by $Author.Title</p>
 
 <p>Passes: $NumPasses<br />
-Failures: $NumFailures</p>
+Failures: $NumFailures<br />
+Skip: $NumSkips
+</p>
 
-<% if Failures %>
-	<h2>Failures</h2>
-	<ul id="FailureDetail">
-	<% control Failures %>
-	<li <% if ResolutionDate %>class="resolved"<% end_if %>>
+<p>
+	Tester: $Tester<br />
+   	Note: $OverallNote
+</p>
+
+<% if Notes %>
+	<h2>Notes</h2>
+	<ul id="NoteDetail">
+	<% control Notes %>
+	<li class="status $Outcome">
 		<b>$TestStep.Step.XML</b><br />
-		$FailReason.XML
-
+		$Note.XML
+		<p class="state">Status: $Outcome</p>
 		<% if ResolutionDate %>
 			<br /> 
 				<i class="resolutionInfo">Resolved on $ResolutionDate.Date
 				<a href="$UnresolveActionLink">mark as not resolved</a></i>
-	
 		<% else %>
 			<i class="resolutionInfo"><a href="$ResolveActionLink">mark as resolved</a></i>
 		<% end_if %>

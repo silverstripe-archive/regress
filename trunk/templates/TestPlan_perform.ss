@@ -21,6 +21,11 @@ $Content
 
 <% end_control %>
 
+<p class="extra">
+	<label>Tester</label> <input type="text" name="Tester" size="30" /><br/>
+	<label>Note</label> <br/><textarea name="OverallNote" cols="50" rows="10"></textarea>
+</p>
+
 <p>
 <input type="submit" value="Save test results" />
 </p>

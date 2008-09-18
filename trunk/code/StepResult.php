@@ -2,8 +2,8 @@
 
 class StepResult extends DataObject {
 	static $db = array(
-		"Outcome" => "Enum('pass,fail,','')",
-		"FailReason" => "Text",
+		"Outcome" => "Enum('pass,fail,skip,','')",
+		"Note" => "Text",
 		"ResolutionDate" => "Datetime",
 	);
 	static $has_one = array(

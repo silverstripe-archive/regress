@@ -20,7 +20,9 @@ Behaviour.register({
 			
 			var div,divs = this.getElementsByTagName('div');
 			for(i=0;div=divs[i];i++) {
-				if(div.className == 'failReason') { this.failReason = div; break; }
+				//if(div.className == 'failReason') { this.failReason = div; break; }
+				//if(div.className == 'passNote') { this.passNote = div; break; }
+				if(div.className == 'note') { this.note = div; break; }
 			}
 		},
 	
@@ -35,8 +37,9 @@ Behaviour.register({
 					Element.removeClassName(this.statusInputs[candStatus].parentNode, 'selected');
 				}
 			}
-			
-			this.failReason.style.display = (status == 'pass') ? 'none' : '';
+			console.log(this);
+			//this.failReason.style.display = (status == 'pass') ? 'none' : '';
+			this.note.style.display = '';
 		}
 	}
 });

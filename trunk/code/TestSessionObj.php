@@ -2,7 +2,8 @@
 
 class TestSessionObj extends DataObject {
 	static $db = array(
-	
+		'Tester' => 'Varchar(20)',
+		'OverallNote' => 'Text'
 	);
 	static $has_one = array(
 		"TestPlan" => "TestPlan",
@@ -26,11 +27,19 @@ class TestSessionObj extends DataObject {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'fail'");
 	}
 	
+	function Notes() {
+		return DataObject::get("StepResult", "TestSessionID = $this->ID AND (Outcome = 'fail' OR Outcome = 'pass' OR Outcome = 'skip') ");
+	}
+	
 	function getNumPasses() {
 		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'pass'")->value();
 	}
 	function getNumFailures() {
 		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail'")->value();
+	}
+	
+	function getNumSkips() {
+		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'skip'")->value();
 	}
 	
 	function Link() {
