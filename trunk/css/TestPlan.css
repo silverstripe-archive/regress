@@ -89,7 +89,7 @@ ul#NoteDetail li {
 	background-color: #FFC;
 }
 ul#NoteDetail li.pass {
-	background-color: #CFC;
+	background-color: #EBE4C6;
 }
 
 ul#NoteDetail li.fail {
@@ -98,6 +98,10 @@ ul#NoteDetail li.fail {
 
 ul#NoteDetail li.skip {
 	background-color: #ccc;
+}
+
+ul#NoteDetail li.resolved {
+	background-color: #CFC;
 }
 
 .resolutionInfo {

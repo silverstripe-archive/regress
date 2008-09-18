@@ -98,7 +98,7 @@ class TestPlan_Controller extends Controller {
 			$result->TestPlanID = $this->urlParams['ID'];
 			$result->TestSessionID = $session->ID;
 			$result->Outcome = $outcome;
-			if ($outcome=='pass') $result->ResolutionDate = date('Y-m-d h:i:s');
+			//if ($outcome=='pass') $result->ResolutionDate = date('Y-m-d h:i:s');
 			$result->Note = $_REQUEST['Note'][$stepID];
 			$result->write();
 		}

@@ -30,7 +30,7 @@ Skip: $NumSkips
 	<h2>Notes</h2>
 	<ul id="NoteDetail">
 	<% control Notes %>
-	<li class="status $Outcome">
+	<li class="status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
 		<b>$TestStep.Step.XML</b><br />
 		$Note.XML
 		<p class="state">Status: $Outcome</p>
