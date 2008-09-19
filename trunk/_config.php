@@ -25,7 +25,7 @@ Director::addRules(100, array(
 	'' => '->admin/'
 ));
 
-//Debug::send_errors_to("sam@silverstripe.com");
+Debug::send_errors_to("sam@silverstripe.com");
 
 BasicAuth::disable();
 
