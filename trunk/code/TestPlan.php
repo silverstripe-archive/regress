@@ -9,24 +9,29 @@ class TestPlan extends Page {
 	);
 	
 	function getCMSFields() {
+		$sessionTableFields = array(
+		   "ID" => "Session #", 
+		   "Created" => "Date", 
+		   "NumPasses" => "# Passes", 
+		   "NumFailures" => "# Failures",
+		   "NumSkips" => "# Skips",
+		   'Author.Title' => 'Author', 
+		);
+		
 		$fields = parent::getCMSFields();
 		if(is_numeric($this->ID)){
 			$sessionReport = new TableListField(
 			   "Sessions", 
 			   "TestSessionObj",
-				array(
-				   "ID" => "Session #", 
-				   "Created" => "Date", 
-				   "NumPasses" => "# Passes", 
-				   "NumFailures" => "# Failures",
-				   "NumSkips" => "# Skips",
-				   'Author.Title' => 'Author', 
-				), 
+				$sessionTableFields, 
 				"TestPlanID = '$this->ID'", 
 				"Created DESC"
 			);
-			$sessionReport->setPermissions(array('show','delete'));
-			$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/"); 
+			$sessionReport->setPermissions(array('edit','show','delete'));
+			
+			//$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/"); 
+			$url = '<a target=\"_blank\" href=\"' . Director::baseURL() . 'testplan/reportdetail/'.$this->ID.'/$ID\">$value</a>';
+			$sessionReport->setFieldFormatting(array_combine(array_keys($sessionTableFields), array_fill(0,count($summaryFields), $url)));
 			
 			$fields->addFieldToTab("Root.Results", $sessionReport);
 		}else{
