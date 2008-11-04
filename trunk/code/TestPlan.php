@@ -75,7 +75,20 @@ class TestPlan_Controller extends Controller {
 		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 	}
 	function TestSessionObj() {
-		return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
+		if($this->urlParams['OtherID']) {
+			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
+		}
+	}
+
+
+	function Notes() {
+		$planID = (int)$this->urlParams['ID'];
+
+		// If we're viewing one session, then show that session's notes
+		if($obj = $this->TestSessionObj()) return $obj->Notes();
+		// Otherwise, view all unresolved notes
+		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
+			AND ResolutionDate IS NULL");
 	}
 		
 	function saveperformance() {

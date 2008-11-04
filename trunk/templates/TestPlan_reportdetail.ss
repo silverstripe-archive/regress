@@ -12,6 +12,7 @@
 <h1>Test Results for '$Title'</h1>
 <% end_control %>
 
+<% if TestSessionObj %>
 <% control TestSessionObj %>
 <p>Test Session #: $ID<br />
 Tested on: $Created.Nice by $Author.Title</p>
@@ -25,6 +26,11 @@ Skip: $NumSkips
 	Tester: $Tester<br />
    	Note: $OverallNote
 </p>
+<% end_control %>
+
+<% else %>
+	<p>Showing unresolved notes from all test sessions...</p>
+<% end_if %>
 
 <% if Notes %>
 	<h2>Notes</h2>
@@ -45,9 +51,6 @@ Skip: $NumSkips
 	<% end_control %>
 	</ul>
 <% end_if %>
-
-
-<% end_control %>
 
 </body>
 </html>

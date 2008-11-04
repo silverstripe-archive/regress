@@ -16,7 +16,7 @@ global $database;
 $database = "SS_regress";
 
 require_once('conf/ConfigureFromEnv.php');
-
+Director::set_environment_type('dev');
 Director::addRules(2, array(
 	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
 	'' => '->'

@@ -28,7 +28,7 @@ class TestSessionObj extends DataObject {
 	}
 	
 	function Notes() {
-		return DataObject::get("StepResult", "TestSessionID = $this->ID AND (Outcome = 'fail' OR Outcome = 'pass' OR Outcome = 'skip') ");
+		return DataObject::get("StepResult", "TestSessionID = $this->ID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL))");
 	}
 	
 	function getNumPasses() {
