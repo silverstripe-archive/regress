@@ -31,7 +31,7 @@ class TestPlan extends Page {
 			
 			//$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/"); 
 			$url = '<a target=\"_blank\" href=\"' . Director::baseURL() . 'testplan/reportdetail/'.$this->ID.'/$ID\">$value</a>';
-			$sessionReport->setFieldFormatting(array_combine(array_keys($sessionTableFields), array_fill(0,count($summaryFields), $url)));
+			$sessionReport->setFieldFormatting(array_combine(array_keys($sessionTableFields), array_fill(0,count($sessionTableFields), $url)));
 			
 			$fields->addFieldToTab("Root.Results", $sessionReport);
 		}else{
