@@ -26,7 +26,7 @@ class Page extends SiteTree {
 	}
 	
 	function canCreate() {
-		return $this->class == "TestPlan" || $this->class == "TestSection";
+		return $this->class == "TestPlan" || $this->class == "TestSection" || $this->class == "Page";
 	}
 	
 	function TreeTitle() {
