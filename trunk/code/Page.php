@@ -1,6 +1,7 @@
 <?
 
 class Page extends SiteTree {
+	static $default_child = "TestPlan";
 	
 	static $db = array(
 	);
