@@ -66,6 +66,9 @@ class TestPlan_Controller extends Controller {
 	function init() {
 		HTTP::set_cache_age(0);
 		parent::init();
+
+		if(!Member::currentUser()) return Security::permissionFailure();
+
 		Requirements::javascript("jsparty/behaviour.js");
 		Requirements::javascript("jsparty/prototype.js");
 		Requirements::javascript("regress/javascript/TestPlan.js");
