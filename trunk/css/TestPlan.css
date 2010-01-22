@@ -6,7 +6,6 @@
 	padding: 0;
 }
 .steps li {
-	list-style-type: none;
 	margin: 1em 0;
 	padding: 0.3em;
 	background-color: #EEE;
@@ -111,4 +110,50 @@ ul#NoteDetail li.resolved {
 table.data tr td { 
 	cursor: hand;
 	cursor: pointer;
+}
+
+# Added 07/01/2010 by Rainer Spittel
+
+ul#NoteDetail .content li {
+	border: none;
+	background-color: transparent;
+	list-style-type: decimal;
+	margin: 0px;
+}
+
+.content li {
+	border: none;
+	background-color: transparent;
+	margin: 0px;
+}
+
+ul#NoteDetail .label {
+	margin: 2px;'
+}
+
+ul#NoteDetail .content {
+	padding-left: 20px;'
+}
+
+.preparation {
+	border: 1px #CCC solid;
+	background-color: #AABBBB;
+}
+
+.leftPanel {
+	background-color: #AABBBB;
+	float: left;
+	margin: 0 auto;
+	padding: 0 0 0 30px;
+	width: 155px;
+	position: fixed;
+	
+	top: 0px;
+	left: 0px;
+}
+
+.rightPanel {
+	position: absolute;
+	left: 190px;
+	float: left;
 }
