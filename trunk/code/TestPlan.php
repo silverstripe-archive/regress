@@ -1,46 +1,39 @@
 <?php
+/**
+ * @package regress
+ * @subpackage code
+ */ 
 
+/**
+ * A Test plan is a page type which groups features (or story cards). 
+ *
+ * Reference: {@see TestSection}
+ */
 class TestPlan extends Page {
+	
 	static $allowed_children = array("TestSection");
+	
 	static $default_child = "TestSection";
 	
 	static $has_many = array(
 		"Sessions" => "TestSessionObj",
 	);
-	
+
+	/**
+	 * Returns a FieldSet with which to create the CMS editing form.
+	 *
+	 * @return FieldSet The fields to be displayed in the CMS.
+	 */	
 	function getCMSFields() {
-		$sessionTableFields = array(
-		   "ID" => "Session #", 
-		   "Created" => "Date", 
-		   "NumPasses" => "# Passes", 
-		   "NumFailures" => "# Failures",
-		   "NumSkips" => "# Skips",
-		   'Author.Title' => 'Author', 
-		);
-		
 		$fields = parent::getCMSFields();
-		if(is_numeric($this->ID)){
-			$sessionReport = new TableListField(
-			   "Sessions", 
-			   "TestSessionObj",
-				$sessionTableFields, 
-				"TestPlanID = '$this->ID'", 
-				"Created DESC"
-			);
-			$sessionReport->setPermissions(array('edit','show','delete'));
-			
-			//$sessionReport->setClick_PopupLoad("testplan/reportdetail/$this->ID/"); 
-			$url = '<a target=\"_blank\" href=\"' . Director::baseURL() . 'testplan/reportdetail/'.$this->ID.'/$ID\">$value</a>';
-			$sessionReport->setFieldFormatting(array_combine(array_keys($sessionTableFields), array_fill(0,count($sessionTableFields), $url)));
-			
-			$fields->addFieldToTab("Root.Results", $sessionReport);
-		}else{
-			$fields->addFieldToTab("Root.Results", new Headerfield("Please save this before continuing",1));
-		}
-		
 		return $fields;
 	}
 
+	/**
+	 * Get the actions available in the CMS for this page:  save and perform test.
+	 *
+	 * @return FieldSet The available actions for this page.
+	 */
 	function getAllCMSActions() {
 		return new FieldSet(
 			new FormAction("callPageMethod", "Perform test", null, "cms_performTest"),
@@ -48,85 +41,80 @@ class TestPlan extends Page {
 		);
 	}
 
+	/**
+	 * Returns the url to the test-plan controller 
+	 *
+	 * @return string
+	 */
+	function getcontrollerurl() {
+		return 'testplan';
+	}
+	
+	/**
+	 * Returns javascript to performa test. This is a Ajax callback method which
+	 * initiates the test execution on this plan.
+	 *
+	 * @return string JavaScript code to open a new window and render the test.
+	 */
 	function cms_performTest() {
-		return <<<JS
-			
-			var w = window.open(baseHref() + "testplan/perform/$this->ID/" , "performtest");
-			if (!w) {
-				alert('Please allow popup for this site.');
-			}
-			else {
-				w.focus();
-			}
-JS;
-	}	
+		return $this->renderWith('js_performTest');
+	}
+	
+	/**
+	 * Returns the test session object of a given ID. The ID is passed in as a
+	 * HTTP parameter.
+	 * 
+	 * @return TestSessionObj|Null Instance of the session object.
+	 */
+	function TestSessionObj() {
+		$obj = null;
+
+		$OtherID = Controller::curr()->urlParams['OtherID'];
+		if($OtherID) {
+			$obj =  DataObject::get_by_id("TestSessionObj", $OtherID);
+		}
+		return $obj;
+	}
 }
 
+/**
+ * Controller class for the test-plan. The controller handles the 
+ * 'perform test' action, triggered by the CMS user in the back-end.
+ * Perform-tests will use the TestPlan_perform template to render the HTML
+ * page.
+ */ 
 class TestPlan_Controller extends Controller {
-	function init() {
+	
+	/**
+	 * Init method.
+	 */
+	function init() {		
 		HTTP::set_cache_age(0);
 		parent::init();
 
-		if(!Member::currentUser()) return Security::permissionFailure();
-
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
+		
+		// add required javascript
 		Requirements::javascript("jsparty/behaviour.js");
 		Requirements::javascript("jsparty/prototype.js");
+		
+		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-livequery/jquery.livequery.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
+		
 		Requirements::javascript("regress/javascript/TestPlan.js");
 	}
-	
-	function TestPlan() {
+
+	/**
+	 * Returns the test plan of a given ID. The ID is passed in as a HTTP
+	 * parameter.
+	 * 
+	 * @return TestPlan Instance of the testplan.
+	 */
+	function TestPlan() {		
 		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 	}
-	function TestSessionObj() {
-		if($this->urlParams['OtherID']) {
-			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
-		}
-	}
-
-
-	function Notes() {
-		$planID = (int)$this->urlParams['ID'];
-
-		// If we're viewing one session, then show that session's notes
-		if($obj = $this->TestSessionObj()) return $obj->Notes();
-		// Otherwise, view all unresolved notes
-		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
-			AND ResolutionDate IS NULL");
-	}
-		
-	function saveperformance() {
-		// if there's no outcomes was set the redirect to the same page
-		if (!isset($_REQUEST['Outcome'])) {
-			Director::redirect("testplan/perform/" . $this->urlParams['ID']);
-			return;
-		}
-		
-		// get test session object data
-		$testSessionData = array();
-		if (isset($_REQUEST['Tester'])) { 
-			$testSessionData["Tester"] = $_REQUEST['Tester'];
-		}
-		if (isset($_REQUEST['OverallNote'])) { 
-			$testSessionData["OverallNote"] = $_REQUEST['OverallNote'];
-		}
-		$testSessionData["TestPlanID"] = $this->urlParams['ID'];
-		$session = new TestSessionObj($testSessionData);
-		$session->write();
-		
-		foreach($_REQUEST['Outcome'] as $stepID => $outcome) {
-			$result = new StepResult();
-			$result->TestStepID = $stepID;
-			$result->TestPlanID = $this->urlParams['ID'];
-			$result->TestSessionID = $session->ID;
-			$result->Outcome = $outcome;
-			//if ($outcome=='pass') $result->ResolutionDate = date('Y-m-d h:i:s');
-			$result->Note = $_REQUEST['Note'][$stepID];
-			$result->write();
-		}
-
-		Director::redirect("testplan/reportdetail/" . (int)$_REQUEST['TestPlanID'] . "/$session->ID");
-	}
-	
 }
-
 ?>
