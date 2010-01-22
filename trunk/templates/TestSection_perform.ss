@@ -7,7 +7,7 @@
 </head>
 <!-- HTML-BODY -->
 <body>
-
+	
 <div class="leftPanel">
 	<h2>Options</h2>
 	<div class="actions">
@@ -19,12 +19,12 @@
 </div>
 
 <div class="rightPanel">
-	<h1>Perform a Test on a Test-Plan</h1>
+	<h1>Perform a Test on a Feature/Story Card</h1>
+	<% control TestSection %>
 
-	<% control TestPlan %>
-		<% include PerformTestForm %>
+	<% include PerformTestForm %>
+
 	<% end_control %>
 </div>
-
 </body>
 </html>
