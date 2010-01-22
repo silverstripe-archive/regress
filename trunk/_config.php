@@ -1,4 +1,4 @@
-<?
+<?php
 
 if($_SERVER['HTTP_HOST'] == "test") {
 	header("Location: http://test.totallydigital.co.nz" . $_SERVER['REQUEST_URI']);
@@ -16,17 +16,26 @@ global $database;
 $database = "SS_regress";
 
 require_once('conf/ConfigureFromEnv.php');
+
 Director::set_environment_type('dev');
 Director::addRules(2, array(
 	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
+	'feature/$Action/$ID/$OtherID' => "TestSection_Controller",
+	'session/$Action/$ID/$OtherID' => "Session_Controller",
 	'' => '->'
 ));
+
 Director::addRules(100, array(
 	'' => '->admin/'
 ));
 
-BasicAuth::disable();
+// R.Spittel - BasicAuth::disable is depreciated.
+BasicAuth::protect_entire_site(false);
+// BasicAuth::disable();
 
-Requirements::css("regress/css/TestPlan.css")
+Requirements::css("regress/css/TestPlan.css");
+
+Object::add_extension('TestPlan', 'TestPageDecorator');
+Object::add_extension('TestSection', 'TestPageDecorator');
 
 ?>
