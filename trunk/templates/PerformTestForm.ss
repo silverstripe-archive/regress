@@ -5,7 +5,7 @@
 	<input type="hidden" name="SessionType" value="$ClassName" />
 	
 	<% control TestSessionObj %>
-	<input type="text"  id="TestSessionObjID" name="TestSessionObjID" value="$ID" />
+	<input type="hidden"  id="TestSessionObjID" name="TestSessionObjID" value="$ID" />
 	<% end_control %>
 	
 	<!-- HEADER -->
@@ -29,8 +29,21 @@
 		<div class="extra">
 			<p class="extra">
 			<% control TestSessionObj %>
-			<label>Tester</label> <input type="text" name="Tester" size="30" value="$Tester"/><br/>
-			<label>Note</label> <br/><textarea name="OverallNote" cols="50" rows="10">$OverallNote</textarea>
+			<div>
+				<div class="label">
+					<label>Tester</label>
+				</div>
+				<div>
+					<input type="text" name="Tester" size="30" value="$Tester"/><br/>
+				</div>
+
+				<div class="label">
+					<label>Note</label>
+				</div>
+				<div style="">
+					<textarea name="OverallNote" cols="50" rows="10">$OverallNote</textarea>
+				</div>	
+				</div>
 			<% end_control %>
 			</p>
 		</div>
