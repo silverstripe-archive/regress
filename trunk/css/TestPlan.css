@@ -10,6 +10,7 @@
 	padding: 0.3em;
 	background-color: #EEE;
 	border: 1px #CCC solid;
+	list-style-type: none;
 }
 
 .steps li.fail {
@@ -137,23 +138,36 @@ ul#NoteDetail .content {
 
 .preparation {
 	border: 1px #CCC solid;
-	background-color: #AABBBB;
+	background-color: #F0F0FF;
+	padding: 5px 15px 5px 15px;
 }
 
 .leftPanel {
-	background-color: #AABBBB;
+	border: 1px #CCC solid;
+	background-color: #E0E0FF;
 	float: left;
 	margin: 0 auto;
-	padding: 0 0 0 30px;
+	padding: 0 15px 0 15px;
 	width: 155px;
 	position: fixed;
+	text-align: center;
 	
 	top: 0px;
 	left: 0px;
+	bottom: 0px;
 }
 
 .rightPanel {
 	position: absolute;
 	left: 190px;
 	float: left;
+}
+
+.label {
+	width:100px;
+	float:left
+}
+
+#statusmessage {
+	font-size: 10px;
 }
