@@ -11,7 +11,10 @@
 	
 		<ul class="steps">
 			<% control Steps %>
-			<li class="scenario">
+			<li class="scenario 			
+				<% if IsOutcomePass %>pass<% end_if %>
+				<% if IsOutcomeFail %>fail<% end_if %>
+				<% if IsOutcomeSkip %>skip<% end_if %>">
 			
 				<div class="passfail">
 					<label class="pass"><input type="radio" value="pass" name="Outcome[$ID]" <% if IsOutcomePass %>checked="true"<% end_if %> />pass</label>
@@ -24,7 +27,7 @@
 					
 					<% if StepNote %>
 
-					<div class="stepNote" style="display:;">
+					<div class="stepNote" style="display:none;">
 						<% if KnownIssues %>
 						<div class="knownIssues">
 							<h4>Fail Notes:</h4>
