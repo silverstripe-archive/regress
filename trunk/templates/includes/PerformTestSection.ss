@@ -12,7 +12,7 @@
 		<div class='description'>
 			<h3>Test Preparation</h3>
 			<div>
-				$Preparation
+				$Preparation.Raw
 			</div>
 		</div>
 		<% end_if %>
