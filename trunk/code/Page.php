@@ -38,6 +38,7 @@ class Page extends SiteTree {
 		$fields->removeByName('To-do **', false);
 		$fields->removeByName('Access', false);
 		
+		$fields->addFieldToTab("Root.Edit", new LiteralField("PageType", sprintf("<h2>You have opened a %s </h2>",$this->singular_name())));
 		$fields->addFieldToTab("Root.Edit", new TextField("Title", "Name"));
 		$fields->addFieldToTab("Root.Edit", new TextareaField("Content", "Description"));
 
