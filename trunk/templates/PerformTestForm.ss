@@ -20,7 +20,11 @@
 					<label>Tester</label>
 				</div>
 				<div>
+				<% if Tester %>
 					<input type="text" name="Tester" size="30" value="$Tester"/><br/>
+				<% else %>
+					<input type="text" name="Tester" size="30" value="$CurrentMember.Title"/><br/>
+				<% end_if %>
 				</div>
 
 				<div class="label">
