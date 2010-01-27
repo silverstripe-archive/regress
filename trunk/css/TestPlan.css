@@ -5,7 +5,7 @@
 	margin: 0;
 	padding: 0;
 }
-.steps li {
+.steps li.scenario,.steps li.fail,.steps li.pass,.steps li.skip {
 	margin: 1em 0;
 	padding: 0.3em;
 	background-color: #EEE;
