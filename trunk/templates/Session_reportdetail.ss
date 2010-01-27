@@ -13,15 +13,14 @@
 	<!-- session was a test-plan -->
 	<% if TestPlan %>
 	<% control TestPlan %>
-		<h2>Test Results for Test-Plan '$Title'</h2>
+		<h2>Test Results for the Test-Plan '$Title'</h2>
 	<% end_control %>
 	<% end_if %>
 
 	<!-- session was a feature -->
 	<% if TestSection %>
-		test-section
 	<% control TestSection %>
-		<h2>Test Results for Feature '$Title'</h2>
+		<h2>Test Results for the Feature '$Title'</h2>
 	<% end_control %>
 	<% end_if %>
 
