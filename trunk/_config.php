@@ -38,4 +38,8 @@ Requirements::css("regress/css/TestPlan.css");
 Object::add_extension('TestPlan', 'TestPageDecorator');
 Object::add_extension('TestSection', 'TestPageDecorator');
 
+Object::add_extension('LeftAndMain', 'PageLeftAndMainDecorator');
+
+// run following sql update after updating:
+// update TestSessionObj set Status='submitted';
 ?>

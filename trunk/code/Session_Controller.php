@@ -75,7 +75,7 @@ class Session_Controller extends Controller {
 	 * @return String html page
 	 */
 	function saveperformance($request) {
-		
+
 		$responseArray = array(
 			'TestSessionObjID' => '',
 			'Message'          => ''
@@ -132,7 +132,7 @@ class Session_Controller extends Controller {
 		}
 
 		// update test-session object
-		$session->Tester        = $testSessionData["Tester"];
+		$session->Tester        =  Convert::raw2sql($testSessionData["Tester"]);
 		$session->OverallNote   = $testSessionData["OverallNote"];
 		$session->TestSectionID = $testSessionData["TestSectionID"];
 		$session->TestPlanID    = $testSessionData["TestPlanID"];

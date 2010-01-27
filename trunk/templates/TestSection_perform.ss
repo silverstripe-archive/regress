@@ -9,22 +9,33 @@
 <body>
 	
 <div class="leftPanel">
-	<h2>Options</h2>
 	<div class="actions">
-		<input type="button" name='action_doSaveSession' value="Save current session" />		
+		<input type="button" name='action_doSaveSession' value="Save current session" />
+		<br />
+		<div class="helptext">
+		If you close your browser after saving, you can return to the current session via the Drafts tab in the CMS.		
+		<hr />
+		</div>
 	</div>	
-	<div id="statusmessage">
-		
+	<div id="statusmessage">		
 	</div>
 </div>
 
 <div class="rightPanel">
-	<h1>Perform a Test on a Feature/Story Card</h1>
 	<% control TestSection %>
-
+	<h1>
+		<% if GetTestPlan %>
+			$GetTestPlan.Title - 
+		<% else %>
+		<% end_if %> 
+		$Title test
+	</h1>
+	
 	<% include PerformTestForm %>
-
 	<% end_control %>
 </div>
+
+
+
 </body>
 </html>

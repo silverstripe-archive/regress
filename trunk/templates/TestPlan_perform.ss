@@ -9,20 +9,26 @@
 <body>
 
 <div class="leftPanel">
-	<h2>Options</h2>
 	<div class="actions">
-		<input type="button" name='action_doSaveSession' value="Save current session" />		
+		<input type="button" name='action_doSaveSession' value="Save current session" />
+		<br />
+		<div class="helptext">
+		If you close your browser after saving, you can return to the current session via the Drafts tab in the CMS.		
+		<hr />
+		</div>
 	</div>	
-	<div id="statusmessage">
-		
+	<div id="statusmessage">		
 	</div>
 </div>
 
 <div class="rightPanel">
-	<h1>Perform a Test on a Test-Plan</h1>
-
 	<% control TestPlan %>
-		<% include PerformTestForm %>
+	<h1>$Title Test-Plan</h1>
+	<div class="box">
+		$Content
+	</div>
+	
+	<% include PerformTestForm %>
 	<% end_control %>
 </div>
 

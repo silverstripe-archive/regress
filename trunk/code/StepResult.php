@@ -32,6 +32,11 @@ class StepResult extends DataObject {
 	function UnresolveActionLink() {
 		return "StepResult_Controller/unresolve/$this->ID";
 	}
+	
+	
+	function NoteMarkdown() {
+		return Markdown($this->Note);
+	}	
 }
 
 /**

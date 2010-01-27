@@ -10,22 +10,8 @@
 	
 	<!-- HEADER -->
 	<div class="header">
-		<!-- Title block-->
-		<div class="title">
-			<h2>Feature: $Title</h2>
-			<div>
-				$Content.Markdown
-			</div>
-		</div>
 		
-		<!-- Preparation block-->
-		<div class='preparation'>
-			<h3>Test Preparation</h3>
-			<div>
-				$PreparationMarkdown
-			</div>
-		</div>
-		
+		<!-- extra info block-->
 		<div class="extra">
 			<p class="extra">
 			<% control TestSessionObj %>
@@ -40,27 +26,28 @@
 				<div class="label">
 					<label>Note</label>
 				</div>
-				<div style="">
-					<textarea name="OverallNote" cols="50" rows="10">$OverallNote</textarea>
+				<div>
+					<textarea name="OverallNote" cols="50" rows="10">$OverallNote.Raw</textarea>
 				</div>	
 				</div>
 			<% end_control %>
 			</p>
 		</div>
 	</div>
+	<hr />
 	
 	<div class="features">
 		<!-- Show all steps of the currenct testplan -->
 		<% if PerformTestSection %>
-			$PerformTestSection
+		$PerformTestSection
 		<% else %>
-			No senarios found for current $classname
-		<% end_if %>
-
 		<!-- Show all steps of the children -->
+		<% if Children %>
 		<% control Children %>
 		$PerformTestSection
 		<% end_control %>
+		<% end_if %>
+		<% end_if %>
 	</div>
 	
 	<div class="actions">

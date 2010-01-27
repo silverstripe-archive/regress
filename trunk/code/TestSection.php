@@ -20,7 +20,7 @@ class TestSection extends Page {
 
 	public static $singular_name = 'Feature';
 
-	public static $plural_name = 'Features';
+	public static $plural_name   = 'Features';
 
 	// This page type can not have any sub-page
 	static $allowed_children = "none";
@@ -112,6 +112,24 @@ class TestSection extends Page {
 	 */
 	function getcontrollerurl() {
 		return 'feature';
+	}
+	
+	function GetTestPlan() {
+		$stopMarker = 10;
+		
+		$testPlan = null;
+		
+		$parent = $this->getParent();
+		
+		while ($parent != null AND $stopMarker > 0) {
+			$stopMarker--;
+			if (is_a($parent, "TestPlan")) {
+				$testPlan = $parent;
+				$stopMarker = 0;
+			}
+			$parent = $parent->getParent();
+		}
+		return $testPlan;		
 	}
 		
 	/**

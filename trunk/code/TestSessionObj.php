@@ -101,6 +101,10 @@ class TestSessionObj extends DataObject {
 		$id = $this->getTestReferenceID();
 		return 'session/reportdetail/' . $id . '/' . $this->ID;
 	}
+	
+	function OverallNoteMarkdown() {
+		return Markdown($this->OverallNote);
+	}
 }
 
 ?>

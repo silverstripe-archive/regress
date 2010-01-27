@@ -31,21 +31,74 @@
 <div class="reportheader">
 	<% if TestSessionObj %>
 	<% control TestSessionObj %>
-	<p>
-		Test Session #: $ID<br />
-		Tested on: $Created.Nice by $Author.Title
-	</p>
 
-	<p>
-		Passes: $NumPasses<br />
-		Failures: $NumFailures<br />
-		Skip: $NumSkips
-	</p>
+	<div>
+		<div class='label boxed'>
+			Session#:
+		</div>
+		<div class="content">
+			<div class="box">
+				$ID
+			</div>
+		</div>
+		<div class='label boxed'>
+			Tested on:
+		</div>
+		<div class="content">
+			<div class="box">
+				$Created.Nice by $Author.Title
+			</div>
+		</div>
+	</div>
 
-	<p>
-		Tester: $Tester<br />
-	   	Note: $OverallNote
-	</p>
+	<div>
+		<div class='label boxed'>
+			Passes:
+		</div>
+		<div class="content">
+			<div class="box">
+				$NumPasses
+			</div>
+		</div>
+		<div class='label boxed'>
+			Failures:
+		</div>
+		<div class="content">
+			<div class="box">
+				$NumFailures
+			</div>
+		</div>
+		<div class='label boxed'>
+			Skip:
+		</div>
+		<div class="content">
+			<div class="box">
+				$NumSkips
+			</div>
+		</div>
+	</div>
+	<hr />
+
+	<div>
+		<div class='label boxed'>
+			Tester:
+		</div>
+		<div class="content">
+			<div class="box">
+				$Tester
+			</div>
+		</div>
+		<div class='label boxed'>
+	   		<p>Note:</p> 
+		</div>
+		<div>
+		<div class="content">
+			<div class="box">
+				$OverallNoteMarkdown
+			</div>
+		</div>
+		</div>
+	</div>
 	<% end_control %>
 
 	<% else %>
@@ -59,39 +112,51 @@
 		<h2>Notes</h2>
 		<ul id="NoteDetail">
 		<% control Notes %>
-		<li class="status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
+		<li class="stepdetail status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
 			<div class="scenario">
-				<div class='label'>Scenario:</div>
+				<div class='label'>
+					<p>Scenario:</p>
+				</div>
 				<div class="content">
-				<% control TestStep %>
-					<p>$StepMarkdown</p>
-				<% end_control %>
+					<div class="value">
+						<% control TestStep %>
+							<p>$StepMarkdown</p>
+						<% end_control %>
+					</div>
 				</div>
 			</div>
 		
 			<div>
-				<div class='label'>Note:</div>
+				<div class='label'>
+					<p>Note:</p>
+				</div>
 				<div class="content">
-				<p>
-				<% if Note %>
-					$Note.XML
-				<% else %>
-				  Tester has not entered any further information/comments.
-				<% end_if %>
-				</p>
+					<div class="value">
+					<p>
+					<% if Note %>
+						$NoteMarkdown
+					<% else %>
+					  Tester has not entered any further information/comments.
+					<% end_if %>
+					</p>
+				</div>
 			</div>
 			</div>
 			<div class="outcome">
-				<div class='label'>Status:</div>
+				<div class='label'>
+					<p>Status:</p>
+				</div>
 				<div class="content">
-				<p class="state">$Outcome</p>
-				<% if ResolutionDate %>
-					<br /> 
-						<i class="resolutionInfo">Resolved on $ResolutionDate.Date
-						<a href="$UnresolveActionLink">mark as not resolved</a></i>
-				<% else %>
-					<i class="resolutionInfo"><a href="$ResolveActionLink">mark as resolved</a></i>
-				<% end_if %>
+					<div class="value">
+						<p class="state">$Outcome</p>
+						<% if ResolutionDate %>
+							<br /> 
+								<i class="resolutionInfo">Resolved on $ResolutionDate.Date
+								<a href="$UnresolveActionLink">mark as not resolved</a></i>
+						<% else %>
+							<i class="resolutionInfo"><a href="$ResolveActionLink">mark as resolved</a></i>
+						<% end_if %>
+					</div>
 				</div>
 			</div>
 		</li>

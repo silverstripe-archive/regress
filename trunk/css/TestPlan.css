@@ -81,7 +81,7 @@ label.skip.selected {
 ul#NoteDetail {
 	padding: 0;
 }
-ul#NoteDetail li {
+ul#NoteDetail li.stepdetail  {
 	list-style-type: none;
 	border: 1px #CCC solid;
 	padding: 0.3em;
@@ -129,14 +129,37 @@ ul#NoteDetail .content li {
 }
 
 ul#NoteDetail .label {
-	margin: 2px;'
+	margin: 2px;
+}
+
+ul#NoteDetail div.value {
+	padding-top: 2px;
+	padding-bottom: 5px;
 }
 
 ul#NoteDetail .content {
-	padding-left: 20px;'
+	padding-left: 80px;
 }
 
-.preparation {
+.boxed {
+	padding: 5px 15px 5px 15px;
+	margin-bottom: 5px;
+}
+
+.box {
+	border: 1px #CCC solid;
+	padding: 5px 15px 5px 15px;
+	margin-bottom: 5px;
+}
+
+.description {
+	border-left: 1px #CCC solid;
+	border-right: 1px #CCC solid;
+	border-bottom: 1px #CCC solid;
+	padding: 5px 15px 5px 15px;
+}
+
+.featureTitle {
 	border: 1px #CCC solid;
 	background-color: #F0F0FF;
 	padding: 5px 15px 5px 15px;
@@ -161,6 +184,7 @@ ul#NoteDetail .content {
 	position: absolute;
 	left: 190px;
 	float: left;
+	right: 5px;
 }
 
 .label {
@@ -168,6 +192,19 @@ ul#NoteDetail .content {
 	float:left
 }
 
-#statusmessage {
+.actions {
+	padding-top: 25px;
+}
+
+#statusmessage, .helptext {
 	font-size: 10px;
 }
+
+#statusmessage {
+	color: #FF0000;
+}
+
+div.reportheader div.content {
+	padding-left: 100px;
+}
+

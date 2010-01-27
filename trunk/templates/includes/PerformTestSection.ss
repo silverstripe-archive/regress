@@ -1,14 +1,26 @@
 <div class="feature">
+
 	<div class="header">
+	<div class='featureTitle'>
 		<h3>Feature: $Title</h3>
-		<div class="content">
-			$Content.Markdown
 		</div>
+		<div class="description">
+			$Content
+		</div>
+		<!-- Preparation block-->
+		<% if Preparation %>
+		<div class='description'>
+			<h3>Test Preparation</h3>
+			<div>
+				$Preparation
+			</div>
+		</div>
+		<% end_if %>
 	</div>
-	
-	<% if Steps %>
+
+
 	<div class="scenarios">
-	
+		<% if Steps %>	
 		<ul class="steps">
 			<% control Steps %>
 			<li class="scenario 			
@@ -84,14 +96,18 @@
 				</div>
 			
 				<div class="note">
-					<label>Comments:<textarea name="Note[$ID]">$SessionStepResult.Note</textarea> </label>
+					<label>Comments:<textarea name="Note[$ID]">$SessionStepResult.Note.Raw</textarea> </label>
 				</div>
 
 			</li>
 		<% end_control %>
 		</ul>
+		<% else %>
+			<ul class="steps">
+			<li>No scenarios defined for this feature.</li>
+			</ul>
+		<% end_if %>
 	</div>
-	<% end_if %>
 
 	<% control Children %>
 		$PerformTestSection
