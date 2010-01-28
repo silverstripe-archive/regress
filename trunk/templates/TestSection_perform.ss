@@ -2,7 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 	<% base_tag %>
-	<title>Perform a Test</title>
+	<% control TestSection %>
+	<title>Perform a Test: '<% if GetTestPlan %>$GetTestPlan.Title - <% end_if %> $Title' (feature test)</title>
+	<% end_control %>
 	<link rel="stylesheet" type="text/css" href="regress/css/TestPlan.css" />
 </head>
 <!-- HTML-BODY -->

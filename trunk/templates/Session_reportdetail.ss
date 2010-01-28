@@ -2,25 +2,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <% base_tag %>
-<title>Perform a Test</title>
+
+<% control TestSessionObj %>
+	<!-- session was a test-plan -->
+	<% if TestPlan %>
+	<% control TestPlan %>
+	<title>Test Report: $Title (Test Plan)</title>
+	<% end_control %>
+	<% end_if %>
+
+	<!-- session was a feature -->
+	<% if TestSection %>
+	<% control TestSection %>	
+	<title>Test Report: <% if GetTestPlan %> $GetTestPlan.Title - <% end_if %> $Title (feature test)</title>
+	<% end_control %>
+	<% end_if %>
+
+<% end_control %>
+
 <link rel="stylesheet" type="text/css" href="regress/css/TestPlan.css" />
 </head>
 <body>
-<h1>Test-Report</h1>
 
 <% if TestSessionObj %>
 <% control TestSessionObj %>
 	<!-- session was a test-plan -->
 	<% if TestPlan %>
 	<% control TestPlan %>
-		<h2>Test Results for the Test-Plan '$Title'</h2>
+		<h1>Test Report: '$Title' (Test Plan)</h1>
 	<% end_control %>
 	<% end_if %>
 
 	<!-- session was a feature -->
 	<% if TestSection %>
 	<% control TestSection %>
-		<h2>Test Results for the Feature '$Title'</h2>
+		<h1>Test Report: '<% if GetTestPlan %> $GetTestPlan.Title - <% end_if %> $Title' (feature)</h1>
 	<% end_control %>
 	<% end_if %>
 
