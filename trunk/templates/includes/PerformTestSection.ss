@@ -102,10 +102,6 @@
 			</li>
 		<% end_control %>
 		</ul>
-		<% else %>
-			<ul class="steps">
-			<li>No scenarios defined for this feature.</li>
-			</ul>
 		<% end_if %>
 	</div>
 
