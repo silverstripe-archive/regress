@@ -45,14 +45,15 @@ $(document).ready(function() {
 			// change to 'editable'
 			if (initialised == false) {
 				$('.content').editable('scenario/save', {
-					loadurl  : 'scenario/load',
-					loadtext : 'Loading data from server...',
+					loadurl   : 'scenario/load',
+					loadtext  : 'Loading data from server...',
 					type      : 'textarea',
 			        indicator : 'Saving...',
 			        tooltip   : 'Click to edit...',
 			        cancel    : 'Cancel',
 			        submit    : 'OK',
-					indicator : 'load data',		
+					rows      : 15,
+					indicator : "<img src='images/indicator.gif",
 				});
 				button.value = "Set to read-only mode";
 				initialised =true;
@@ -83,9 +84,7 @@ $(document).ready(function() {
 		}
 		$('#statusmessage')[0].innerHTML = msg;
 	}
-	
-	})
-
+	});
 
 })(jQuery);
 
