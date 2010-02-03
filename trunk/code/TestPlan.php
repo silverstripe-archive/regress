@@ -35,8 +35,11 @@ class TestPlan extends Page {
 	 * @return FieldSet The available actions for this page.
 	 */
 	function getAllCMSActions() {
+		$url = $this->baseHref().$this->getcontrollerurl()."/perform/".$this->ID;
 		return new FieldSet(
-			new FormAction("callPageMethod", "Perform test", null, "cms_performTest"),
+			
+			new LiteralField("Link", "<a href='".$url."' target='performtest_$this->title'>Perform Test</a>"),
+//			new FormAction("callPageMethod", "Perform test", null, "cms_performTest"),
 			new FormAction("save", "Save changes")
 		);
 	}
@@ -104,6 +107,7 @@ class TestPlan_Controller extends Controller {
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-livequery/jquery.livequery.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
 		
+		Requirements::javascript("regress/javascript/jquery.jeditable.js");
 		Requirements::javascript("regress/javascript/TestPlan.js");
 	}
 
