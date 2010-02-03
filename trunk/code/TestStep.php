@@ -128,7 +128,7 @@ class TestStep_Controller extends Controller {
 		if ($tmp[0] == 'scenarioContent') {
 			$id       = (int)$tmp[1];
 			$testStep = DataObject::get_by_id("TestStep", $id);
-			return SS_Datetime::now()->Nice() .":". $testStep->getField('Step');
+			return $testStep->getField('Step');
 		}
 	}
 
