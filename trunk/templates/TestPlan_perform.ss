@@ -12,6 +12,8 @@
 
 <div class="leftPanel">
 	<div class="actions">
+		<input type="button" name='action_doEditMode'    value="Change To Edit Mode" />
+		<br />
 		<input type="button" name='action_doSaveSession' value="Save current session" />
 		<br />
 		<div class="helptext">

@@ -13,10 +13,14 @@ class TestStep extends DataObject {
 	static $db = array(
 		"Step" => "MarkdownText",
 		'Sort' => 'Int', 
+		"UpdatedViaFrontend" => "Boolean" ,
+		"UpdatedTimestamp"   => "Varchar(50)" ,
+		"UpdatedByMember" 	 => "Varchar(100)"
 	);
 	
 	static $has_one = array(
-		"Parent" => "TestSection",
+		"Parent"    => "TestSection",
+		"UpdatedBy" => "Member"
 	);
 	
 	/**
@@ -99,6 +103,70 @@ class TestStep extends DataObject {
 	function StepNote() {
 		return ( $this->KnownIssues() || $this->PassNotes() || $this->SkipNotes() );
 	}
+}
+
+class TestStep_Controller extends Controller {
+	
+	/**
+	 * This method returns the raw-scenario description which will
+	 * be used to populate the textarea field for front-end editing.
+	 *
+	 * @param HTTPRequest $request
+	 * @return string
+	 */
+	function load($request) {
+		
+		if (Member::currentUser() == null) {
+			$this->getResponse()->setStatusCode(401);
+			return "Permission denied.";
+		}
+		
+		$vars = $request->getVars();
+		$stepid_raw = $vars['id'];
+		
+		$tmp = explode ("_",$stepid_raw);
+		if ($tmp[0] == 'scenarioContent') {
+			$id       = (int)$tmp[1];
+			$testStep = DataObject::get_by_id("TestStep", $id);
+			return SS_Datetime::now()->Nice() .":". $testStep->getField('Step');
+		}
+	}
+
+	/**
+	 * This method saves the scenario description which has been entered
+	 * bin the textarea field during the test-run.
+	 *
+	 * @param HTTPRequest $request
+	 * @return string
+	 */
+	function save($request) {
+		
+		if (Member::currentUser() == null) {
+			$this->getResponse()->setStatusCode(401);
+			return "Permission denied.";
+		}		
+		$vars = $request->postVars();
+		$stepid_raw = $vars['id'];
+		$value = $vars['value'];
+		
+		$tmp = explode ("_",$stepid_raw);
+		if ($tmp[0] == 'scenarioContent') {
+			$id = (int)$tmp[1];
+			$testStep = DataObject::get_by_id("TestStep", $id);
+			$testStep->setField('Step',$value );
+			
+			$testStep->setField('UpdatedViaFrontend',true);
+			$testStep->setField('UpdatedByMember',Member::currentUser()->getName());
+			$testStep->setField('UpdatedTimestamp',SS_Datetime::now()->Nice());
+
+			$testStep->write();
+			return $testStep->StepMarkdown();
+		}
+		
+		$this->getResponse()->setStatusCode(500);
+		return "Invalid parameters.";
+	}
+	
 }
 
 ?>

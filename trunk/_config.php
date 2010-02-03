@@ -22,6 +22,7 @@ Director::addRules(2, array(
 	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
 	'feature/$Action/$ID/$OtherID' => "TestSection_Controller",
 	'session/$Action/$ID/$OtherID' => "Session_Controller",
+	'scenario/$Action/$ID/$OtherID' => "TestStep_Controller",
 	'' => '->'
 ));
 

@@ -34,7 +34,7 @@
 					<label class="skip"><input type="radio" value="skip" name="Outcome[$ID]" <% if IsOutcomeSkip %>checked="true"<% end_if %> />skip</label>
 				</div>
 
-				<div class="content">
+				<div id='scenarioContent_$ID' class="content">
 					$StepMarkdown
 					
 					<% if StepNote %>
