@@ -28,6 +28,26 @@ class TestSection extends Page {
 	// This page type can not be a root page.
 	static $can_be_root      = false;
 
+	/**
+	 * Create a duplicate of this node. Doesn't affect joined data - create a
+	 * custom overloading of this if you need such behaviour. 
+	 * Copies the scenario children as well.
+	 *
+	 * @return SiteTree The duplicated object.
+	 */
+	 public function duplicateWithChildren() {
+		$clone = parent::duplicateWithChildren();
+		
+		$children = $this->Steps();
+		if($children) {
+			foreach($children as $child) {
+				$childClone = $child->duplicate();
+				$childClone->ParentID = $clone->ID;
+				$childClone->write();
+			}
+		}
+		return $clone;
+	}
 
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
