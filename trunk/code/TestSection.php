@@ -201,8 +201,8 @@ class TestSection_Controller extends Controller {
 			return Security::permissionFailure();
 		}
 
-		Requirements::javascript("jsparty/behaviour.js");
-		Requirements::javascript("jsparty/prototype.js");
+		Requirements::javascript(THIRDPARTY_DIR."/behaviour/behaviour.js");
+		Requirements::javascript(THIRDPARTY_DIR."/prototype/prototype.js");
 
 		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-livequery/jquery.livequery.js");
