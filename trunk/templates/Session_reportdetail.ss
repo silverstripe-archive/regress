@@ -20,7 +20,6 @@
 
 <% end_control %>
 
-<link rel="stylesheet" type="text/css" href="regress/css/TestPlan.css" />
 </head>
 <body>
 
@@ -100,11 +99,11 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$Tester
+				$Tester &nbsp;
 			</div>
 		</div>
 		<div class='label boxed'>
-	   		<p>Note:</p> 
+	   		Note:
 		</div>
 		<div>
 		<div class="content">
@@ -121,63 +120,102 @@
 	<% end_if %>
 </div>
 
+<!-- SHOW RESULTS OF THE TEST -->
 <div class="reportnotes">
-	<!-- NOTES -->
-	<% if Notes %>
+	<form id="report" action="session" method="post" name="report">
+		<!-- NOTES -->
+		<% if Notes %>
+		
 		<h2>Notes</h2>
 		<ul id="NoteDetail">
-		<% control Notes %>
-		<li class="stepdetail status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
-			<div class="scenario">
-				<div class='label'>
-					<p>Scenario:</p>
-				</div>
-				<div class="content">
-					<div class="value">
+
+			<% control Notes %>
+			<li class="stepdetail status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
+				<div>
+					<div class='label'>
+						<p>Scenario:</p>
+					</div>
+					<div class="content">
 						<% control TestStep %>
 							<p>$StepMarkdown</p>
 						<% end_control %>
 					</div>
 				</div>
-			</div>
 		
-			<div>
-				<div class='label'>
-					<p>Note:</p>
-				</div>
-				<div class="content">
-					<div class="value">
-					<p>
-					<% if Note %>
-						$NoteMarkdown
-					<% else %>
-					  Tester has not entered any further information/comments.
-					<% end_if %>
-					</p>
-				</div>
-			</div>
-			</div>
-			<div class="outcome">
-				<div class='label'>
-					<p>Status:</p>
-				</div>
-				<div class="content">
-					<div class="value">
-						<p class="state">$Outcome</p>
-						<% if ResolutionDate %>
-							<br /> 
-								<i class="resolutionInfo">Resolved on $ResolutionDate.Date
-								<a href="$UnresolveActionLink">mark as not resolved</a></i>
+				<div>
+					<div class='label'>
+						<p>Note:</p>
+					</div>
+					<div class="content">
+						<p>
+						<% if Note %>
+							$NoteMarkdown
 						<% else %>
-							<i class="resolutionInfo"><a href="$ResolveActionLink">mark as resolved</a></i>
+						  Tester has not entered any further information/comments.
 						<% end_if %>
+						</p>
 					</div>
 				</div>
-			</div>
-		</li>
+				<div>
+					<div class='label'>
+						<p>Status:</p>
+					</div>
+					<div class="content">
+						<p class="state">$Outcome</p>
+					</div>
+				</div>
+				<div>
+					<hr />
+					<div class='resolutionComments'>
+						<div class='label'>
+							<p>Comments:</p>
+						</div>						
+						<div class="content">
+							<div>
+								<p>
+									<% if StepResultNotes %>
+									<ul>
+									<% control StepResultNotes %>
+										<li>
+											$Status on $Date.Date
+											<br />
+											$NoteMarkdown
+										</li>									
+									<% end_control %>
+									</ul>
+									<% else %> 
+									<i>No comments available.</i>
+									<% end_if %>
+								</p>
+							</div>
+						</div>
+						<div class="content actions">
+							<textarea id="textarea_$ID" name="resolution_$ID" cols="70" rows="5" class='resolutionNote'></textarea>
+							<br />
+							<% if ResolutionDate %>
+							<div class="resolutionInfo"> 
+								Resolved on $ResolutionDate.Date 
+							</div>
+							<div class="resolutionAction">
+							<i>
+								<a id="resolution_$ID"  href="$UnresolveActionLink" class="unresolveAction">Mark as not resolved</a>
+							</i>
+							</div>
+							<% else %>							
+							<div class="resolutionAction">
+							<i>
+								<a id="resolution_$ID" href="$ResolveActionLink" class='resolveAction'>Mark as resolved</a>
+							</i>
+							</div>
+							<% end_if %>
+						</div>
+					</div>
+				</div>
+			</li>
 		<% end_control %>
 		</ul>
-	<% end_if %>
+		<% end_if %>
+	</form>
 </div>
 
 </body>
