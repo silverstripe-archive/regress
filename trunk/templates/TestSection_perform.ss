@@ -5,7 +5,6 @@
 	<% control TestSection %>
 	<title>Perform a Test: '<% if GetTestPlan %>$GetTestPlan.Title - <% end_if %> $Title' (feature test)</title>
 	<% end_control %>
-	<link rel="stylesheet" type="text/css" href="regress/css/TestPlan.css" />
 </head>
 <!-- HTML-BODY -->
 <body>

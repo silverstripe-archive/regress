@@ -3,7 +3,6 @@
 <head>
 <% base_tag %>
 <title>Perform a Test</title>
-<link rel="stylesheet" type="text/css" href="regress/css/TestPlan.css" />
 </head>
 <body>
 <h1>Peform a test</h1>

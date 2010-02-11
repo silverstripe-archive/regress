@@ -5,7 +5,6 @@
 	<% control TestPlan %>
 	<title>Perform a Test: '$Title' (Test Plan)</title>
 	<% end_control %>
-	<link rel="stylesheet" type="text/css" href="regress/css/TestPlan.css" />
 </head>
 <!-- HTML-BODY -->
 <body>
