@@ -103,7 +103,12 @@ class TestSessionObj extends DataObject {
 	}
 	
 	function OverallNoteMarkdown() {
-		return Markdown($this->OverallNote);
+		$value = "&nbsp;";
+		
+		if ($this->OverallNote) {
+			$value = Markdown($this->OverallNote);
+		}
+		return $value;
 	}
 }
 
