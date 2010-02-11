@@ -1,6 +1,13 @@
 * {
 	font-family: Trebuchet MS;
+	font-size: 1em;
 }
+
+p {
+margin-top: 6px;
+margin-bottom: 6px;
+}
+
 .steps {
 	margin: 0;
 	padding: 0;
@@ -110,10 +117,6 @@ ul#NoteDetail li.resolved {
 	background-color: #CFC;
 }
 
-.resolutionInfo {
-	font-size: 80%;
-}
-
 table.data tr td { 
 	cursor: hand;
 	cursor: pointer;
@@ -138,13 +141,11 @@ ul#NoteDetail .label {
 	margin: 2px;
 }
 
-ul#NoteDetail div.value {
-	padding-top: 2px;
-	padding-bottom: 5px;
-}
-
 ul#NoteDetail .content {
+	margin-left: 40px;
 	padding-left: 80px;
+	padding-bottom: 5px;
+	padding-top: 2px;
 }
 
 .boxed {
@@ -218,8 +219,14 @@ ul#NoteDetail .content {
 #statusmessage {
 }
 
-div.reportheader div.content {
-	padding-left: 100px;
+div.reportheader .label {
+	width:100px;
+	float:left
+}
+
+div.reportheader .content {
+	margin-left: 100px;
+	margin-top: 0px;
 }
 
 #form_actions_right a {
@@ -235,6 +242,35 @@ div.reportheader div.content {
 	background-color: #D0F0D0;	
 }
 
-div.content {
+.scenario div.content {
 	margin-top: 30px;
+}
+
+.resolutionInfo {
+	padding-right: 20px
+}
+
+.resolutionAction {
+	font-size: 80%;
+	background-color:#DDDDDD;
+	border:1px solid #000000;
+	height:25px;
+	text-align:center;
+	vertical-align:middle;
+	width:150px;
+	padding-top: 3px;
+	margin-top: 3px;
+}
+
+.stepresultnote {
+	padding-left: 20px;
+}
+
+.resolutionComments ul {
+	padding-left: 20px;
+}
+
+.stepresultnote p {
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
