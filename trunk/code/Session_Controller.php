@@ -192,5 +192,17 @@ class Session_Controller extends Controller {
 		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
 			AND ResolutionDate IS NULL");
 	}
+	
+	function init() {
+		parent::init();
+		
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
+		
+		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
+		Requirements::javascript("regress/javascript/Session.js");
+	}
 
 }
