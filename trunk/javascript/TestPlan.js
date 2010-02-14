@@ -8,16 +8,27 @@ $(document).ready(function() {
 		var form = $('form');
 		var formAction = form.attr('action') + '?' + 'action_doSaveSession=Execute'
 
-		$.post(formAction, form.formToArray(), function(result){
-			var response = eval('(' + result + ')');
-			
-			if (response.TestSessionObjID == '') {
-				statusMessage(response.Message, 'bad');
-			} else {
-				statusMessage(response.Message, 'good');
-			}
-			$('#TestSessionObjID').val(response.TestSessionObjID);
-		}, 'html');
+		statusMessage('', 'good');
+
+		$.ajax({
+			type: 'POST',
+			url: formAction,
+			data: form.formToArray(),
+			success: function(result) {
+				var response = eval('(' + result + ')');
+
+				if (response.TestSessionObjID == '') {
+					statusMessage(response.Message, 'bad');
+				} else {
+					statusMessage(response.Message, 'good');
+				}
+				$('#TestSessionObjID').val(response.TestSessionObjID);
+			}, 
+			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				statusMessage("ERROR", 'bad');
+			},
+			dataTypeString: 'html'
+		});
 		return false;
 	});
 
