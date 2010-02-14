@@ -108,7 +108,7 @@ class TestSection extends Page {
 	 * @return string HTML text
 	 */
 	function PreparationMarkdown() {
-		return Markdown($this->Preparation);		
+		return MarkdownText::render($this->Preparation);		
 	}
 	
 	/**

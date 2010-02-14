@@ -39,7 +39,7 @@ class StepResult extends DataObject {
 	
 	
 	function NoteMarkdown() {
-		return Markdown($this->Note);
+		return MarkdownText::render($this->Note);
 	}	
 }
 

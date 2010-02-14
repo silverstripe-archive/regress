@@ -3,7 +3,6 @@
  * @package regress
  * @subpackage code
  */
-require_once('../markdown/thirdparty/Markdown/markdown.php');
 
 /**
  * General page class for all regress site-tree classes. 
@@ -20,7 +19,7 @@ class Page extends SiteTree {
 	
 	
 	function Content() {
-		return Markdown($this->Content);
+		return MarkdownText::render($this->Content);
 	}
 	
 	/**

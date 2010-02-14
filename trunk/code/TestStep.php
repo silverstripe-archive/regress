@@ -4,8 +4,6 @@
  * @subpackage code
  */
 
-require_once('../markdown/thirdparty/Markdown/markdown.php');
-
 /**
  * Scenario
  */
@@ -79,7 +77,7 @@ class TestStep extends DataObject {
 	 * @return string
 	 */
 	function StepMarkdown() {
-		return Markdown($this->Step);
+		return MarkdownText::render($this->Step);
 	}
 	
 	function KnownIssues() {

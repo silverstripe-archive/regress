@@ -106,7 +106,7 @@ class TestSessionObj extends DataObject {
 		$value = "&nbsp;";
 		
 		if ($this->OverallNote) {
-			$value = Markdown($this->OverallNote);
+			$value = MarkdownText::render($this->OverallNote);
 		}
 		return $value;
 	}
