@@ -39,7 +39,6 @@ class TestPlan extends Page {
 		return new FieldSet(
 			
 			new LiteralField("Link", "<a href='".$url."' target='performtest_$this->title'>Perform Test</a>"),
-//			new FormAction("callPageMethod", "Perform test", null, "cms_performTest"),
 			new FormAction("save", "Save changes")
 		);
 	}
@@ -78,6 +77,11 @@ class TestPlan extends Page {
 		}
 		return $obj;
 	}
+	
+	function GetTestSections() {
+		return $this->Children();
+	}
+	
 }
 
 /**
@@ -96,7 +100,7 @@ class TestPlan_Controller extends Controller {
 		parent::init();
 
 		if (!Member::currentUser()) {
-			return Security::permissionFailure();
+			return Security::permissionFailure($this, "Need to log in");
 		}
 		
 		// add required javascript
@@ -120,5 +124,7 @@ class TestPlan_Controller extends Controller {
 	function TestPlan() {		
 		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 	}
+	
+	
 }
 ?>

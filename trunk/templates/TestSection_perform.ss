@@ -34,7 +34,7 @@
 		$Title test
 	</h1>
 	
-	<% include PerformTestForm %>
+	<% include TestSessionForm %>
 	<% end_control %>
 </div>
 

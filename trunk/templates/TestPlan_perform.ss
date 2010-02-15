@@ -30,8 +30,7 @@
 	<div class="box">
 		$Content
 	</div>
-	
-	<% include PerformTestForm %>
+	<% include TestSessionForm %>
 	<% end_control %>
 </div>
 

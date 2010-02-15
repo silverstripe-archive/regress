@@ -96,8 +96,6 @@ class TestSection extends Page {
 
 		return new FieldSet(
 			new LiteralField("Link", "<a href='".$url."' target='performtest_$this->title'>Perform Test</a>"),
-//			new LiteralField("Link", "<a href='".$url."' target='performtest'>Perform Test</a>"),
-//			new FormAction("callPageMethod", "Perform test", null, "cms_performTest"),
 			new FormAction("save", "Save changes")
 		);
 	}
@@ -109,13 +107,6 @@ class TestSection extends Page {
 	 */
 	function PreparationMarkdown() {
 		return MarkdownText::render($this->Preparation);		
-	}
-	
-	/**
-	 * Open the 'perform test' page.
-	 */
-	function PerformTestSection() {
-		return $this->renderWith("PerformTestSection");
 	}
 	
 	/**
@@ -182,6 +173,10 @@ class TestSection extends Page {
 		}
 		return $obj;
 	}
+	
+	function GetTestSections() {
+		return $this->Children();
+	}	
 }
 
 /**
