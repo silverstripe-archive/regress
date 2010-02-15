@@ -4,8 +4,8 @@
 }
 
 p {
-margin-top: 6px;
-margin-bottom: 6px;
+	margin-top: 6px;
+	margin-bottom: 6px;
 }
 
 .steps {
@@ -199,7 +199,8 @@ ul#NoteDetail .content {
 	float:left
 }
 
-.actions {
+div .actions {
+	font-size: 0.7em;
 	padding-top: 25px;
 }
 
@@ -209,7 +210,9 @@ ul#NoteDetail .content {
 }
 
 .badMsg {
-	color: #CC4422;
+	background-color:#CC4422;
+	color:#E0E0FF;
+	text-decoration:blink;
 }
 
 #statusmessage, .helptext {
