@@ -277,3 +277,9 @@ div.reportheader .content {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+
+fieldset {
+	border: 0px;
+}
+
+
