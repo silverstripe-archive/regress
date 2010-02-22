@@ -1,0 +1,18 @@
+Member:
+   admin:
+      FirstName: Admin
+   tester1:
+      FirstName: Tester 
+Group:
+   admin:
+      Title: Admin
+      Members: =>Member.admin
+  tester:
+     Title: Tester
+     Members: =>Member.tester1
+
+
+Permission:
+   admin:
+      Code: ADMIN
+      Group: =>Group.admin
