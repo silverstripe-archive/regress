@@ -2,7 +2,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <% base_tag %>
-
 <% control TestSessionObj %>
 	<!-- session was a test-plan -->
 	<% if TestPlan %>
@@ -14,7 +13,7 @@
 	<!-- session was a feature -->
 	<% if TestSection %>
 	<% control TestSection %>	
-	<title>Test Report: <% if GetTestPlan %> $GetTestPlan.Title - <% end_if %> $Title (feature test)</title>
+	<title>Test Report: <% if TestPlan %> $TestPlan.Title - <% end_if %> $Title (feature test)</title>
 	<% end_control %>
 	<% end_if %>
 
@@ -35,7 +34,7 @@
 	<!-- session was a feature -->
 	<% if TestSection %>
 	<% control TestSection %>
-		<h1>Test Report: '<% if GetTestPlan %> $GetTestPlan.Title - <% end_if %> $Title' (feature)</h1>
+		<h1>Test Report: '<% if TestPlan %> $TestPlan.Title - <% end_if %> $Title' (feature)</h1>
 	<% end_control %>
 	<% end_if %>
 
@@ -45,7 +44,6 @@
 <div class="reportheader">
 	<% if TestSessionObj %>
 	<% control TestSessionObj %>
-
 	<div>
 		<div class='label boxed'>
 			Session#:
@@ -190,23 +188,32 @@
 							</div>
 						</div>
 						<div class="content actions">
-							<textarea id="textarea_$ID" name="resolution_$ID" cols="70" rows="5" class='resolutionNote'></textarea>
-							<br />
 							<% if ResolutionDate %>
-							<div class="resolutionInfo"> 
-								Resolved on $ResolutionDate.Date 
-							</div>
-							<div class="resolutionAction">
-							<i>
-								<a id="resolution_$ID"  href="$UnresolveActionLink" class="unresolveAction">Mark as not resolved</a>
-							</i>
-							</div>
+								<% if canUnresolve %>
+								<textarea id="textarea_$ID" name="resolution_$ID" cols="120" rows="5" class='resolutionNote'></textarea>
+								<br />
+								<div class="resolutionAction">
+									<div class="resolutionButton">
+										<img src="cms/images/alert-bad.gif">
+										<a id="resolution_$ID"  href="$UnresolveActionLink" class="unresolveAction">
+											Mark as not resolved
+										</a>
+									</div>
+								</div>
+								<% end_if %>
 							<% else %>							
-							<div class="resolutionAction">
-							<i>
-								<a id="resolution_$ID" href="$ResolveActionLink" class='resolveAction'>Mark as resolved</a>
-							</i>
-							</div>
+								<% if canResolve %>
+								<textarea id="textarea_$ID" name="resolution_$ID" cols="120" rows="5" class='resolutionNote'></textarea>
+								<br />
+								<div class="resolutionAction">
+									<div class="resolutionButton">
+										<img src="cms/images/alert-good.gif">
+										<a id="resolution_$ID" href="$ResolveActionLink" class='resolveAction'>
+											Mark as resolved
+										</a>
+									</div>
+								</div>
+								<% end_if %>
 							<% end_if %>
 						</div>
 					</div>

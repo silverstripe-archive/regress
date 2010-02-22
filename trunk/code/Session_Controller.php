@@ -81,7 +81,28 @@ class Session_Controller extends Controller {
 		}
 		return $obj;
 	}
-	
+
+	/**
+	 * Returns all notes which have been attached to a given test-plan.
+	 * Two cases do exist: 
+	 * (1) If a session-object for the test plan exist, return all notes stored
+	 *     in the session object.
+	 * (2) It will return all StepResult instances which have been marked as
+	 *     'fail' or any notes of any 'pass' and 'skip' steps.
+	 *
+	 * @return DataObjectSet
+	 */
+	function Notes() {
+		$planID = (int)$this->urlParams['ID'];
+
+		// If we're viewing one session, then show that session's notes
+		if($obj = $this->TestSessionObj()) return $obj->Notes();
+		
+		// Otherwise, view all unresolved notes
+		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
+			AND ResolutionDate IS NULL");
+	}
+		
 	/**
 	 * Form action 'saveperformance'. The website user is able to save the 
 	 * results of the test into a session object and closes the current test
@@ -92,6 +113,10 @@ class Session_Controller extends Controller {
 	 * @return String html page
 	 */
 	function saveperformance($request) {
+
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
 
 		$responseArray = array(
 			'TestSessionObjID' => '',
@@ -186,27 +211,6 @@ class Session_Controller extends Controller {
 		}
 		
 		Director::redirect("session/reportdetail/" . (int)$_REQUEST['ParentID'] . "/$session->ID");
-	}
-
-	/**
-	 * Returns all notes which have been attached to a given test-plan.
-	 * Two cases do exist: 
-	 * (1) If a session-object for the test plan exist, return all notes stored
-	 *     in the session object.
-	 * (2) It will return all StepResult instances which have been marked as
-	 *     'fail' or any notes of any 'pass' and 'skip' steps.
-	 *
-	 * @return DataObjectSet
-	 */
-	function Notes() {
-		$planID = (int)$this->urlParams['ID'];
-
-		// If we're viewing one session, then show that session's notes
-		if($obj = $this->TestSessionObj()) return $obj->Notes();
-		
-		// Otherwise, view all unresolved notes
-		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
-			AND ResolutionDate IS NULL");
 	}
 
 }

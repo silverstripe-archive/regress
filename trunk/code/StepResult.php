@@ -29,6 +29,15 @@ class StepResult extends DataObject {
 		"StepResultNotes" => "StepResultNote"
 	);
 	
+	
+	function canResolve() {
+		return Permission::check("STEPRESULT_RESOLVE");		
+	}
+
+	function canUnresolve() {
+		return Permission::check("STEPRESULT_UNRESOLVE");		
+	}
+	
 	function ResolveActionLink() {
 		return "StepResult_Controller/resolve/$this->ID";
 	}
@@ -46,12 +55,20 @@ class StepResult extends DataObject {
  * Controller Class for Step Result {@link StepResult}.
  *
  */
-class StepResult_Controller extends Controller {
+class StepResult_Controller extends Controller implements PermissionProvider {
 
 	static $allowed_actions = array(
 		'resolve',
 		'unresolve'
 	);
+	
+	function providePermissions() {
+	    return array(
+	      "STEPRESULT_RESOLVE"   => "Can resolve marked-issues in session-report",
+	      "STEPRESULT_UNRESOLVE" => "Can un-resolve marked-issues in session-report",
+	    );
+  	}
+  
 		
 	/**
 	 * Returns a requested Step-Result
@@ -71,6 +88,19 @@ class StepResult_Controller extends Controller {
 	 * Set the flag of the step-result to 'resolved'.
 	 */
 	function resolve($fields) {
+		
+		if (!Member::currentUser()) {
+			Security::permissionFailure();
+			Director::redirectBack();
+			return;
+		}
+		
+		// check if current user has the permission to 'resolve' the result.
+		if(!Permission::check("STEPRESULT_RESOLVE")) {
+			Security::permissionFailure();	
+			Director::redirectBack();
+			return;
+		}
 		
 		$params = $fields->getVars();
 
@@ -99,6 +129,17 @@ class StepResult_Controller extends Controller {
 	 * Set the flag of the step-result to 'unresolved'.
 	 */
 	function unresolve($fields) {
+
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
+		
+		// check if current user has the permission to 'unresolve' the result.
+		if(!Permission::check("STEPRESULT_UNRESOLVE")) {
+			Security::permissionFailure();
+			Director::redirectBack();
+			return;
+		}
 
 		$params = $fields->getVars();
 
