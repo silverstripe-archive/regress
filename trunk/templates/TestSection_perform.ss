@@ -3,39 +3,23 @@
 <head>
 	<% base_tag %>
 	<% control TestSection %>
-	<title>Perform a Test: '<% if GetTestPlan %>$GetTestPlan.Title - <% end_if %> $Title' (feature test)</title>
+	<title>Perform a Test: '<% if TestPlan %>$TestPlan.Title - <% end_if %> $Title' (feature test)</title>
 	<% end_control %>
 </head>
 <!-- HTML-BODY -->
 <body>
-	
-<div class="leftPanel">
-	<div class="actions">
-		<input type="button" name='action_doEditMode'    value="Change To Edit Mode" />
-		<br />
-		<input type="button" name='action_doSaveSession' value="Save current session" />
-		<br />
-		<div class="helptext">
-		If you close your browser after saving, you can return to the current session via the Drafts tab in the CMS.		
-		<hr />
-		</div>
-	</div>	
-	<div id="statusmessage">		
-	</div>
-</div>
+
+<% include LeftPanel %>
 
 <div class="rightPanel">
+	<% if TestSection %>
 	<% control TestSection %>
-	<h1>
-		<% if GetTestPlan %>
-			$GetTestPlan.Title - 
-		<% else %>
-		<% end_if %> 
-		$Title test
-	</h1>
-	
+	<h1><% if TestPlan %>$TestPlan.Title - <% end_if %> $Title test</h1>	
 	<% include TestSessionForm %>
 	<% end_control %>
+	<% else %>
+  		Error: Invalid test parameter. <br/>
+	<% end_if %>
 </div>
 
 

@@ -9,22 +9,11 @@
 <!-- HTML-BODY -->
 <body>
 
-<div class="leftPanel">
-	<div class="actions">
-		<input type="button" name='action_doEditMode'    value="Change To Edit Mode" />
-		<br />
-		<input type="button" name='action_doSaveSession' value="Save current session" />
-		<br />
-		<div class="helptext">
-		If you close your browser after saving, you can return to the current session via the Drafts tab in the CMS.		
-		<hr />
-		</div>
-	</div>	
-	<div id="statusmessage">		
-	</div>
-</div>
+<% include LeftPanel %>
 
 <div class="rightPanel">
+	<% if TestPlan %>
+	
 	<% control TestPlan %>
 	<h1>$Title Test Plan</h1>
 	<div class="box">
@@ -32,6 +21,10 @@
 	</div>
 	<% include TestSessionForm %>
 	<% end_control %>
+	
+	<% else %>
+	  Error: Invalid test parameter. <br/>
+	<% end_if %>
 </div>
 
 </body>
