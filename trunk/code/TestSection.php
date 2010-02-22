@@ -28,26 +28,24 @@ class TestSection extends Page {
 	// This page type can not be a root page.
 	static $can_be_root      = false;
 
-	/**
-	 * Create a duplicate of this node. Doesn't affect joined data - create a
-	 * custom overloading of this if you need such behaviour. 
-	 * Copies the scenario children as well.
+
+	/** 
+	 * Returns the Feature-Setup / preparation text as HTML text.
 	 *
-	 * @return SiteTree The duplicated object.
+	 * @return string HTML text
 	 */
-	 public function duplicateWithChildren() {
-		$clone = parent::duplicateWithChildren();
-		
-		$children = $this->Steps();
-		if($children) {
-			foreach($children as $child) {
-				$childClone = $child->duplicate();
-				$childClone->ParentID = $clone->ID;
-				$childClone->write();
-			}
-		}
-		return $clone;
+	function GetPreparationMarkdown() {
+		return MarkdownText::render($this->Preparation);		
 	}
+
+	/**
+	 * Returns the url to the test-plan controller 
+	 *
+	 * @return string
+	 */
+	function getcontrollerurl() {
+		return 'feature';
+	}	
 
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
@@ -99,14 +97,26 @@ class TestSection extends Page {
 			new FormAction("save", "Save changes")
 		);
 	}
-
-	/** 
-	 * Returns the Feature-Setup / preparation text as HTML text.
+		
+	/**
+	 * Create a duplicate of this node. Doesn't affect joined data - create a
+	 * custom overloading of this if you need such behaviour. 
+	 * Copies the scenario children as well.
 	 *
-	 * @return string HTML text
+	 * @return SiteTree The duplicated object.
 	 */
-	function PreparationMarkdown() {
-		return MarkdownText::render($this->Preparation);		
+	 public function duplicateWithChildren() {
+		$clone = parent::duplicateWithChildren();
+		
+		$children = $this->Steps();
+		if($children) {
+			foreach($children as $child) {
+				$childClone = $child->duplicate();
+				$childClone->ParentID = $clone->ID;
+				$childClone->write();
+			}
+		}
+		return $clone;
 	}
 	
 	/**
@@ -122,18 +132,21 @@ class TestSection extends Page {
 	}
 
 	/**
-	 * Returns the url to the test-plan controller 
-	 *
-	 * @return string
+	 * Returns the children of this feature (which are other TestSections/features).
+	 * This getter has no dedicated purpose except for readability in the templates.
+	 * 
+	 * @return DataObjectSet
 	 */
-	function getcontrollerurl() {
-		return 'feature';
+	function getTestSections() {
+		return $this->Children();
 	}
-	
-	function GetTestPlan() {
+
+	/**
+	 *
+	 */ 
+	function getTestPlan() {
 		$stopMarker = 10;
-		
-		$testPlan = null;
+		$testPlan   = null;
 		
 		$parent = $this->getParent();
 		
@@ -146,16 +159,6 @@ class TestSection extends Page {
 			$parent = $parent->getParent();
 		}
 		return $testPlan;		
-	}
-		
-	/**
-	 * Returns javascript to performa test. This is a Ajax callback method which
-	 * initiates the test execution on this plan.
-	 *
-	 * @return string JavaScript code to open a new window and render the test.
-	 */
-	function cms_performTest() {
-		return $this->renderWith('js_performTest');
 	}
 
 	/**
@@ -174,9 +177,6 @@ class TestSection extends Page {
 		return $obj;
 	}
 	
-	function GetTestSections() {
-		return $this->Children();
-	}	
 }
 
 /**
@@ -184,16 +184,31 @@ class TestSection extends Page {
  *
  * Controller class for test-section (feature). It handles the perform-test
  * for a single feature.
+ *
+ * @todo use page_controller instead of Controller. Not working, don't load data() correctly.
  */
 class TestSection_Controller extends Controller {
+
+	static $allowed_actions = array(
+		'perform'
+	);
 	
+	/**
+	 *  Initialise the page, checks permissions and load the required JS files.
+	 */
 	function init() {		
-		HTTP::set_cache_age(0);
-		
+		HTTP::set_cache_age(0);		
 		parent::init();
 
 		if (!Member::currentUser()) {
 			return Security::permissionFailure();
+		}
+
+		$testSection = $this->TestSection();		
+		if ($testSection) {
+			if (!$testSection->canView(Member::currentUser())) {
+				return Security::permissionFailure($this, "Permission denied.");
+			}
 		}
 
 		Requirements::javascript(THIRDPARTY_DIR."/behaviour/behaviour.js");
@@ -216,6 +231,18 @@ class TestSection_Controller extends Controller {
 	public function TestSection() {
 		$obj = DataObject::get_by_id("TestSection", $this->urlParams['ID']);
 		return $obj;
+	}
+	
+	/**
+	 * Helper method which returns the test section data object. Used for 
+	 * rendering the templates.
+	 * It is used to access the base class for test-sections and test-plans,
+	 * the page class and to retrieve the form object for the left panel.
+	 *
+	 * @return Page
+	 */
+	public function GetTestRootObject() {
+		return $this->TestSection();
 	}
 
 	/**

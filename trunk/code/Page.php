@@ -35,7 +35,6 @@ class Page extends SiteTree {
 		$fields->removeFieldFromTab("Root", "Reports");
 		$fields->removeByName('To-do', false);
 		$fields->removeByName('To-do **', false);
-		$fields->removeByName('Access', false);
 
 		$fields->addFieldToTab("Root.Edit", new LiteralField("PageType", sprintf("<h2>You have opened a %s </h2>",$this->singular_name())));
 		$fields->addFieldToTab("Root.Edit", new TextField("Title", "Name"));
@@ -50,6 +49,14 @@ class Page extends SiteTree {
 			$fields->addFieldToTab('Root',$editTab,"Results");
 		}
 
+		// change order of the tabs so that edit is at the beginning again.
+		$resultsTab = $fields->fieldByName('Root.Access');
+		
+		if ($resultsTab != null) {
+			$editTab    = $fields->fieldByName('Root.Edit');
+			$fields->removeFieldFromTab("Root", "Edit");
+			$fields->addFieldToTab('Root',$editTab,"Access");
+		}
 		return $fields;
 	}
 	
@@ -83,6 +90,23 @@ class Page extends SiteTree {
 		return $this->Title;
 	}
 
+	/**
+	 * Create an empty form to generate the AJAX buttons via the CMS.
+	 * This form has an empty fieldset and the action buttons, which are 
+	 * shown on the page when the user performs a test.
+	 */
+	public function SessionForm() {
+		
+		$fields  = new FieldSet();
+		$actions = new FieldSet();
+		
+		if (Member::currentUser() && $this->canEdit()) {
+			$actions->push(new FormAction("doEditMode", "Change To Edit Mode"));
+		}		
+		
+		$actions->push(new FormAction("doSaveSession", "Save current session"));
+		return new Form($this, "SessionActions", $fields, $actions,new RequiredFields());
+	}
 }
 
 /**
@@ -97,5 +121,3 @@ class Page_Controller extends ContentController {
 		return $this->getMenu(2);
 	}
 }
-
-?>

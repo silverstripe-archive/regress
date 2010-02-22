@@ -14,7 +14,7 @@ class TestPlan extends Page {
 	static $allowed_children = array("TestSection");
 	
 	static $default_child = "TestSection";
-	
+
 	static $has_many = array(
 		"Sessions" => "TestSessionObj",
 	);
@@ -53,16 +53,6 @@ class TestPlan extends Page {
 	}
 	
 	/**
-	 * Returns javascript to performa test. This is a Ajax callback method which
-	 * initiates the test execution on this plan.
-	 *
-	 * @return string JavaScript code to open a new window and render the test.
-	 */
-	function cms_performTest() {
-		return $this->renderWith('js_performTest');
-	}
-	
-	/**
 	 * Returns the test session object of a given ID. The ID is passed in as a
 	 * HTTP parameter.
 	 * 
@@ -78,10 +68,17 @@ class TestPlan extends Page {
 		return $obj;
 	}
 	
-	function GetTestSections() {
+	
+	/**
+	 * Returns the children of this feature (which are other TestSections/features).
+	 * This getter has no dedicated purpose except for readability in the templates.
+	 * 
+	 * @return DataObjectSet
+	 */
+	function getTestSections() {
 		return $this->Children();
 	}
-	
+
 }
 
 /**
@@ -89,8 +86,14 @@ class TestPlan extends Page {
  * 'perform test' action, triggered by the CMS user in the back-end.
  * Perform-tests will use the TestPlan_perform template to render the HTML
  * page.
+ *
+ * @todo use page_controller instead of Controller. Not working, don't load data() correctly.
  */ 
 class TestPlan_Controller extends Controller {
+
+	static $allowed_actions = array(
+		'perform'
+	);	
 	
 	/**
 	 * Init method.
@@ -101,6 +104,14 @@ class TestPlan_Controller extends Controller {
 
 		if (!Member::currentUser()) {
 			return Security::permissionFailure($this, "Need to log in");
+		}
+
+		$testplan = $this->TestPlan();
+
+		if ($testplan) {
+			if (!$testplan->canView(Member::currentUser())) {
+				return Security::permissionFailure($this, "Permission denied.");
+			}
 		}
 		
 		// add required javascript
@@ -124,7 +135,17 @@ class TestPlan_Controller extends Controller {
 	function TestPlan() {		
 		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 	}
-	
-	
+
+	/**
+	 * Helper method which returns the test section data object. Used for 
+	 * rendering the templates.
+	 * It is used to access the base class for test-sections and test-plans,
+	 * the page class and to retrieve the form object for the left panel.
+	 *
+	 * @return Page
+	 */
+	public function GetTestRootObject() {
+		return $this->TestPlan();
+	}	
 }
 ?>

@@ -37,7 +37,6 @@ class StepResult extends DataObject {
 		return "StepResult_Controller/unresolve/$this->ID";
 	}
 	
-	
 	function NoteMarkdown() {
 		return MarkdownText::render($this->Note);
 	}	
@@ -48,7 +47,12 @@ class StepResult extends DataObject {
  *
  */
 class StepResult_Controller extends Controller {
-	
+
+	static $allowed_actions = array(
+		'resolve',
+		'unresolve'
+	);
+		
 	/**
 	 * Returns a requested Step-Result
 	 *

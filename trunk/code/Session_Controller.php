@@ -11,7 +11,24 @@
  * and saving  draft versions of test-sessions.
  */
 class Session_Controller extends Controller {
+
+	static $allowed_actions = array(
+		'saveperformance',
+		'reportdetail'
+	);
 	
+	function init() {
+		parent::init();
+		
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
+				
+		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
+		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
+		Requirements::javascript("regress/javascript/Session.js");
+	}
+		
 	/**
 	 * Returns the test session object of a given ID. The ID is passed in as a
 	 * HTTP parameter.
@@ -168,7 +185,6 @@ class Session_Controller extends Controller {
 			return json_encode($responseArray);
 		}
 		
-		
 		Director::redirect("session/reportdetail/" . (int)$_REQUEST['ParentID'] . "/$session->ID");
 	}
 
@@ -191,18 +207,6 @@ class Session_Controller extends Controller {
 		// Otherwise, view all unresolved notes
 		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
 			AND ResolutionDate IS NULL");
-	}
-	
-	function init() {
-		parent::init();
-		
-		if (!Member::currentUser()) {
-			return Security::permissionFailure();
-		}
-		
-		Requirements::javascript(THIRDPARTY_DIR."/jquery/jquery.js");
-		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
-		Requirements::javascript("regress/javascript/Session.js");
 	}
 
 }

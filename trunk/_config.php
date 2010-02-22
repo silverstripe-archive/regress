@@ -18,6 +18,7 @@ $database = "SS_regress";
 require_once('conf/ConfigureFromEnv.php');
 
 Director::set_environment_type('dev');
+
 Director::addRules(2, array(
 	'testplan/$Action/$ID/$OtherID' => "TestPlan_Controller",
 	'feature/$Action/$ID/$OtherID' => "TestSection_Controller",
@@ -42,5 +43,9 @@ Object::add_extension('TestSection', 'TestPageDecorator');
 Object::add_extension('LeftAndMain', 'PageLeftAndMainDecorator');
 
 // run following sql update after updating:
-// update TestSessionObj set Status='submitted';
+// update SiteTree set CanViewType='Inherit', CanEditType='Inherit'
+
+// Set root sitetree note can-optiosn to administrators only
+
+// ensure that the groups tables SiteTree_EditorGroups and SiteTree_ViewerGroups are empty.
 ?>

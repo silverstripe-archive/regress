@@ -101,13 +101,23 @@ class TestStep extends DataObject {
 	function StepNote() {
 		return ( $this->KnownIssues() || $this->PassNotes() || $this->SkipNotes() );
 	}
+	
 }
 
 class TestStep_Controller extends Controller {
 	
+	static $allowed_actions = array(
+		'load',
+		'save'
+	);
+	
 	/**
 	 * This method returns the raw-scenario description which will
 	 * be used to populate the textarea field for front-end editing.
+	 *
+	 * NOTE: this method is used for front-end editing. When the user
+	 * does not have edit-permissions, this text should not come up and returns
+	 * a 401 error.
 	 *
 	 * @param HTTPRequest $request
 	 * @return string
@@ -126,6 +136,11 @@ class TestStep_Controller extends Controller {
 		if ($tmp[0] == 'scenarioContent') {
 			$id       = (int)$tmp[1];
 			$testStep = DataObject::get_by_id("TestStep", $id);
+			
+			if (!$testStep->Parent()->canEdit()) {
+				$this->getResponse()->setStatusCode(401);
+				return "Permission denied.";
+			}		
 			return $testStep->getField('Step');
 		}
 	}
@@ -133,6 +148,10 @@ class TestStep_Controller extends Controller {
 	/**
 	 * This method saves the scenario description which has been entered
 	 * bin the textarea field during the test-run.
+	 *
+	 * NOTE: this method is used for front-end editing. When the user
+	 * does not have edit-permissions, this text should not come up and returns
+	 * a 401 error.
 	 *
 	 * @param HTTPRequest $request
 	 * @return string
@@ -143,16 +162,23 @@ class TestStep_Controller extends Controller {
 			$this->getResponse()->setStatusCode(401);
 			return "Permission denied.";
 		}		
-		$vars = $request->postVars();
+		
+		$vars       = $request->postVars();
 		$stepid_raw = $vars['id'];
-		$value = $vars['value'];
+		$value      = $vars['value'];
 		
 		$tmp = explode ("_",$stepid_raw);
+		
 		if ($tmp[0] == 'scenarioContent') {
 			$id = (int)$tmp[1];
 			$testStep = DataObject::get_by_id("TestStep", $id);
-			$testStep->setField('Step',$value );
 			
+			if (!$testStep->Parent()->canEdit(Member::currentUser())) {
+				$this->getResponse()->setStatusCode(401);
+				return "Permission denied.";
+			}		
+			
+			$testStep->setField('Step',$value );			
 			$testStep->setField('UpdatedViaFrontend',true);
 			$testStep->setField('UpdatedByMember',Member::currentUser()->getName());
 			$testStep->setField('UpdatedTimestamp',SS_Datetime::now()->Nice());
