@@ -254,15 +254,18 @@ div.reportheader .content {
 }
 
 .resolutionAction {
-	font-size: 80%;
+	font-size: 1.2em;
 	background-color:#DDDDDD;
 	border:1px solid #000000;
-	height:25px;
 	text-align:center;
-	vertical-align:middle;
-	width:150px;
-	padding-top: 3px;
+	width:200px;
 	margin-top: 3px;
+}
+
+.resolutionButton {
+	padding-top: 3px;
+	padding-bottom: 5px;
+	vertical-align: middle;
 }
 
 .stepresultnote {
@@ -281,5 +284,3 @@ div.reportheader .content {
 fieldset {
 	border: 0px;
 }
-
-
