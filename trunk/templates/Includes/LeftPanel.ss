@@ -1,6 +1,8 @@
 <div class="leftPanel">
 	<div class="actions">
 
+	<img src='regress/images/ss-logo.gif' width='100%'/>
+
 		<% if TestRootObject %>
 		<% control TestRootObject %>
 		$SessionForm

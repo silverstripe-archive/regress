@@ -77,7 +77,7 @@ $(document).ready(function() {
 			// add classname
 			$('.content').removeClass('readonly').addClass('changeable');
 
-			statusMessage('To modify scenarios, click on the green sections of the page.','good');
+			statusMessage('<ul><li>To modify scenarios, click on the green sections of the page.</li><li>For more information about text-formating and markdown, <br/> please <a href="http://daringfireball.net/projects/markdown/syntax" target="_new">click here</a>.</li></ul>','good');
 		}		
 		return false;
 	});

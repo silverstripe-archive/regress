@@ -219,6 +219,11 @@ div .actions {
 	font-size: 10px;
 }
 
+#statusmessage ul {
+	padding-left: 10px;
+	text-align: left;
+}
+
 #statusmessage {
 }
 
