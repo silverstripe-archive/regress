@@ -52,7 +52,7 @@ class TestSectionPermissionTest extends FunctionalTest {
 		
 		$ret = $this->get('/feature/perform/'.$page->ID);
 		
-		$expectedFragment = 'Permission denied.';
+		$expectedFragment = TestPlan::$permission_denied_text;
 		$this->assertContains($expectedFragment, $this->content());
 	}
 

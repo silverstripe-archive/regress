@@ -15,6 +15,8 @@ class TestPlan extends Page {
 	
 	static $default_child = "TestSection";
 
+	static $permission_denied_text = "We are sorry, but you don't have permissions to access this page. Please contact SilverStripe Ltd.";
+
 	static $has_many = array(
 		"Sessions" => "TestSessionObj",
 	);
@@ -103,14 +105,14 @@ class TestPlan_Controller extends Controller {
 		parent::init();
 
 		if (!Member::currentUser()) {
-			return Security::permissionFailure($this, "Need to log in");
+			return Security::permissionFailure($this, "Please log into the page before accessing this page.");
 		}
 
 		$testplan = $this->TestPlan();
 
 		if ($testplan) {
 			if (!$testplan->canView(Member::currentUser())) {
-				return Security::permissionFailure($this, "Permission denied.");
+				return Security::permissionFailure($this, TestPlan::$permission_denied_text);
 			}
 		}
 		

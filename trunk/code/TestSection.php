@@ -207,7 +207,7 @@ class TestSection_Controller extends Controller {
 		$testSection = $this->TestSection();		
 		if ($testSection) {
 			if (!$testSection->canView(Member::currentUser())) {
-				return Security::permissionFailure($this, "Permission denied.");
+				return Security::permissionFailure($this, TestPlan::$permission_denied_text);
 			}
 		}
 

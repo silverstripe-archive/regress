@@ -126,7 +126,7 @@ class TestStep_Controller extends Controller {
 		
 		if (Member::currentUser() == null) {
 			$this->getResponse()->setStatusCode(401);
-			return "Permission denied.";
+			return TestPlan::$permission_denied_text;
 		}
 		
 		$vars = $request->getVars();
@@ -139,7 +139,7 @@ class TestStep_Controller extends Controller {
 			
 			if (!$testStep->Parent()->canEdit()) {
 				$this->getResponse()->setStatusCode(401);
-				return "Permission denied.";
+				return TestPlan::$permission_denied_text;
 			}		
 			return $testStep->getField('Step');
 		}
@@ -160,7 +160,7 @@ class TestStep_Controller extends Controller {
 		
 		if (Member::currentUser() == null) {
 			$this->getResponse()->setStatusCode(401);
-			return "Permission denied.";
+			return TestPlan::$permission_denied_text;
 		}		
 		
 		$vars       = $request->postVars();
@@ -175,7 +175,7 @@ class TestStep_Controller extends Controller {
 			
 			if (!$testStep->Parent()->canEdit(Member::currentUser())) {
 				$this->getResponse()->setStatusCode(401);
-				return "Permission denied.";
+				return TestPlan::$permission_denied_text;
 			}		
 			
 			$testStep->setField('Step',$value );			
