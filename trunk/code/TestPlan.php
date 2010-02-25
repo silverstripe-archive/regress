@@ -155,6 +155,12 @@ class TestPlan_Controller extends Controller {
 		return $this->TestPlan();
 	}	
 	
+	/**
+	 * Returns a static text for the error page (TestPlan_error.ss). 
+   	 * This can get extended when customised error messages are required.
+ 	 *
+ 	 * @return string Text which gets populated into the TestPlan_error template.
+	 */
 	public function getPermissionDeniedMessage() {
 		return TestPlan::$permission_denied_text;
 	}
