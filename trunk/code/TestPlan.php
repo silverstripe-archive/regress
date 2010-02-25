@@ -15,7 +15,7 @@ class TestPlan extends Page {
 	
 	static $default_child = "TestSection";
 
-	static $permission_denied_text = "We are sorry, but you don't have permissions to access this page. Please contact SilverStripe Ltd.";
+	static $permission_denied_text = "We are sorry, but you don't have permissions to access this page.";
 
 	static $has_many = array(
 		"Sessions" => "TestSessionObj",
@@ -94,7 +94,8 @@ class TestPlan extends Page {
 class TestPlan_Controller extends Controller {
 
 	static $allowed_actions = array(
-		'perform'
+		'perform',
+		'error'
 	);	
 	
 	/**
@@ -112,7 +113,8 @@ class TestPlan_Controller extends Controller {
 
 		if ($testplan) {
 			if (!$testplan->canView(Member::currentUser())) {
-				return Security::permissionFailure($this, TestPlan::$permission_denied_text);
+				Director::redirect('testplan/error');
+				return;
 			}
 		}
 		
@@ -135,7 +137,10 @@ class TestPlan_Controller extends Controller {
 	 * @return TestPlan Instance of the testplan.
 	 */
 	function TestPlan() {		
-		return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
+		if (isset($this->urlParams['ID'])) {
+			return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
+		}
+		return null;
 	}
 
 	/**
@@ -149,5 +154,9 @@ class TestPlan_Controller extends Controller {
 	public function GetTestRootObject() {
 		return $this->TestPlan();
 	}	
+	
+	public function getPermissionDeniedMessage() {
+		return TestPlan::$permission_denied_text;
+	}
 }
 ?>
