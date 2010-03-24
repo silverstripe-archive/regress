@@ -105,7 +105,11 @@ class Page extends SiteTree {
 		}		
 		
 		$actions->push(new FormAction("doSaveSession", "Save current session"));
-		return new Form($this, "SessionActions", $fields, $actions,new RequiredFields());
+		
+		$form = new Form($this, "SessionActions", $fields, $actions);
+		$form->unsetValidator();
+		
+		return $form;
 	}
 }
 

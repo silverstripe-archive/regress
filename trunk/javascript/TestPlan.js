@@ -5,7 +5,7 @@ $(document).ready(function() {
 	
 	initialised = false;
 	$('input[name=action_doSaveSession]').livequery('click', function(){
-		var form = $('form[@name=session]');
+		var form = $('form[name=session]');
 		var formAction = form.attr('action') + '?' + 'action_doSaveSession=Execute'
 
 		statusMessage('', 'good');
