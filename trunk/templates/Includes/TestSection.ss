@@ -105,6 +105,6 @@
 	</div>
 
 	<% control Children %>
-		$PerformTestSection
+		$Render
 	<% end_control %>
 </div>

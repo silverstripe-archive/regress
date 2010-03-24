@@ -40,14 +40,16 @@
 	<hr />
 	
 	<div class="features">
-		<!-- Show all steps of the currenct testplan -->
-		<% include TestSection %>
+		<% if ClassName = TestSection %>
+			<% include TestSection %>
+		<% end_if %>
 
-		<!-- Show all steps of the children -->
-		<% if TestSections %>
-		<% control TestSections %>
-		<% include TestSection %>
-		<% end_control %>
+		<% if ClassName = TestPlan %>
+			<% if TestSections %>
+				<% control TestSections %>
+					<% include TestSection %>
+				<% end_control %>
+			<% end_if %>
 		<% end_if %>
 	</div>
 	

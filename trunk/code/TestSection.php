@@ -177,6 +177,16 @@ class TestSection extends Page {
 		return $obj;
 	}
 	
+	/**
+	 * It is to be used in the TestSection.ss to avoid infinite loop 
+	 * when include <% include TestSection %> in TestSection.ss
+	 * 
+	 * @return string
+	 */
+	function Render() {
+		return $this->renderWith(array("TestSection"));
+	}
+	
 }
 
 /**
@@ -257,5 +267,7 @@ class TestSection_Controller extends Controller {
 			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
 		}
 	}	
+	
+	
 }
 ?>
