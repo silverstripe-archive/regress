@@ -2,7 +2,7 @@
 <head>
 	<% base_tag %>
 </head>
-<body class="Regress">
+<body class="Regress typography">
 $Content
 $Form
 </body>

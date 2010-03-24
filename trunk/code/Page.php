@@ -100,16 +100,17 @@ class Page extends SiteTree {
 		$fields  = new FieldSet();
 		$actions = new FieldSet();
 		
-		if (Member::currentUser() && $this->canEdit()) {
-			$actions->push(new FormAction("doEditMode", "Change To Edit Mode"));
-		}		
-		
-		$actions->push(new FormAction("doSaveSession", "Save current session"));
+		$actions->push(new FormAction("doSaveSession", "Save as draft"));
+		$actions->push(new FormAction("mockSubmitTest", "Submit test"));
 		
 		$form = new Form($this, "SessionActions", $fields, $actions);
 		$form->unsetValidator();
 		
 		return $form;
+	}
+	
+	public function IsEditable() {
+		return Member::currentUser() && $this->canEdit();
 	}
 }
 

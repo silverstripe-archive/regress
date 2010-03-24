@@ -1,11 +1,26 @@
-* {
+.typography {
 	font-family: Trebuchet MS;
 	font-size: 1em;
+	color: #222;
 }
 
 p {
 	margin-top: 6px;
 	margin-bottom: 6px;
+}
+
+/* Generic form style */
+textarea {
+	padding: 5px;
+}
+
+input {
+	margin-bottom: 5px;
+}
+/* ----------------------- */
+.pageTitle {
+	font-size: 1.5em;
+	margin-bottom: 30px;
 }
 
 .steps {
@@ -81,14 +96,19 @@ label.skip.selected {
 }
 
 .note textarea {
-	width: 100%;
+	width: 99%;
 	height: 100px;
+}
+
+.changeable textarea {
+	width: 90%;
+	margin-bottom: 10px;
 }
 
 div.note {
 	padding-top: 10px;
 	margin-top: 10px;
-	border-top: 1px solid #A0A0A0;
+	border-top: 1px solid #ccc;
 }
 
 ul#NoteDetail {
@@ -187,12 +207,39 @@ ul#NoteDetail .content {
 	bottom: 0px;
 }
 
+	/* Form */
+	.leftPanel form input.action {
+		width: 120px;
+		margin-bottom: 5px;
+		font-size: 1.1em;
+	}
+
 .rightPanel {
 	position: absolute;
 	left: 190px;
 	float: left;
 	right: 5px;
+	padding: 0 10px;
 }
+	
+	div.feature .header {
+		margin-bottom: 10px;
+	}
+	
+	div.header {
+		margin-bottom: 30px;
+	}
+	
+	/* Form */
+	.rightPanel form .actions {
+		padding-top: 5px;
+		margin-bottom: 20px;
+	}
+	
+	.rightPanel form input.action {
+		font-size: 1.1em;
+	}
+	
 
 .label {
 	width:100px;
@@ -205,7 +252,7 @@ div .actions {
 }
 
 
-.goodMsg {
+.goodMsg, .goodMsg li {
 	color: #208020;
 }
 
@@ -219,6 +266,12 @@ div .actions {
 	font-size: 10px;
 }
 
+.helptext {
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+	border-bottom: 1px solid #c5c5e6;
+}
+
 #statusmessage ul {
 	padding-left: 10px;
 	text-align: left;
@@ -228,8 +281,8 @@ div .actions {
 }
 
 div.reportheader .label {
-	width:100px;
-	float:left
+	width: 100px;
+	float: left;
 }
 
 div.reportheader .content {
@@ -248,6 +301,10 @@ div.reportheader .content {
 
 .changeable {
 	background-color: #D0F0D0;	
+}
+
+ul.steps li.scenario {
+	padding: 5px 10px 10px;
 }
 
 .scenario div.content {

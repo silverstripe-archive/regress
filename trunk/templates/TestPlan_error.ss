@@ -4,7 +4,7 @@
 	<% base_tag %>
 </head>
 <!-- HTML-BODY -->
-<body>
+<body class="typography">
 
 <div class="leftPanel">
 	<div class="actions">

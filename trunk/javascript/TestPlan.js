@@ -36,10 +36,13 @@ $(document).ready(function() {
 	 * Toggle the status of the perform test form so that tester can modify the
 	 * scenarios during the test.
 	 */
-	$('input[name=action_doEditMode]').livequery('click', function(){
-		var button = $('input[name=action_doEditMode]')[0]
+	$('a.editModeLink').livequery('click', function(){
 		
-		if (button.value == "Set to read-only mode") {
+		var editModeClass = 'inEditMode';
+		
+		// the link/page is in edit mode, change to readonly mode 
+		if ($(this).hasClass(editModeClass)) {
+			
 			// disable the editing
 			$('.content').editable('disable', null);
 			
@@ -50,10 +53,14 @@ $(document).ready(function() {
 				this.title = 'Scenario';
 			});
 			
-			button.value = "Change to Edit Mode";
+			$(this).text("Change to Edit Mode");
 			statusMessage('Page is set to read-only mode.','good');
-		} else {	
-			// change to 'editable'
+			
+			// change the link class
+			$(this).toggleClass(editModeClass);
+			
+		} else { // change to editable mode
+			
 			if (initialised == false) {
 				$('.content').editable('scenario/save', {
 					loadurl   : 'scenario/load',
@@ -64,20 +71,24 @@ $(document).ready(function() {
 			        cancel    : 'Cancel',
 			        submit    : 'OK',
 					rows      : 15,
+					width	  : "99%",
 					indicator : "<img src='images/indicator.gif",
 				});
-				button.value = "Set to read-only mode";
+				$(this).text("Set to read-only mode");
 				initialised =true;
 			} else {
 				// disable the editing
 				$('.content').editable('enable', null);
-				button.value = "Set to read-only mode";				
+				$(this).text("Set to read-only mode");				
 			}
-
+			
 			// add classname
 			$('.content').removeClass('readonly').addClass('changeable');
 
 			statusMessage('<ul><li>To modify scenarios, click on the green sections of the page.</li><li>For more information about text-formatting and markdown, <br/> please <a href="http://daringfireball.net/projects/markdown/syntax" target="_new">click here</a>.</li></ul>','good');
+			
+			// change the link class
+			$(this).toggleClass(editModeClass);
 		}		
 		return false;
 	});
@@ -95,6 +106,17 @@ $(document).ready(function() {
 		}
 		$('#statusmessage')[0].innerHTML = msg;
 	}
+	});
+	
+	/**
+	 * Mock submit test button 
+	 * When clicked, it will instead submit the main form
+	 */
+	$('input[name=action_mockSubmitTest]').livequery('click', function() {
+		var mainForm = $('form[name=session]');
+		mainForm.submit(); 
+		
+		return false; 
 	});
 
 })(jQuery);

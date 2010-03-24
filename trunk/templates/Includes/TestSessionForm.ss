@@ -37,7 +37,6 @@
 			</p>
 		</div>
 	</div>
-	<hr />
 	
 	<div class="features">
 		<% if ClassName = TestSection %>
@@ -54,6 +53,7 @@
 	</div>
 	
 	<div class="actions">
-		<input type="submit" value="Submit test results" />
+		<input type="submit" class="action" name="action_doSaveSession" value="Save as draft" />
+		<input type="submit" class="action" value="Submit test" />
 	</div>
 </form>

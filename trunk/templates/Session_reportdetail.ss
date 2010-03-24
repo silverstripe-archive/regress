@@ -20,14 +20,14 @@
 <% end_control %>
 
 </head>
-<body>
+<body class="typography">
 
 <% if TestSessionObj %>
 <% control TestSessionObj %>
 	<!-- session was a test-plan -->
 	<% if TestPlan %>
 	<% control TestPlan %>
-		<h1>Test Report: '$Title' (Test Plan)</h1>
+		<h1 class="pageTitle">Test Report: '$Title' (Test Plan)</h1>
 	<% end_control %>
 	<% end_if %>
 

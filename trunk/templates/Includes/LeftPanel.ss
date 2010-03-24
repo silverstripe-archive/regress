@@ -11,10 +11,14 @@
 		
 		<br />
 		<div class="helptext">
-		If you close your browser after saving, you can return to the current 
-		session via the Drafts tab in the CMS.		
-		<hr />
+			If you close your browser after saving, you can return to the current 
+			session via the Drafts tab in the CMS.		
 		</div>
+		
+		<p class="utilityLinks">
+			<a class="editModeLink" href="#">Change to Edit Mode</a>
+		</p>
+		
 	</div>	
 	<div id="statusmessage">		
 	</div>

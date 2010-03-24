@@ -7,14 +7,14 @@
 	<% end_control %>
 </head>
 <!-- HTML-BODY -->
-<body>
+<body class="typography">
 
 <% include LeftPanel %>
 
 <div class="rightPanel">
 	<% if TestSection %>
 	<% control TestSection %>
-	<h1><% if TestPlan %>$TestPlan.Title - <% end_if %> $Title test</h1>	
+	<h1 class="pageTitle"><% if TestPlan %>$TestPlan.Title - <% end_if %> $Title test</h1>	
 	<% include TestSessionForm %>
 	<% end_control %>
 	<% else %>

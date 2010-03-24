@@ -3,9 +3,11 @@
 		<div class='featureTitle'>
 			<h3>Feature: $Title</h3>
 		</div>
-		<div class="description">
-			$Content
-		</div>
+		<% if Content %>
+			<div class="description">
+				$Content
+			</div>
+		<% end_if %>
 		<!-- Preparation block-->
 		<% if Preparation %>
 		<div class='description'>
