@@ -207,6 +207,10 @@ ul#NoteDetail .content {
 	bottom: 0px;
 }
 
+	a.editModeLink {
+		font-size: 1.2em;
+	}
+	
 	/* Form */
 	.leftPanel form input.action {
 		width: 120px;
