@@ -103,7 +103,8 @@ $(document).ready(function() {
 	
 	// remove editable inputs
 	$('.content').click(function() {
-		resetEditableInputs();
+		id = $(this).attr('id');
+		resetEditableInputs(id);
 	});
 
 	
@@ -121,9 +122,17 @@ $(document).ready(function() {
 	}
 	});
 	
-	function resetEditableInputs() {
+	/**
+	 * Reset all jeditable form in all .content div, except the one whose id provided
+	 * @param string
+	 */
+	function resetEditableInputs(exceptID) {
 		contents = $('.content');
 		for(i=0; i<contents.length; i++) {
+			if ($(contents[i]).attr('id') == exceptID) {
+				continue; 
+			}
+
 			if($.isFunction(contents[i].reset)) contents[i].reset();
 		}
 	}
