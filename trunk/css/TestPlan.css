@@ -1,5 +1,5 @@
-.typography {
-	font-family: Trebuchet MS;
+.typography * {
+	font-family: Arial, "Trebuchet MS", sans-serif;
 	font-size: 1em;
 	color: #222;
 }
