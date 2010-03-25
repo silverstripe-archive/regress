@@ -100,6 +100,11 @@ $(document).ready(function() {
 		}		
 		return false;
 	});
+	
+	// remove editable inputs
+	$('.content').click(function() {
+		resetEditableInputs();
+	});
 
 	
 	function statusMessage(msg, type){
