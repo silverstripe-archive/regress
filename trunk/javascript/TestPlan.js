@@ -124,7 +124,7 @@ $(document).ready(function() {
 	function resetEditableInputs() {
 		contents = $('.content');
 		for(i=0; i<contents.length; i++) {
-			contents[i].reset();
+			if($.isFunction(contents[i].reset)) contents[i].reset();
 		}
 	}
 	
