@@ -230,7 +230,9 @@ class TestSection_Controller extends Controller {
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
 		
 		Requirements::javascript("regress/javascript/jquery.jeditable.js");
+		Requirements::javascript("regress/javascript/jquery.changeawareform.js"); 
 		Requirements::javascript("regress/javascript/TestPlan.js");
+		
 	}
 
 	/**

@@ -3,6 +3,8 @@ var initialised;
 (function($) {
 $(document).ready(function() {
 	
+	$('form[name=session]').changeAwareForm();
+	
 	initialised = false;
 	$('input[name=action_doSaveSession]').livequery('click', function(){
 		var form = $('form[name=session]');
@@ -72,10 +74,12 @@ $(document).ready(function() {
 			        submit    : 'OK',
 					rows      : 15,
 					width	  : "99%",
-					indicator : "<img src='images/indicator.gif",
+					indicator : "<img src='images/indicator.gif"
 				});
+				
 				$(this).text("Set to read-only mode");
 				initialised =true;
+				
 			} else {
 				// disable the editing
 				$('.content').editable('enable', null);
