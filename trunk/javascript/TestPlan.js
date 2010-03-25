@@ -48,6 +48,9 @@ $(document).ready(function() {
 			// disable the editing
 			$('.content').editable('disable', null);
 			
+			// remove editable inputs
+			resetEditableInputs();
+			
 			// add classname
 			$('.content').removeClass('changeable').addClass('readonly');
 			
@@ -73,7 +76,8 @@ $(document).ready(function() {
 			        cancel    : 'Cancel',
 			        submit    : 'OK',
 					rows      : 15,
-					width	  : "99%",
+					width	  : '99%',
+					onblur	  : 'ignore',
 					indicator : "<img src='images/indicator.gif"
 				});
 				
@@ -111,6 +115,13 @@ $(document).ready(function() {
 		$('#statusmessage')[0].innerHTML = msg;
 	}
 	});
+	
+	function resetEditableInputs() {
+		contents = $('.content');
+		for(i=0; i<contents.length; i++) {
+			contents[i].reset();
+		}
+	}
 	
 	/**
 	 * Mock submit test button 
