@@ -14,7 +14,7 @@
 class StepResult extends DataObject {
 	
 	static $db = array(
-		"Outcome"        => "Enum('pass,fail,skip,','')",
+		"Outcome"        => "Enum(',pass,fail,skip','')",
 		"Note"           => "Text",
 		"ResolutionDate" => "Datetime"
 	);
@@ -26,7 +26,8 @@ class StepResult extends DataObject {
 	);
 	
 	static $has_many = array(
-		"StepResultNotes" => "StepResultNote"
+		"StepResultNotes" => "StepResultNote",
+		"Attachments"     => "File"
 	);
 	
 	
