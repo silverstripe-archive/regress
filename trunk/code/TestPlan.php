@@ -28,6 +28,26 @@ class TestPlan extends Page {
 	 */	
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
+		
+		$children = $this->Children();
+		if($children) foreach($children as $childPlan) {
+			// Add results
+			$fields->addFieldsToTab('Root.Results',
+				new HeaderField($childPlan->URLSegment, $childPlan->Title, 4)
+			);
+			$ctf = $childPlan->getReportTableListField();
+			$ctf->setName('Sessions_' . $childPlan->URLSegment);
+			$fields->addFieldToTab('Root.Results', $ctf);
+			
+			// Add drafts
+			$fields->addFieldsToTab('Root.Drafts',
+				new HeaderField($childPlan->URLSegment, $childPlan->Title, 4)
+			);
+			$ctf = $childPlan->getDraftsTableListField();
+			$ctf->setName('Sessions_' . $childPlan->URLSegment . '_Draft');
+			$fields->addFieldToTab('Root.Drafts', $ctf);
+		}
+		
 		return $fields;
 	}
 
