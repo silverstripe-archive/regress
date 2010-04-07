@@ -171,7 +171,7 @@
 					<div class="content">
 						<ul class="reportAttachmentList">
 						<% control Attachments %>
-							<li id="file-{$ID}"><a href="$URL">$Name</a></li>
+							<li id="file-{$ID}"><a href="$URL" target="new">$Name</a></li>
 						<% end_control %>
 						</ul>
 					</div>

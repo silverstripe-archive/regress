@@ -59,7 +59,7 @@
 			// uploaded successfully
 			if($.trim($(status).text()) == "success" && ($(filename).text() != '' && $(url).text() != '')) {
 				var attachmentList = $("#note-" + currentFileID + " ul.attachmentList");
-				$(attachmentList).append('<li class="file-' + $(fileid).text() + '"><a href="' + $(url).text() + '">' + $(filename).text() + '</a> <a class="removeFile" href="admin/assets/removefile/' + $(fileid).text() + '">Delete</a></li>');
+				$(attachmentList).append('<li class="file-' + $(fileid).text() + '"><a href="' + $(url).text() + '" target="new">' + $(filename).text() + '</a> <a class="removeFile" href="admin/assets/removefile/' + $(fileid).text() + '">Delete</a></li>');
 				
 				$('#TestSessionObjID').val($(sessionID).text());
 				

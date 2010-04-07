@@ -106,7 +106,7 @@
 							<ul class="attachmentList">
 								<% if Attachments %>
 									<% control Attachments %>
-										<li id="file-{$ID}"><a href="$URL">$Name</a> <a class="removeFile" href="$DeleteLink">Delete</a></li>
+										<li id="file-{$ID}"><a href="$URL" target="new">$Name</a> <a class="removeFile" href="$DeleteLink">Delete</a></li>
 									<% end_control %>
 								<% end_if %>
 							</ul>
