@@ -14,7 +14,8 @@ class Session_Controller extends Controller {
 
 	static $allowed_actions = array(
 		'saveperformance',
-		'reportdetail'
+		'reportdetail',
+		'uploadattachment'
 	);
 	
 	function init() {
@@ -211,6 +212,77 @@ class Session_Controller extends Controller {
 		}
 		
 		Director::redirect("session/reportdetail/" . (int)$_REQUEST['ParentID'] . "/$session->ID");
+	}
+	
+	/**
+	 * This should be only by ajax only. It create a test session (draft) there isn't one yet. 
+	 * The client script that called this function must set test session object id as it should in self::saveperformance()
+	 * 
+	 * This assume file is being uploaded one at a time
+	 */
+	function uploadattachment() {
+		
+		// get session object if the id is set in $_REQUEST['TestSessionObjID']
+		$testSessionData = array();
+		if (isset($_REQUEST['TestSessionObjID']) && is_numeric($_REQUEST['TestSessionObjID'])) { 
+			$testSessionData["ID"] = $_REQUEST['TestSessionObjID'];
+		}
+		$session = $this->prepareTestSessionObj($testSessionData);
+		
+		// populate session. here we don't need to worry about any other data besides session object id and file being uploaded properly
+		$session->Status = 'draft';
+		$session->write();
+		
+		$fileid = '';
+		$filename = '';
+		$url = '';
+		foreach($_FILES['Attachment']['name'] as $testStepID => $value) {
+			if($value) {
+				$file = new File();
+				
+				$upload = new Upload();
+				$upload->setFile($file);
+				
+				$validator = new Upload_Validator(); 
+				$validator->setAllowedExtensions( array('jpg', 'gif', 'png', 'pdf') );
+				$upload->setValidator($validator); 
+				
+				
+				// regenerate file array
+				$tmpFile = array();
+				$tmpFile['tmp_name'] = $_FILES['Attachment']['tmp_name'][$testStepID];
+				$tmpFile['name'] = $_FILES['Attachment']['name'][$testStepID];
+				$tmpFile['type'] = $_FILES['Attachment']['type'][$testStepID];
+				$tmpFile['size'] = $_FILES['Attachment']['size'][$testStepID];
+				
+				$upload->load($tmpFile);
+				if(!$upload->isError()) {
+					$result = $this->getStepResult($session, $testStepID);
+					$result->TestStepID = $testStepID;
+					$result->TestSessionID = $session->ID;
+					
+					$result->write(); 
+					
+					$file->StepResultID = $result->ID;
+					$file->write();
+					
+					$fileid = $file->ID;
+					$filename = $file->Name;
+					$url = $file->getURL();
+				}
+				else {
+					return $this->prepareResponse('failure', '', 'Please check your file extension. Only JPG, GIF, PNG and PDF files are allowed.');
+				}
+			}
+		}
+		
+		return $this->prepareResponse('success', $session->ID, '', $fileid, 	$filename, $url);
+	}
+	
+	private function prepareResponse($status, $sessionid = '', $message = '', $fileid = '', $filename = '', $url = '') {
+		$resultStringFormat = '<ul id="response"><li class="status">%s</li> <li class="sessionid">%s</li> <li class="message">%s</li> <li class="fileid">%s</li> <li class="filename">%s</li><li class="url">%s</li></ul>';
+		
+		return sprintf($resultStringFormat, $status, $sessionid, $message, $fileid, $filename, $url);
 	}
 
 }

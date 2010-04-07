@@ -128,6 +128,7 @@
 		<ul id="NoteDetail">
 
 			<% control Notes %>
+			
 			<li class="stepdetail status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
 				<div>
 					<div class='label'>
@@ -162,6 +163,20 @@
 						<p class="state">$Outcome</p>
 					</div>
 				</div>
+				
+				<% if Attachments %>
+					<div class='label'>
+						<p>Attachments:</p>
+					</div>
+					<div class="content">
+						<ul class="reportAttachmentList">
+						<% control Attachments %>
+							<li id="file-{$ID}"><a href="$URL">$Name</a></li>
+						<% end_control %>
+						</ul>
+					</div>
+				<% end_if %>
+				
 				<div>
 					<hr />
 					<div class='resolutionComments'>

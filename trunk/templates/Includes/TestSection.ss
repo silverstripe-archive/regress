@@ -96,8 +96,22 @@
 					<% end_if %>
 				</div>
 			
-				<div class="note">
+				<div id="note-{$ID}" class="note">
 					<label>Comments:<textarea name="Note[$ID]">$SessionStepResult.Note.Raw</textarea> </label>
+					<p class="noteAttachments">
+						<label>Attachments</label>
+						<input class="ajaxupload" id="ajaxupload-{$ID}" name="Attachment[$ID]" type="file" />
+						
+						<% control SessionStepResult %>
+							<ul class="attachmentList">
+								<% if Attachments %>
+									<% control Attachments %>
+										<li id="file-{$ID}"><a href="$URL">$Name</a> <a class="removeFile" href="$DeleteLink">Delete</a></li>
+									<% end_control %>
+								<% end_if %>
+							</ul>
+						<% end_control %>
+					</p>
 				</div>
 
 			</li>

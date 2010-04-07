@@ -217,6 +217,30 @@ ul#NoteDetail .content {
 		margin-bottom: 5px;
 		font-size: 1.1em;
 	}
+	
+	/* Attachments */
+	.noteAttachments, .attachmentList {
+		font-size: 0.8em;
+		text-align: right;
+	}
+	
+	.noteAttachments input.ajaxupload {
+
+	}
+	
+	ul.attachmentList {
+		margin: 0;
+		padding: 0;
+	}
+	
+	ul.attachmentList li {
+		list-style: none;
+		margin-bottom: .6em;
+	}
+	
+	ul.attachmentList li a.removeFile:hover {
+		color: red;
+	}
 
 .rightPanel {
 	position: absolute;
@@ -282,6 +306,11 @@ div .actions {
 }
 
 #statusmessage {
+	word-wrap: break-word;
+}
+
+#statusmessage strong {
+	color: inherit;
 }
 
 div.reportheader .label {
@@ -292,6 +321,20 @@ div.reportheader .label {
 div.reportheader .content {
 	margin-left: 100px;
 	margin-top: 0px;
+}
+
+ul.reportAttachmentList {
+	margin: 6px 0 ;
+	padding: 0;
+	list-style: none;
+}
+	
+ul.reportAttachmentList li {
+	margin-bottom: .6em;
+}
+
+ul.reportAttachmentList li a.removeFile:hover {
+	color: red;
 }
 
 #form_actions_right a {

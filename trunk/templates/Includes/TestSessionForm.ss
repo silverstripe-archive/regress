@@ -1,5 +1,5 @@
 <!-- The scope can be a test-plan or a test-section -->
-<form action="session/saveperformance/$ID" method="post" name="session">
+<form action="session/saveperformance/$ID" method="post" name="session" enctype="multipart/form-data">
 	<input type="hidden" name="ParentID" value="$ID" />
 	<input type="hidden" name="SessionType" value="$ClassName" />
 	

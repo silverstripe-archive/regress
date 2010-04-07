@@ -149,6 +149,7 @@ class TestPlan_Controller extends Controller {
 		Requirements::javascript("regress/javascript/jquery.jeditable.js");
 		Requirements::javascript("regress/javascript/jquery.changeawareform.js"); 
 		Requirements::javascript("regress/javascript/TestPlan.js");
+		Requirements::javascript("regress/javascript/StepResultAttachements.js");
 	}
 
 	/**
