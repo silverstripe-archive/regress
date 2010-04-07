@@ -1,5 +1,18 @@
 var initialised;
 
+function statusMessage(msg, type){
+	
+	if (type == 'good') {
+		$('#statusmessage').removeClass('badMsg').addClass('goodMsg');
+	} else 
+	if (type == 'bad') {
+		$('#statusmessage').removeClass('goodMsg').addClass('badMsg');
+	} else {
+		$('#statusmessage').removeClass('goodMsg badMsg');
+	}
+	$('#statusmessage')[0].innerHTML = msg;
+}
+
 (function($) {
 $(document).ready(function() {
 	
@@ -108,18 +121,7 @@ $(document).ready(function() {
 	});
 
 	
-	function statusMessage(msg, type){
-		
-		if (type == 'good') {
-			$('#statusmessage').removeClass('badMsg').addClass('goodMsg');
-		} else 
-		if (type == 'bad') {
-			$('#statusmessage').removeClass('goodMsg').addClass('badMsg');
-		} else {
-			$('#statusmessage').removeClass('goodMsg badMsg');
-		}
-		$('#statusmessage')[0].innerHTML = msg;
-	}
+	
 	});
 	
 	/**
