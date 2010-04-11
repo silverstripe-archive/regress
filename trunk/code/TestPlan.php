@@ -90,6 +90,73 @@ class TestPlan extends Page {
 		return $obj;
 	}
 	
+	/**
+	 * @return DataObjectSet
+	 */
+	function getAllTestSections() {
+		$sections = new DataObjectSet();
+		$children = $this->Children();
+		if($children) {
+			$sections->merge($children);
+			// TODO Recursion fail, but it'll do for now
+			foreach($children as $child) {
+				$grandChildren = $child->Children();
+				if($grandChildren) $sections->merge($grandChildren);
+			}
+		}
+		
+		return $sections;
+	}
+	
+	/**
+	 * @return DataObjectSet
+	 */
+	function getAllTestSteps() {
+		$steps = new DataObjectSet();
+		$sections = $this->getAllTestSections();
+		if($sections) foreach($sections as $section) {
+			$steps->merge($section->Steps());
+		}
+		
+		return $steps;
+	}
+	
+	/**
+	 * @todo $sort doesn't work with merge()
+	 * 
+	 * @return DataObjectSet
+	 */
+	function getAllTestSessions($filter = "", $sort = "", $join = "", $limit = "") {
+		$sessions = $this->Sessions($filter, $sort, $join, $limit);
+		
+		$sections = $this->getAllTestSections();
+		if($sections) foreach($sections as $section) {
+			$sessions->merge($section->Sessions($filter, $sort, $join, $limit));
+		}
+		
+		return $sessions;
+	}
+	
+	/**
+	 * @return DataObjectSet
+	 */
+	function getAllSubmittedTestSessions($filter = "", $sort = "", $join = "", $limit = "") {
+		$filter .= ($filter) ? ' AND ' : '';
+		$filter .= '"Status" = \'submitted\'';
+		
+		return $this->getAllTestSessions($filter, $sort, $join, $limit);
+	}
+
+	// /**
+	//  * Returns "grouped"
+	//  * 
+	//  * @return DataObjectSet
+	//  */
+	// function getAllTestSessionsGrouped() {
+	// 	$groupedSessions = array();
+	// 	$sessions = $this->getAllTestSessions();
+	// }
+	
 	
 	/**
 	 * Returns the children of this feature (which are other TestSections/features).

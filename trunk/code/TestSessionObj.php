@@ -34,12 +34,29 @@ class TestSessionObj extends DataObject {
 	   parent::onBeforeWrite();
 	}
 	
+	function getTitle() {
+		$section = $this->TestSection();
+		$plan = $this->TestPlan();
+		// At the moment, sessions need to have either a section or a plan
+		if($section) {
+			return $section->Title;
+		} else if($plan) {
+			return $plan->Title;
+		} else {
+			return '';
+		}
+	}
+	
 	function Passes() {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'pass'");
 	}
 
 	function Failures() {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'fail'");
+	}
+	
+	function Skips() {
+		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'skip'");
 	}
 	
 	function Notes() {
@@ -109,6 +126,61 @@ class TestSessionObj extends DataObject {
 			$value = MarkdownText::render($this->OverallNote);
 		}
 		return $value;
+	}
+	
+	/**
+	 * A bit too much presentation in the model, but its just too handy
+	 * to have around for TableListFields etc.
+	 * 
+	 * The pixel widths aren't completely accurate, as we need to reserve
+	 * a certain minimum space for each <span> to fit the numbers in.
+	 * 
+	 * @todo This isn't fully accurate on the "untested" counts, as steps might not have
+	 * existed at the time a session was executed.
+	 * 
+	 * @return string HTML
+	 */
+	function getProgressHTML() {
+		$html = '';
+		$section = $this->TestSection();
+		$plan = $this->TestPlan();
+		
+		// Roughly fitting two digits at 10px font size
+		$minWidth = 12; // px
+		// Add four possible <span> categories (they need to be the same width even if the spans are not addded themselves)
+		$baseWidth = 30 + $minWidth*4; // px
+		
+		$numPasses = $this->getNumPasses();
+		$numFailures = $this->getNumFailures();
+		$numSkips = $this->getNumSkips();
+		$numTested = $numPasses + $numFailures + $numSkips;
+		$numTotal = ($section->exists()) ? $section->getAllTestSteps()->Count() : $plan->getAllTestSteps()->Count();
+		$numUntested = $numTotal - $numTested;
+		
+		// Counteract width differences by missing out zero <spans> further down
+		if(!$numFailures) $baseWidth += $minWidth;
+		if(!$numSkips) $baseWidth += $minWidth;
+		if(!($numTested < $numTotal)) $baseWidth += $minWidth;
+		
+		$widthPasses = $minWidth + $baseWidth * ($numPasses/$numTotal);
+		$html .= "<span class=\"resultBlock pass\" title=\"Passed\" style=\"width: {$widthPasses}px\">$numPasses</span>";
+		
+		if($numFailures) {
+			$widthFailures = $minWidth + $baseWidth * ($numFailures/$numTotal);
+			$html .= "<span class=\"resultBlock fail\" title=\"Failed\" style=\"width: {$widthFailures}px\">$numFailures</span>";
+		}
+		
+		if($numSkips) {
+			$widthSkips = $minWidth + $baseWidth * ($numSkips/$numTotal);
+			$html .= "<span class=\"resultBlock skip\" title=\"Skipped\" style=\"width: {$widthSkips}px\">$numSkips</span>";
+		}
+		
+		if($numTested < $numTotal) {
+			$widthUntested = $minWidth + $baseWidth * ($numUntested/$numTotal);
+			$html .= "<span class=\"resultBlock untested\" title=\"Untested\" style=\"width: {$widthUntested}px\">$numUntested</span>";
+		}
+
+		return $html;
 	}
 }
 

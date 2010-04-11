@@ -1,0 +1,64 @@
+body {
+	font-size: 10px;
+}
+
+table.testSessions {
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+.testSessions th {
+	background: #ccc;
+}
+
+.testSessions td,
+.testSessions th {
+	padding: 4px;
+	border: 1px solid black;
+}
+
+.testSessions td {
+	vertical-align: top;
+}
+
+.testSession {
+	background: #eee;
+	padding: 2px 5px !important;
+	margin-bottom: 5px;
+	width: 160px;
+	overflow: hidden;
+}
+
+	.testSession h3 {
+		margin-bottom: 0;
+	}
+
+	.testSession .results {
+		overflow: auto;
+	}
+
+	.testSession .author {
+		clear: left;
+	}
+
+	.testSession .resultBlock {
+		display: block;
+		float: left;
+		padding: 2px;
+	}
+
+		.testSession .pass {
+			background: #CCFFCC;
+		}
+
+		.testSession .fail {
+			background: #EBD0CE;
+		}
+
+		.testSession .skip {
+			background: #F7FFAF;
+		}
+		
+		.testSession .untested {
+			background: #aaa;
+		}

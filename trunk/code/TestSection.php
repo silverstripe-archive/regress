@@ -140,9 +140,22 @@ class TestSection extends Page {
 	function getTestSections() {
 		return $this->Children();
 	}
+	
+	/**
+	 * @return DataObjectSet
+	 */
+	function getAllTestSteps() {
+		$steps = $this->Steps();
+		$sections = $this->getTestSections();
+		if($sections) foreach($sections as $section) {
+			$steps->merge($section->getAllTestSteps());
+		}
+		
+		return $steps;
+	}
 
 	/**
-	 *
+	 * @return TestPlan
 	 */ 
 	function getTestPlan() {
 		$stopMarker = 10;

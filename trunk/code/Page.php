@@ -31,7 +31,7 @@ class Page extends SiteTree {
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
 		$fields->removeFieldFromTab("Root", "Content");
-		$fields->removeFieldFromTab("Root", "Behaviour");
+		// $fields->removeFieldFromTab("Root", "Behaviour");
 		$fields->removeFieldFromTab("Root", "Reports");
 		$fields->removeByName('To-do', false);
 		$fields->removeByName('To-do **', false);
@@ -57,6 +57,7 @@ class Page extends SiteTree {
 			$fields->removeFieldFromTab("Root", "Edit");
 			$fields->addFieldToTab('Root',$editTab,"Access");
 		}
+		
 		return $fields;
 	}
 	
@@ -78,7 +79,7 @@ class Page extends SiteTree {
 	 * @return boolean
 	 */
 	function canCreate() {
-		return $this->class == "TestPlan" || $this->class == "TestSection" || $this->class == "Page";
+		return in_array($this->class, array('TestPlan', 'TestPlanHolder', 'TestSection', 'Page'));
 	}
 	
 	/**
