@@ -38,7 +38,7 @@ class Page extends SiteTree {
 
 		$fields->addFieldToTab("Root.Edit", new LiteralField("PageType", sprintf("<h2>You have opened a %s </h2>",$this->singular_name())));
 		$fields->addFieldToTab("Root.Edit", new TextField("Title", "Name"));
-		$fields->addFieldToTab("Root.Edit", new TextareaField("Content", "Description (supports markdown)"));
+		$fields->addFieldToTab("Root.Edit", new TextareaField("Content", "Description (supports Markdown)"));
 
 		// change order of the tabs so that edit is at the beginning again.
 		$resultsTab = $fields->fieldByName('Root.Results');

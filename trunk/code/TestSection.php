@@ -50,7 +50,7 @@ class TestSection extends Page {
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
 
-		$fields->addFieldToTab("Root.Edit",new TextareaField("Preparation","Test Preparation (supports Marldown)") );
+		$fields->addFieldToTab("Root.Edit",new TextareaField("Preparation","Test Preparation (supports Markdown)") );
 		
 		// add report table field to the result tab
 		if(is_numeric($this->ID)){
