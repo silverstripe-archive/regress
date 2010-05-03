@@ -30,33 +30,19 @@ class Page extends SiteTree {
 	 */
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
+		
 		$fields->removeFieldFromTab("Root", "Content");
-		// $fields->removeFieldFromTab("Root", "Behaviour");
 		$fields->removeFieldFromTab("Root", "Reports");
+		
 		$fields->removeByName('To-do', false);
 		$fields->removeByName('To-do **', false);
-
-		$fields->addFieldToTab("Root.Edit", new LiteralField("PageType", sprintf("<h2>You have opened a %s </h2>",$this->singular_name())));
-		$fields->addFieldToTab("Root.Edit", new TextField("Title", "Name"));
-		$fields->addFieldToTab("Root.Edit", new TextareaField("Content", "Description (supports Markdown)"));
-
-		// change order of the tabs so that edit is at the beginning again.
-		$resultsTab = $fields->fieldByName('Root.Results');
+			
+		$editTab = new Tab("Edit"); 
+		$fields->insertBefore($editTab, "Behaviour"); 
 		
-		if ($resultsTab != null) {
-			$editTab    = $fields->fieldByName('Root.Edit');
-			$fields->removeFieldFromTab("Root", "Edit");
-			$fields->addFieldToTab('Root',$editTab,"Results");
-		}
-
-		// change order of the tabs so that edit is at the beginning again.
-		$resultsTab = $fields->fieldByName('Root.Access');
-		
-		if ($resultsTab != null) {
-			$editTab    = $fields->fieldByName('Root.Edit');
-			$fields->removeFieldFromTab("Root", "Edit");
-			$fields->addFieldToTab('Root',$editTab,"Access");
-		}
+		$editTab->push(new LiteralField("PageType", sprintf("<h2>You have opened a %s </h2>",$this->singular_name())));
+		$editTab->push(new TextField("Title", "Name"));
+		$editTab->push(new TextareaField("Content", "Description (supports Markdown)"));		
 		
 		return $fields;
 	}
