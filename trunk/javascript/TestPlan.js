@@ -149,6 +149,21 @@ $(document).ready(function() {
 		
 		return false; 
 	});
+	
+	/**
+	 * Check whether is there an outcome has been set before submitting the test plan
+	 */
+	$('form[name=session]').livequery('submit', function() {
+		if($('input[name^=Outcome]:checked').length < 1) {
+			alert("You haven't selected any outcomes so your cannot submit your test plan.");
+			return false; 
+		}
+		
+		ret = confirm("You are about to submit your test plan. Are you sure?");
+		if(!ret) return false;
+			
+		return true;
+	});
 
 })(jQuery);
 
