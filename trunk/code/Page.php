@@ -40,6 +40,9 @@ class Page extends SiteTree {
 		$editTab = new Tab("Edit"); 
 		$fields->insertBefore($editTab, "Behaviour"); 
 		
+		// Need to add URLSegment to prevent from parsing javascript error and hide this feel using css instead
+		$editTab->push(new TextField("URLSegment"));
+		
 		$editTab->push(new LiteralField("PageType", sprintf("<h2>You have opened a %s </h2>",$this->singular_name())));
 		$editTab->push(new TextField("Title", "Name"));
 		$editTab->push(new TextareaField("Content", "Description (supports Markdown)"));		
