@@ -9,7 +9,7 @@
 class StepResultNote extends DataObject {
 	
 	static $db = array(
-		"Status" => "Enum('Resolved,Unresolved,','')",
+		"Status" => "Enum('Resolved,Unresolved,Commented','')",
 		"Date"   => "Datetime",
 		"Note"   => "Text",
 	);

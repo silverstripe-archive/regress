@@ -209,7 +209,10 @@
 								<br />
 								<div class="resolutionAction">
 									<div class="resolutionButton">
-										<img src="cms/images/alert-bad.gif">
+										<a id="resolution_$ID"  href="$CommentLink" class="commentAction">
+											Comment
+										</a>
+																				
 										<a id="resolution_$ID"  href="$UnresolveActionLink" class="unresolveAction">
 											Mark as not resolved
 										</a>
@@ -222,7 +225,10 @@
 								<br />
 								<div class="resolutionAction">
 									<div class="resolutionButton">
-										<img src="cms/images/alert-good.gif">
+										<a id="resolution_$ID"  href="$CommentLink" class="commentAction">
+											Comment
+										</a>
+
 										<a id="resolution_$ID" href="$ResolveActionLink" class='resolveAction'>
 											Mark as resolved
 										</a>

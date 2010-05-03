@@ -362,20 +362,37 @@ ul.steps li.scenario {
 	padding-right: 20px
 }
 
-.resolutionAction {
+.resolutionAction a {
+	display: inline-block;
 	font-size: 1.2em;
-	background-color:#DDDDDD;
-	border:1px solid #000000;
-	text-align:center;
-	width:200px;
-	margin-top: 3px;
+	padding: 5px;
+	padding-left: 26px;
+	border: 1px solid #888;
+	margin-top: 10px;
+	text-decoration: none;
+	background-color: #DDDDDD;
+	background-repeat: no-repeat;
+	background-position: 3px 50%;
 }
 
-.resolutionButton {
-	padding-top: 3px;
-	padding-bottom: 5px;
-	vertical-align: middle;
-}
+	.resolutionAction a:hover {
+		background-color: #efefef;
+	}
+
+	.resolutionAction a.commentAction {
+		background-image: url(../images/comment-button.png);
+	}
+	
+	.resolutionAction a.resolveAction  {
+		padding-left: 20px;
+		background-image:url(../images/yes-button.png);
+	}
+	
+	.resolutionAction a.unresolveAction  {
+		padding-left: 20px;
+		background-image: url(../images/no-button.png);
+	}
+	
 
 .stepresultnote {
 	padding-left: 20px;

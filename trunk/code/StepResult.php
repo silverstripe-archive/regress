@@ -47,6 +47,10 @@ class StepResult extends DataObject {
 		return "StepResult_Controller/unresolve/$this->ID";
 	}
 	
+	function CommentLink() {
+		return "StepResult_Controller/comment/$this->ID";
+	}
+	
 	function NoteMarkdown() {
 		return MarkdownText::render($this->Note);
 	}	
@@ -60,7 +64,8 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 
 	static $allowed_actions = array(
 		'resolve',
-		'unresolve'
+		'unresolve',
+		'comment'
 	);
 	
 	function providePermissions() {
@@ -163,6 +168,36 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 		$sr->write();
 		Director::redirectBack();
 	}
+	
+	function comment($fields) {
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
+		
+		$params = $fields->getVars();
+		
+		$ResolutionNote = '';
+		if (isset($params['resolutionnote'])) {
+			$ResolutionNote = trim($params['resolutionnote']);
+		}
+		
+		// if the comment/note is empty, redirect back
+		if(!$ResolutionNote) {
+			Director::redirectBack();
+			return true;
+		}
+		
+		$sr = $this->StepResult();
+		
+		$StepResultNote = new StepResultNote();
+		$StepResultNote->Status = "Commented";
+		$StepResultNote->Note = $ResolutionNote;
+		$StepResultNote->Date  = date('Y-m-d h:i:s');
+		$StepResultNote->StepResultID = $sr->ID;
+		$StepResultNote->write();
+		
+		Director::redirectBack();
+	} 
 }
 
 ?>
