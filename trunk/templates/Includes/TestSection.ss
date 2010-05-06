@@ -1,7 +1,7 @@
 <div class="feature">
 	<div class="header">
 		<div class='featureTitle'>
-			<h3>Feature: $Title</h3>
+			<h3 id="feature{$ID}" class="anchor">Feature: $Title</h3>
 		</div>
 		<% if Content %>
 			<div class="description">

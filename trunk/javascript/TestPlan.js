@@ -164,6 +164,42 @@ $(document).ready(function() {
 			
 		return true;
 	});
+	
+	/**
+	 * Table of content (Index)
+	 */
+	buildTableOfContent();
+	
+	$('a#hideIndex').livequery('click', function() {
+		$('#tableOfContent').hide(); 
+		return false;
+	});
+	
+	$('a#showIndex').livequery('click', function() {
+		$('#tableOfContent').show(); 
+		return false;
+	});
+	
+	function buildTableOfContent() {
+		var html = '';
+		var list = ''; 
+		var location = window.location;
+		var url = location.protocol + '//' + location.host + location.pathname;
+		
+		$('.anchor').each( function() { 
+			list += '<li><a href="' + url + '#' + $(this).attr('id') + '">' + $(this).text() + '</a></li>'; 
+		});
+	
+		// add show table of content link to the leftPanel
+		$('.leftPanel').prepend('<p class="showHideIndex"><a id="showIndex" href="#">Show Index</a></p>')
+		
+		html = '<div id="tableOfContent">';
+		html += '<p class="showHideIndex"><a id="hideIndex" href="#">Hide Index</a></p>'
+		html += '<h3>Index</h3>';
+		html += '<ul>' + list + '</ul></div>';
+		$('body').append(html);
+	}
+	
 
 })(jQuery);
 
