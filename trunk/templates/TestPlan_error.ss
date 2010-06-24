@@ -9,7 +9,7 @@
 
 <div class="leftPanel">
 	<div class="actions">
-		<img src='regress/images/ss-logo.gif' width='100%'/>
+		<img src='regress/images/ss-logo.gif' />
 	</div>	
 </div>
 

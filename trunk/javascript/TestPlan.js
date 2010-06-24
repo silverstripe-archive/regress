@@ -185,17 +185,19 @@ $(document).ready(function() {
 		var list = ''; 
 		var location = window.location;
 		var url = location.protocol + '//' + location.host + location.pathname;
-		
+
 		$('.anchor').each( function() { 
 			list += '<li><a href="' + url + '#' + $(this).attr('id') + '">' + $(this).text() + '</a></li>'; 
 		});
+		
+		topLink = location.href.replace(/#/g, '') + "#body";
 	
 		// add show table of content link to the leftPanel
 		$('.leftPanel').prepend('<p class="showHideIndex"><a id="showIndex" href="#">Show Index</a></p>')
 		
 		html = '<div id="tableOfContent">';
 		html += '<p class="showHideIndex"><a id="hideIndex" href="#">Hide Index</a></p>'
-		html += '<h3>Index</h3>';
+		html += '<h3>Index <a id="topLink" href="javascript:scroll(0,0)">(Go to top)</a></h3>';
 		html += '<ul>' + list + '</ul></div>';
 		$('body').append(html);
 	}

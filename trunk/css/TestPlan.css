@@ -34,9 +34,10 @@ html #URLSegment {
 	border: 1px #CCC solid;
 	background-color: #E0E0FF;
 	float: left;
+	overflow: auto;
 	margin: 0 auto;
 	padding: 0 15px 0 15px;
-	width: 155px;
+	width: 180px;
 	position: fixed;
 	
 	top: 0px;
@@ -46,6 +47,11 @@ html #URLSegment {
 
 #tableOfContent h3 {
 	margin-bottom: 0.6em;
+}
+
+#tableOfContent h3 #topLink {
+	text-decoration: none;
+	font-size: 0.8em;
 }
 
 #tableOfContent ul {
@@ -259,7 +265,7 @@ ul#NoteDetail .content {
 	float: left;
 	margin: 0 auto;
 	padding: 0 15px 0 15px;
-	width: 155px;
+	width: 180px;
 	position: fixed;
 	text-align: center;
 	
@@ -305,7 +311,7 @@ ul#NoteDetail .content {
 
 .rightPanel {
 	position: absolute;
-	left: 190px;
+	left: 215px;
 	float: left;
 	right: 5px;
 	padding: 0 10px;
