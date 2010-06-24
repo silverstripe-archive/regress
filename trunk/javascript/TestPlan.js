@@ -1,5 +1,10 @@
 var initialised;
 
+// Make sure users aren't logged out when performe test window is open
+setInterval(function() {
+		new Ajax.Request("Security/ping");
+}, 180*1000);
+
 function statusMessage(msg, type){
 	
 	if (type == 'good') {
