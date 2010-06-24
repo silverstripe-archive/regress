@@ -40,7 +40,12 @@ $(document).ready(function() {
 				$('#TestSessionObjID').val(response.TestSessionObjID);
 			}, 
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				statusMessage("ERROR", 'bad');
+				errMsg = "ERROR";
+				if(XMLHttpRequest.status == 403) {
+					errMsg = 'Please login'; 
+				}
+				
+				statusMessage(errMsg, 'bad');
 			},
 			dataTypeString: 'html'
 		});
