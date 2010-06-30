@@ -13,24 +13,45 @@ class RegressReport extends SS_Report {
 	function sourceRecords($params, $sort, $limit) {
 		$sessions = new DataObjectSet(); 
 		
+		$direction = ''; 
+		if(isset($params["ctf"]["ReportContent"]["dir"])) {
+			$direction = $params["ctf"]["ReportContent"]["dir"]; 
+		}
+		
+		$sort = '';
+		if(isset($params["ctf"]["ReportContent"]["sort"]) && $params["ctf"]["ReportContent"]["sort"] == "PlanTitle") {
+			$sort = "Title " . $direction;
+		}
+		
+		$search = ''; 
+		if(isset($params["SearchByTestPlanTitle"]) && trim($params["SearchByTestPlanTitle"]) != '') {
+			$search = " AND \"Title\" LIKE '%" . $params["SearchByTestPlanTitle"] . "%'";
+		}
+		
 		$testGroupID = isset($params["TestGroup"]) ? $params["TestGroup"] : null;
 
 		if($testGroupID) {
-			$testPlans = DataObject::get("SiteTree", "\"ParentID\" = $testGroupID", $sort);
+			$testPlans = DataObject::get("SiteTree", "\"ParentID\" = $testGroupID" . $search, $sort);
 		}
 		else {
-			$testPlans = new DataObjectSet(); 
+			$testPlans = null; 
 		}
 		
-		foreach($testPlans as $plan) {
-			$this->prepareTestPlan($plan);
-			$sessions->merge($plan); 
+		if ($testPlans) {	
+				foreach($testPlans as $plan) {
+				$this->prepareTestPlan($plan);
+				$sessions->merge($plan); 
 			
-			foreach($plan->Sections as $section) {
-				$sessions->merge($section);
+				foreach($plan->Sections as $section) {
+					$sessions->merge($section);
+				}
 			}
+			
+			return $sessions->getRange($limit['start'], $sessions->Count());
 		}
-		return $sessions->getRange($limit['start'], $sessions->Count());
+		else {
+			return new DataObjectSet();
+		}
 	}
 	
 	/**
@@ -169,7 +190,8 @@ class RegressReport extends SS_Report {
 		$pages = DataObject::get("SiteTree", "\"ParentID\" = 0 AND \"ClassName\" <> 'ErrorPage' AND \"URLSegment\" <> 'home'"); 
 		
 		return new FieldSet(
-			new DropdownField("TestGroup", "Test Group", $pages->map())
+			new DropdownField("TestGroup", "Test Group", $pages->map()),
+			new TextField("SearchByTestPlanTitle", "Search by project title")
 		);
 	}
 }
