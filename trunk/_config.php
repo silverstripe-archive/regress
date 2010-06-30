@@ -48,4 +48,7 @@ Object::add_extension('LeftAndMain', 'PageLeftAndMainDecorator');
 // Set root sitetree note can-optiosn to administrators only
 
 // ensure that the groups tables SiteTree_EditorGroups and SiteTree_ViewerGroups are empty.
+
+SS_Report::register('ReportAdmin', 'RegressReport');
+
 ?>

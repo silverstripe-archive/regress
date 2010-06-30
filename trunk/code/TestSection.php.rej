@@ -1,0 +1,14 @@
+***************
+*** 265,269 ****
+  			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
+  		}
+  	}	
+  }
+  ?>--- 269,275 ----
+  			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
+  		}
+  	}	
++ 	
++ 	
+  }
+  ?>
