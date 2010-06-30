@@ -13,7 +13,8 @@ class RegressReport extends SS_Report {
 	function sourceRecords($params, $sort, $limit) {
 		$sessions = new DataObjectSet(); 
 		
-		$testGroupID = $params["TestGroup"];
+		$testGroupID = isset($params["TestGroup"]) ? $params["TestGroup"] : null;
+
 		if($testGroupID) {
 			$testPlans = DataObject::get("SiteTree", "\"ParentID\" = $testGroupID", $sort);
 		}
