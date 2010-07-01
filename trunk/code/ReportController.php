@@ -22,6 +22,7 @@ class RegressReportController extends Controller {
 			); 
 		}
 		
-		return json_encode($recordArray);
+		header('Content-type: application/json');
+		echo json_encode($recordArray);
 	}
 }
