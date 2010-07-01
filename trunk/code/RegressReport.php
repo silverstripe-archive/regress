@@ -47,7 +47,9 @@ class RegressReport extends SS_Report {
 				}
 			}
 			
-			return $sessions->getRange($limit['start'], $sessions->Count());
+			$offset = isset($limit['start']) && is_numeric($limit['start']) ? $limit['start'] : 0;	
+			
+			return $sessions->getRange($offset, $sessions->Count());
 		}
 		else {
 			return new DataObjectSet();
