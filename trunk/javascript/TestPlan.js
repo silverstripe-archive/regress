@@ -23,6 +23,20 @@ $(document).ready(function() {
 	
 	$('form[name=session]').changeAwareForm();
 	
+	/**
+	 * Auto save 
+	 */ 
+	setInterval(function() {
+		// If one or more outcomes have been set
+		if($(".passfail input[type=radio]:checked").length > 0) {
+			// There two save draft buttons but we have issue click event on one of them
+			$('input[name=action_doSaveSession]')[0].click();
+		}
+	}, 180*100);
+	
+	/**
+	 * Save draft
+	 */
 	initialised = false;
 	$('input[name=action_doSaveSession]').livequery('click', function(){
 		var form = $('form[name=session]');
