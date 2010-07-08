@@ -102,6 +102,10 @@ class TestStep extends DataObject {
 		return ( $this->KnownIssues() || $this->PassNotes() || $this->SkipNotes() );
 	}
 	
+	function canDelete() {
+		return Permission::check("CMS_ACCESS_CMSMain");
+	}
+	
 }
 
 class TestStep_Controller extends Controller {
