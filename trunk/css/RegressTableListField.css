@@ -1,0 +1,12 @@
+.TableListField table th.Sort {
+	width: 80px;
+	padding: 10px;
+}
+
+.right form .TableListField table td input {
+	width: 90%;
+}
+
+.right form .TableListField table td.Step textarea {
+
+}

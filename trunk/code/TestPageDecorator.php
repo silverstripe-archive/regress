@@ -43,6 +43,11 @@ class TestPageDecorator extends DataObjectDecorator {
 	 * @return TableListField
 	 */
 	function getDraftsTableListField() {
+		
+		Requirements::css('regress/css/RegressTableListField.css');
+		Requirements::javascript('http://james.padolsey.com/demos/plugins/jQuery/autoresize.jquery.js');
+		Requirements::javascript('regress/javascript/RegressTableListField.js');
+		
 		$owner = $this->getOwner();
 		
 		// all draft/new sessions
