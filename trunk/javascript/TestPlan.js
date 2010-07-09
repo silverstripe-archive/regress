@@ -18,6 +18,58 @@ function statusMessage(msg, type){
 	$('#statusmessage')[0].innerHTML = msg;
 }
 
+/**
+ * When sucessMsg is displayed when ajax request is successful. 
+ * It successMsg == '' the message from server side is used instead
+ */ 
+function saveDraft(successMsg) {
+	var form = $('form[name=session]');
+	var formAction = form.attr('action') + '?' + 'action_doSaveSession=Execute';
+
+	statusMessage('', 'good');
+
+	$.ajax({
+		type: 'POST',
+		url: formAction,
+		data: form.formToArray(),
+		success: function(result) {
+			var response = eval('(' + result + ')');
+
+			if (response.TestSessionObjID == '') {
+				statusMessage(response.Message, 'bad');
+			} else {
+				if (successMsg == '') {
+					statusMessage(response.Message, 'good');
+				}
+				else {
+					var currentTime = new Date();
+					var month = currentTime.getMonth();
+					var day = currentTime.getDate();
+					var year = currentTime.getFullYear();
+					var hour = currentTime.getHours();
+					var minute = currentTime.getMinutes();
+					var second = currentTime.getSeconds();
+					
+					var timeStamp = '(' + year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second + ')'; 
+					
+					statusMessage(successMsg + ' ' + timeStamp, 'good');
+				}
+			}
+			$('#TestSessionObjID').val(response.TestSessionObjID);
+		}, 
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			errMsg = "ERROR";
+			if(XMLHttpRequest.status == 403) {
+				errMsg = 'Please login'; 
+			}
+			
+			statusMessage(errMsg, 'bad');
+		},
+		dataTypeString: 'html'
+	});
+	return false;
+}
+
 (function($) {
 $(document).ready(function() {
 	
@@ -29,45 +81,16 @@ $(document).ready(function() {
 	setInterval(function() {
 		// If one or more outcomes have been set
 		if($(".passfail input[type=radio]:checked").length > 0) {
-			// There two save draft buttons but we have issue click event on one of them
-			$('input[name=action_doSaveSession]')[0].click();
+			saveDraft('Autosaved');
 		}
-	}, 180*100);
+	}, 180*500);
 	
 	/**
 	 * Save draft
 	 */
 	initialised = false;
 	$('input[name=action_doSaveSession]').livequery('click', function(){
-		var form = $('form[name=session]');
-		var formAction = form.attr('action') + '?' + 'action_doSaveSession=Execute'
-
-		statusMessage('', 'good');
-
-		$.ajax({
-			type: 'POST',
-			url: formAction,
-			data: form.formToArray(),
-			success: function(result) {
-				var response = eval('(' + result + ')');
-
-				if (response.TestSessionObjID == '') {
-					statusMessage(response.Message, 'bad');
-				} else {
-					statusMessage(response.Message, 'good');
-				}
-				$('#TestSessionObjID').val(response.TestSessionObjID);
-			}, 
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-				errMsg = "ERROR";
-				if(XMLHttpRequest.status == 403) {
-					errMsg = 'Please login'; 
-				}
-				
-				statusMessage(errMsg, 'bad');
-			},
-			dataTypeString: 'html'
-		});
+		saveDraft('');
 		return false;
 	});
 
