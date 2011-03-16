@@ -10,7 +10,9 @@
 class TestSection extends Page {
 
 	static $db = array(
-		"Preparation" => "MarkdownText"
+		"Preparation" => "MarkdownText",
+		"TestData" => "MarkdownText",
+		"Notes" => "MarkdownText"
 	);
 	
 	static $has_many = array(
@@ -51,6 +53,8 @@ class TestSection extends Page {
 		$fields = parent::getCMSFields();
 
 		$fields->addFieldToTab("Root.Edit",new TextareaField("Preparation","Test Preparation (supports Markdown)") );
+		$fields->addFieldToTab("Root.Edit",new TextareaField("TestData","Test Data (supports Markdown)") );
+		$fields->addFieldToTab("Root.Edit",new TextareaField("Notes","Notes (supports Markdown)") );
 		
 		// add report table field to the result tab
 		if(is_numeric($this->ID)){

@@ -105,11 +105,31 @@
 	   		Note:
 		</div>
 		<div>
-		<div class="content">
-			<div class="box">
-				$OverallNoteMarkdown
+			<div class="content">
+				<div class="box">
+					$OverallNoteMarkdown
+				</div>
 			</div>
 		</div>
+		<div class='label boxed'>
+	   		Browser:
+		</div>
+		<div>
+			<div class="content">
+				<div class="box">
+					$Browser &nbsp;
+				</div>
+			</div>
+		</div>
+		<div class='label boxed'>
+	   		BaseURL:
+		</div>
+		<div>
+			<div class="content">
+				<div class="box">
+					$BaseURL &nbsp;
+				</div>
+			</div>
 		</div>
 	</div>
 	<% end_control %>

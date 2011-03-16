@@ -17,6 +17,25 @@
 			</div>
 		</div>
 		<% end_if %>
+
+		<% if TestData %>
+		<div class='description'>
+			<h3>Test Data</h3>
+			<div>
+				$TestData.Raw
+			</div>
+		</div>
+		<% end_if %>
+
+		<% if Notes %>
+		<div class='description'>
+			<h3>Test Notes</h3>
+			<div>
+				$Notes.Raw
+			</div>
+		</div>
+		<% end_if %>
+
 	</div>
 
 

@@ -19,20 +19,35 @@
 					<label>Tester</label>
 				</div>
 				<div>
-				<% if Tester %>
-					<input type="text" name="Tester" size="30" value="$Tester"/><br/>
-				<% else %>
-					<input type="text" name="Tester" size="30" value="$CurrentMember.Name"/><br/>
-				<% end_if %>
+					<% if Tester %>
+						<input type="text" name="Tester" size="30" value="$Tester"/><br/>
+					<% else %>
+						<input type="text" name="Tester" size="30" value="$CurrentMember.Name"/><br/>
+					<% end_if %>
+					</div>
+
+					<div class="label">
+						<label>Note</label>
+					</div>
+					<div>
+						<textarea name="OverallNote" cols="50" rows="10">$OverallNote.Raw</textarea>
+					</div>	
+
+					<div class="label">
+						<label>Base URL</label>
+					</div>
+					<div>
+						<input type="text" name="BaseURL" size="30" value="not specified"/><br/>
+					</div>	
+
+					<div class="label">
+						<label>Browser</label>
+					</div>
+					<div>
+						<input type="text" name="Browser" size="30" value="not specified"/><br/>
+					</div>	
 				</div>
 
-				<div class="label">
-					<label>Note</label>
-				</div>
-				<div>
-					<textarea name="OverallNote" cols="50" rows="10">$OverallNote.Raw</textarea>
-				</div>	
-				</div>
 			<% end_control %>
 			</p>
 		</div>

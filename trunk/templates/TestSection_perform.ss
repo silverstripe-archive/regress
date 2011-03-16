@@ -19,7 +19,7 @@
 	<% include TestSessionForm %>
 	<% end_control %>
 	<% else %>
-  		Error: Invalid test parameter. <br/>
+	Error: Invalid test parameter. <br/>
 	<% end_if %>
 </div>
 
