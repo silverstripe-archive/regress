@@ -202,7 +202,7 @@ $(document).ready(function() {
 	 */
 	$('form[name=session]').livequery('submit', function() {
 		if($('input[name^=Outcome]:checked').length < 1) {
-			alert("You haven't selected any outcomes so your cannot submit your test plan.");
+			alert("This test is still empty - please enter your test data first.");
 			return false; 
 		}
 		
