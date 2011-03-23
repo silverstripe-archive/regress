@@ -3,11 +3,23 @@
 		<div class='featureTitle'>
 			<h3 id="feature{$ID}" class="anchor">Feature: $Title</h3>
 		</div>
+
 		<% if Content %>
 			<div class="description">
 				$Content
 			</div>
 		<% end_if %>
+		
+		<!-- FeatureID block-->
+		<% if FeatureID %>
+		<div class='description'>
+			<h3>Feature ID</h3>
+			<div>
+				$FeatureID
+			</div>
+		</div>
+		<% end_if %>
+		
 		<!-- Preparation block-->
 		<% if Preparation %>
 		<div class='description'>
@@ -18,6 +30,7 @@
 		</div>
 		<% end_if %>
 
+		<!-- TestData block-->
 		<% if TestData %>
 		<div class='description'>
 			<h3>Test Data</h3>
@@ -27,6 +40,7 @@
 		</div>
 		<% end_if %>
 
+		<!-- Notes block-->
 		<% if Notes %>
 		<div class='description'>
 			<h3>Test Notes</h3>

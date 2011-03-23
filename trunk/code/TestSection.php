@@ -53,7 +53,7 @@ class TestSection extends Page {
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
 
-		$fields->addFieldToTab("Root.Edit",new TextField("FeatureID","Feature ID") );
+		$fields->addFieldToTab("Root.Edit",new TextField("FeatureID","Feature ID"),"Content" );
 		$fields->addFieldToTab("Root.Edit",new TextareaField("Preparation","Test Preparation (supports Markdown)") );
 		$fields->addFieldToTab("Root.Edit",new TextareaField("TestData","Test Data (supports Markdown)") );
 		$fields->addFieldToTab("Root.Edit",new TextareaField("Notes","Notes (supports Markdown)") );
