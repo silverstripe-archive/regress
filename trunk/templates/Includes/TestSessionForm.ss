@@ -37,14 +37,14 @@
 						<label>Base URL</label>
 					</div>
 					<div>
-						<input type="text" name="BaseURL" size="30" value="not specified"/><br/>
+						<input type="text" name="BaseURL" size="30" value="<% if BaseURL %>$BaseURL<% else %>not specified<% end_if %>"/><br/>
 					</div>	
 
 					<div class="label">
 						<label>Browser</label>
 					</div>
 					<div>
-						<input type="text" name="Browser" size="30" value="not specified"/><br/>
+						<input type="text" name="Browser" size="30" value="<% if Browser %>$Browser<% else %>not specified<% end_if %>"/><br/>
 					</div>	
 				</div>
 
