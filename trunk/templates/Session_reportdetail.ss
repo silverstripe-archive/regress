@@ -35,7 +35,7 @@
 	<!-- session was a feature -->
 	<% if TestSection %>
 	<% control TestSection %>
-		<h1>Test Report: '<% if TestPlan %> $TestPlan.Title - <% end_if %> $Title' (feature)</h1>
+		<h1>Test Report: '<% if TestPlan %>$TestPlan.Title - <% end_if %> $Title' (feature)</h1>
 	<% end_control %>
 	<% end_if %>
 
@@ -51,7 +51,7 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$ID
+				$ID  &nbsp;
 			</div>
 		</div>
 		<div class='label boxed'>
@@ -70,7 +70,7 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$NumPasses
+				$NumPasses  &nbsp;
 			</div>
 		</div>
 		<div class='label boxed'>
@@ -78,7 +78,7 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$NumFailures
+				$NumFailures  &nbsp;
 			</div>
 		</div>
 		<div class='label boxed'>
@@ -86,13 +86,14 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$NumSkips
+				$NumSkips  &nbsp;
 			</div>
 		</div>
 	</div>
 	<hr />
 
 	<div>
+		<!-- Tester -->
 		<div class='label boxed'>
 			Tester:
 		</div>
@@ -101,16 +102,32 @@
 				$Tester &nbsp;
 			</div>
 		</div>
+		
+		<!-- Note -->
 		<div class='label boxed'>
 	   		Note:
 		</div>
 		<div>
 			<div class="content">
 				<div class="box">
-					$OverallNoteMarkdown
+					$OverallNoteMarkdown  &nbsp;
 				</div>
 			</div>
 		</div>
+		
+		<!-- Code revision-->
+		<div class='label boxed'>
+	   		Code Revision:
+		</div>
+		<div>
+			<div class="content">
+				<div class="box">
+					$CodeRevision  &nbsp;
+				</div>
+			</div>
+		</div>
+		
+		<!-- Browser -->
 		<div class='label boxed'>
 	   		Browser:
 		</div>
@@ -121,8 +138,10 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- Base URL -->
 		<div class='label boxed'>
-	   		BaseURL:
+	   		Base URL:
 		</div>
 		<div>
 			<div class="content">

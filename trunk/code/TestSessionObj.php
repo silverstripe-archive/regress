@@ -12,7 +12,8 @@ class TestSessionObj extends DataObject {
 	static $db = array(
 		'Tester'      => 'Varchar(20)',
 		'OverallNote' => 'Text',
-		"Status"      => "Enum(array('new','draft','submitted','archived'),'new')",
+		'CodeRevision' => 'Text',	// Source Code revision number (svn and git) 
+		'Status'      => "Enum(array('new','draft','submitted','archived'),'new')",
 		'BaseURL' => 'Text',
 		'Browser' => 'Text',
 	);

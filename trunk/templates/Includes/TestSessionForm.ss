@@ -34,6 +34,13 @@
 					</div>	
 
 					<div class="label">
+						<label>Code revision</label>
+					</div>
+					<div>
+						<textarea name="CodeRevision" cols="50" rows="3">$CodeRevision.Raw</textarea>
+					</div>	
+
+					<div class="label">
 						<label>Base URL</label>
 					</div>
 					<div>

@@ -337,7 +337,7 @@ ul#NoteDetail .content {
 	
 
 .label {
-	width:100px;
+	width:150px;
 	float:left
 }
 
@@ -381,12 +381,12 @@ div .actions {
 }
 
 div.reportheader .label {
-	width: 100px;
+	width: 150px;
 	float: left;
 }
 
 div.reportheader .content {
-	margin-left: 100px;
+	margin-left: 150px;
 	margin-top: 0px;
 }
 
