@@ -96,9 +96,11 @@ class TestSection extends Page {
 	 * @return FieldSet
 	 */
 	function getAllCMSActions() {
+		$urlReport = $this->baseHref().$this->getcontrollerurl()."/report/".$this->ID;
 		$url = $this->baseHref().$this->getcontrollerurl()."/perform/".$this->ID;
 
 		return new FieldSet(
+			new LiteralField("Link", "<a href='".$urlReport."' target='createreport_$this->title'>Create Test Report</a>"),
 			new LiteralField("Link", "<a href='".$url."' target='performtest_$this->title'>Perform Test</a>"),
 			new FormAction("save", "Save changes")
 		);
@@ -206,6 +208,10 @@ class TestSection extends Page {
 		return $this->renderWith(array("TestSection"));
 	}
 	
+	
+	function RenderReport() {
+		return $this->renderWith(array("TestSectionReport"));
+	}	
 }
 
 /**

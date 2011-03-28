@@ -334,7 +334,6 @@ ul#NoteDetail .content {
 	.rightPanel form input.action {
 		font-size: 1.1em;
 	}
-	
 
 .label {
 	width:150px;
@@ -476,4 +475,36 @@ ul.steps li.scenario {
 
 fieldset {
 	border: 0px;
+}
+
+
+
+.index_subsection {
+	padding-left: 30px;
+}
+
+.index_subsection ul {
+	padding-left: 0px;
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.index_subsection li {
+	list-style: none outside none;
+}
+
+.index_scenarios ul.steps li.scenario {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+.index_scenarios .scenario div.content {
+	margin-top: 0px;
+}
+
+.index_scenarios .steps li.scenario,.steps li.fail,.steps li.pass,.steps li.skip {
+	background-color: #FFF;
+	border: 1px #EEE solid;
 }

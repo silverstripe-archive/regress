@@ -11,6 +11,11 @@
  */
 class TestPlan extends Page {
 	
+	static $db = array(
+		"TestVersion" => "VarChar(256)",	// Tag field to store version number of test
+		"TestStatus" => "Enum(array('new','draft','final','changed'),'new')",
+	);
+	
 	static $allowed_children = array("TestSection");
 	
 	static $default_child = "TestSection";
@@ -28,6 +33,15 @@ class TestPlan extends Page {
 	 */	
 	function getCMSFields() {
 		$fields = parent::getCMSFields();
+
+		$fields->addFieldsToTab('Root.Edit', array(
+			new CompositeField( 
+				new CompositeField( 
+					new TextField("TestVersion", "Version"),
+					new DropdownField('TestStatus', 'Test-Status', array('new' => 'new', 'draft' => 'draft', 'changed' => 'changed', 'final' => 'final'), $this->TestStatus)
+				)
+			)
+		));
 		
 		$children = $this->Children();
 		if($children) foreach($children as $childPlan) {
@@ -47,7 +61,6 @@ class TestPlan extends Page {
 			$ctf->setName('Sessions_' . $childPlan->URLSegment . '_Draft');
 			$fields->addFieldToTab('Root.Drafts', $ctf);
 		}
-		
 		return $fields;
 	}
 
@@ -58,8 +71,10 @@ class TestPlan extends Page {
 	 */
 	function getAllCMSActions() {
 		$url = $this->baseHref().$this->getcontrollerurl()."/perform/".$this->ID;
-		return new FieldSet(
-			
+		$urlReport = $this->baseHref().$this->getcontrollerurl()."/report/".$this->ID;
+		
+		return new FieldSet(			
+			new LiteralField("Link", "<a href='".$urlReport."' target='createreport_$this->title'>Create Test Report</a>"),
 			new LiteralField("Link", "<a href='".$url."' target='performtest_$this->title'>Perform Test</a>"),
 			new FormAction("save", "Save changes")
 		);
@@ -182,6 +197,7 @@ class TestPlan_Controller extends Controller {
 
 	static $allowed_actions = array(
 		'perform',
+		'report',
 		'error'
 	);	
 	
