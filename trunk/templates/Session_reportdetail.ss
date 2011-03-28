@@ -62,6 +62,14 @@
 				$Created.Nice by $Author.Title
 			</div>
 		</div>
+		<div class='label boxed'>
+			Test Plan Version:
+		</div>
+		<div class="content">
+			<div class="box">
+				$TestPlanVersion
+			</div>
+		</div>		
 	</div>
 
 	<div>

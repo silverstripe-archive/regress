@@ -143,7 +143,9 @@ class Session_Controller extends Controller {
 		$testSessionData["OverallNote"] = NULL;
 		$testSessionData["BaseURL"]     = NULL;
 		$testSessionData["Browser"]     = NULL;
-		$testSessionData["CodeRevision"]     = NULL;
+		$testSessionData["CodeRevision"]= NULL;
+		$testSessionData["TestPlanVersion"]= NULL;
+		
 		
 		if (isset($_REQUEST['TestSessionObjID'])) { 
 			$testSessionData["ID"] = $_REQUEST['TestSessionObjID'];
@@ -168,6 +170,10 @@ class Session_Controller extends Controller {
 
 		if (isset($_REQUEST['CodeRevision'])) { 
 			$testSessionData["CodeRevision"] = $_REQUEST['CodeRevision'];
+		}
+		
+		if (isset($_REQUEST['TestPlanVersion'])) { 
+			$testSessionData["TestPlanVersion"] = $_REQUEST['TestPlanVersion'];
 		}
 		
 		// default: tests are always performed via test-plans.
@@ -196,7 +202,8 @@ class Session_Controller extends Controller {
 		$session->TestPlanID    = $testSessionData["TestPlanID"];
 		$session->BaseURL       = $testSessionData["BaseURL"];
 		$session->Browser       = $testSessionData["Browser"];
-		$session->CodeRevision       = $testSessionData["CodeRevision"];
+		$session->CodeRevision  = $testSessionData["CodeRevision"];
+		$session->TestPlanVersion = $testSessionData["TestPlanVersion"];
 		
 		if (isset($_REQUEST['action_doSaveSession']) && ($_REQUEST['action_doSaveSession'] == 'Execute')) {
 			$session->Status = 'draft';

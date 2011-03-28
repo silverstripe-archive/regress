@@ -16,6 +16,7 @@ class TestSessionObj extends DataObject {
 		'Status'      => "Enum(array('new','draft','submitted','archived'),'new')",
 		'BaseURL' => 'Text',
 		'Browser' => 'Text',
+		'TestPlanVersion' => 'Varchar(1024)'
 	);
 	
 	static $has_one = array(
