@@ -225,7 +225,8 @@ class TestSection extends Page {
 class TestSection_Controller extends Controller {
 
 	static $allowed_actions = array(
-		'perform'
+		'perform',
+		'report'
 	);
 	
 	/**
