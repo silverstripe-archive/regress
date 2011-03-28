@@ -19,6 +19,16 @@
 			$Content
 		</div>
 	<% end_if %>
+	<% if TestVersion %>
+		<div class="label">
+			<label>Test Plan Version</label>
+		</div>
+		<div>
+		$TestVersion (stored as '$TestStatus')
+		<br/>
+		<hr/>
+		</div>
+	<% end_if %>
 
 	<% include TestSessionReportForm %>
 	<% end_control %>	

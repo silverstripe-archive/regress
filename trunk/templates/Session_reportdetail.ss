@@ -67,7 +67,7 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$TestPlanVersion
+				$TestPlanVersion &nbsp;
 			</div>
 		</div>		
 	</div>

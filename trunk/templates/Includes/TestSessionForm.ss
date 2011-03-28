@@ -2,7 +2,25 @@
 <form action="session/saveperformance/$ID" method="post" name="session" enctype="multipart/form-data">
 	<input type="hidden" name="ParentID" value="$ID" />
 	<input type="hidden" name="SessionType" value="$ClassName" />
-	<input type="hidden" name="TestPlanVersion" value="$TestVersion (stored as '$TestStatus')" />
+
+	<% if ClassName = TestSection %>
+		<% control TestPlan %>
+		<% if TestVersion %>
+		<input type="hidden" name="TestPlanVersion" value="Overall Test Plan Version is $TestVersion (stored as '$TestStatus')" />
+		<% else %>
+		<input type="hidden" name="TestPlanVersion" value="Version not specified" />
+		<% end_if %>
+		<% end_control %>
+	<% end_if %>
+
+	<% if ClassName = TestPlan %>
+		<% if TestVersion %>
+		<input type="hidden" name="TestPlanVersion" value="$TestVersion (stored as '$TestStatus')" />
+		<% else %>
+		<input type="hidden" name="TestPlanVersion" value="Version not specified" />
+		<% end_if %>
+	<% end_if %>
+
 	
 	<% control TestSessionObj %>
 	<input type="hidden"  id="TestSessionObjID" name="TestSessionObjID" value="$ID" />

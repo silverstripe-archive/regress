@@ -14,12 +14,17 @@
 	<% if TestSection %>	
 	<% control TestSection %>
 	<h1 class="pageTitle">Test Feature: $Title</h1>
+
 	<% if Content %>
-		<div class="box">
-			$Content
+		<div class="label">
+			<label>Description</label>
+		</div>
+		<div>
+		$Content
+		<hr/>
 		</div>
 	<% end_if %>
-
+	
 	<% include TestSessionReportForm %>
 	<% end_control %>	
 	<% else %>

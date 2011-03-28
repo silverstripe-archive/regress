@@ -21,6 +21,7 @@
 		</div>
 		<% end_if %>
 	</div>	
+	<hr/>
 	
 	<!-- Test script -->
 	<h2 class="pageTitle">Test Execution Plan</h2>
