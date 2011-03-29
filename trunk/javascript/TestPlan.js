@@ -283,15 +283,20 @@ Behaviour.register({
 	
 		setStatus : function(status) {
 			this.className = status;
+
+			//
+			// Removed (29/03/2011) by Rainer due to js errors and no real 
+			// impact except a minor visual color change on the labels.
 			
-			var candStatus;
-			for(candStatus in this.statusInputs) {
-				if(candStatus == status) {
-					Element.addClassName(this.statusInputs[candStatus].parentNode, 'selected');
-				} else {
-					Element.removeClassName(this.statusInputs[candStatus].parentNode, 'selected');
-				}
-			}
+			// var candStatus;
+			// for(candStatus in this.statusInputs) {
+			// 	if(candStatus == status) {
+			// 		Element.addClassName(this.statusInputs[candStatus].parentNode, 'selected');
+			// 	} else {
+			// 		Element.removeClassName(this.statusInputs[candStatus].parentNode, 'selected');
+			// 	}
+			// }
+
 			//this.failReason.style.display = (status == 'pass') ? 'none' : '';
 			this.note.style.display = '';
 		}

@@ -504,7 +504,7 @@ fieldset {
 	margin-top: 0px;
 }
 
-.index_scenarios .steps li.scenario,.steps li.fail,.steps li.pass,.steps li.skip {
+.index_scenarios .steps li.scenario, .index_scenarios .steps li.fail, .index_scenarios .steps li.pass, .index_scenarios .steps li.skip {
 	background-color: #FFF;
 	border: 1px #EEE solid;
 }
