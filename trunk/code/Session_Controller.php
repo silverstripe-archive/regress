@@ -223,10 +223,12 @@ class Session_Controller extends Controller {
 			$result->TestSectionID = (int)$testSessionData["TestSectionID"];
 			$result->TestSessionID = (int)$session->ID;
 
+			$result->Severity = '';
+
 			if ($outcome == 'fail') {
-				$result->Severity = Convert::raw2sql($_REQUEST['Severity'][$testStepID]);
-			} else {
-				$result->Severity = '';
+				if (isset($_REQUEST['Severity'][$testStepID])) {
+					$result->Severity = Convert::raw2sql($_REQUEST['Severity'][$testStepID]);
+				}
 			}
 			
 			$result->Outcome = $outcome;
