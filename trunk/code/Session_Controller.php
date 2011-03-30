@@ -196,7 +196,7 @@ class Session_Controller extends Controller {
 		}
 
 		// update test-session object
-		$session->Tester        =  Convert::raw2sql($testSessionData["Tester"]);
+		$session->Tester        = $testSessionData["Tester"];
 		$session->OverallNote   = $testSessionData["OverallNote"];
 		$session->TestSectionID = $testSessionData["TestSectionID"];
 		$session->TestPlanID    = $testSessionData["TestPlanID"];
@@ -218,10 +218,16 @@ class Session_Controller extends Controller {
 			
 			$result = $this->getStepResult($session,$testStepID);
 
-			$result->TestStepID    = $testStepID;
-			$result->TestPlanID    = $testSessionData["TestPlanID"];
-			$result->TestSectionID = $testSessionData["TestSectionID"];
-			$result->TestSessionID = $session->ID;
+			$result->TestStepID    = (int)$testStepID;
+			$result->TestPlanID    = (int)$testSessionData["TestPlanID"];
+			$result->TestSectionID = (int)$testSessionData["TestSectionID"];
+			$result->TestSessionID = (int)$session->ID;
+
+			if ($outcome == 'fail') {
+				$result->Severity = Convert::raw2sql($_REQUEST['Severity'][$testStepID]);
+			} else {
+				$result->Severity = '';
+			}
 			
 			$result->Outcome = $outcome;
 			
@@ -229,7 +235,7 @@ class Session_Controller extends Controller {
 			$result->Note = $_REQUEST['Note'][$testStepID];
 			$result->write();
 		}
-		
+			
 		if (Director::is_ajax()) {
 			$responseArray['TestSessionObjID'] = $session->ID;
 			$responseArray['Message']          = "Draft-session saved (".$session->LastEdited.")";

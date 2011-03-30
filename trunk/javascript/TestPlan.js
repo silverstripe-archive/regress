@@ -167,8 +167,6 @@ $(document).ready(function() {
 		resetEditableInputs(id);
 	});
 
-	
-	
 	});
 	
 	/**
@@ -249,56 +247,16 @@ $(document).ready(function() {
 		$('body').append(html);
 	}
 	
-
+	$('div.failseverity input').livequery('click', function() {
+		var step = $(this).parents('li.scenario');
+		step.addClass('fail').removeClass('pass skip');
+		step.children('div.passfail').children('label.fail').children('input').attr('checked', true);
+	});
+	
+	// change color of test-step div object
+	$('div.passfail input').livequery('click', function() {
+		var step = $(this).parents('li.scenario');
+		step.removeClass('pass fail skip').addClass(this.value);
+		step.children('div.failseverity').children().children('input').attr('checked',false);
+	});	
 })(jQuery);
-
-Behaviour.register({
-
-	'div.passfail input' : {
-		initialize : function() {
-			this.step = this.parentNode;
-			while(this.step.tagName.toLowerCase() != 'li') this.step = this.step.parentNode;
-		},
-		onclick : function() {
-			this.step.setStatus(this.value);
-		}
-	},
-	
-	'ul.steps li' : {
-		initialize : function() {
-			this.statusInputs = [];
-
-			var i,input,inputs = this.getElementsByTagName('input');
-			for(i=0;input=inputs[i];i++) {
-				this.statusInputs[input.value] = input;
-			}
-			
-			var div,divs = this.getElementsByTagName('div');
-			for(i=0;div=divs[i];i++) {
-				//if(div.className == 'failReason') { this.failReason = div; break; }
-				//if(div.className == 'passNote') { this.passNote = div; break; }
-				if(div.className == 'note') { this.note = div; break; }
-			}
-		},
-	
-		setStatus : function(status) {
-			this.className = status;
-
-			//
-			// Removed (29/03/2011) by Rainer due to js errors and no real 
-			// impact except a minor visual color change on the labels.
-			
-			// var candStatus;
-			// for(candStatus in this.statusInputs) {
-			// 	if(candStatus == status) {
-			// 		Element.addClassName(this.statusInputs[candStatus].parentNode, 'selected');
-			// 	} else {
-			// 		Element.removeClassName(this.statusInputs[candStatus].parentNode, 'selected');
-			// 	}
-			// }
-
-			//this.failReason.style.display = (status == 'pass') ? 'none' : '';
-			this.note.style.display = '';
-		}
-	}
-});

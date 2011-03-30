@@ -64,8 +64,15 @@
 			
 				<div class="passfail">
 					<label class="pass"><input type="radio" value="pass" name="Outcome[$ID]" <% if IsOutcomePass %>checked="true"<% end_if %> />pass</label>
-					<label class="fail"><input type="radio" value="fail" name="Outcome[$ID]" <% if IsOutcomeFail %>checked="true"<% end_if %> />fail</label>
+					<label class="fail fail_$ID"><input type="radio" value="fail" name="Outcome[$ID]" <% if IsOutcomeFail %>checked="true"<% end_if %> />fail</label>
 					<label class="skip"><input type="radio" value="skip" name="Outcome[$ID]" <% if IsOutcomeSkip %>checked="true"<% end_if %> />skip</label>
+				</div>
+
+				<div class="failseverity">
+					<label class="severity1"><input type="radio" value="Severity1" name="Severity[$ID]" <% if IsSeverity1 %>checked="true"<% end_if %> /><strong>Severity 1</strong></label>
+					<label class="severity2"><input type="radio" value="Severity2" name="Severity[$ID]" <% if IsSeverity2 %>checked="true"<% end_if %> /><strong>Severity 2</strong></label>
+					<label class="severity3"><input type="radio" value="Severity3" name="Severity[$ID]" <% if IsSeverity3 %>checked="true"<% end_if %> />Severity 3</label>
+					<label class="severity4"><input type="radio" value="Severity4" name="Severity[$ID]" <% if IsSeverity4 %>checked="true"<% end_if %> />Severity 4</label>
 				</div>
 
 				<div id='scenarioContent_$ID' class="content">

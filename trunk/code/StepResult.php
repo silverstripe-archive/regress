@@ -15,6 +15,7 @@ class StepResult extends DataObject {
 	
 	static $db = array(
 		"Outcome"        => "Enum(',pass,fail,skip','')",
+		"Severity"        => "Enum(',Severity1,Severity2,Severity3,Severity4','')",
 		"Note"           => "Text",
 		"ResolutionDate" => "Datetime"
 	);
@@ -54,6 +55,14 @@ class StepResult extends DataObject {
 	function NoteMarkdown() {
 		return MarkdownText::render($this->Note);
 	}	
+	
+	function IsFail() {
+		return ($this->Outcome == 'fail');
+	}
+	
+	function IsTopSeverityRating() {
+		return ($this->Severity == 'Severity1' || $this->Severity == 'Severity2');
+	}
 }
 
 /**

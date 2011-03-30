@@ -20,7 +20,6 @@
 		<input type="hidden" name="TestPlanVersion" value="Version not specified" />
 		<% end_if %>
 	<% end_if %>
-
 	
 	<% control TestSessionObj %>
 	<input type="hidden"  id="TestSessionObjID" name="TestSessionObjID" value="$ID" />

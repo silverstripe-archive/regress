@@ -68,7 +68,27 @@ class TestStep extends DataObject {
 		$obj = $this->SessionStepResult();		
 		if ($obj) return $obj->Outcome == 'fail';
 	}
-	
+
+
+	function IsSeverity1() {
+		$obj = $this->SessionStepResult();		
+		if ($obj) return $obj->Severity == 'Severity1';
+	}
+
+	function IsSeverity2() {
+		$obj = $this->SessionStepResult();		
+		if ($obj) return $obj->Severity == 'Severity2';
+	}
+
+	function IsSeverity3() {
+		$obj = $this->SessionStepResult();		
+		if ($obj) return $obj->Severity == 'Severity3';
+	}
+
+	function IsSeverity4() {
+		$obj = $this->SessionStepResult();		
+		if ($obj) return $obj->Severity == 'Severity4';
+	}	
 	
 	/**
 	 * Return the text stored in Step formatted as HTML, using Markdown for the

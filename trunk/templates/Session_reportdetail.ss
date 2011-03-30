@@ -51,7 +51,7 @@
 		</div>
 		<div class="content">
 			<div class="box">
-				$ID  &nbsp;
+				$ID &nbsp;
 			</div>
 		</div>
 		<div class='label boxed'>
@@ -211,7 +211,21 @@
 						<p class="state">$Outcome</p>
 					</div>
 				</div>
-				
+				<% if IsFail %>
+				<div>
+					<div class='label'>
+						<p>Severity:</p>
+					</div>
+					<div class="content">
+						<% if IsTopSeverityRating %>
+						<strong><p class="state">$Severity</p></strong>
+						<% else %>
+						<p class="state">$Severity</p>
+						<% end_if %>
+					</div>
+				</div>
+				<% end_if %>
+								
 				<% if Attachments %>
 					<div class='label'>
 						<p>Attachments:</p>

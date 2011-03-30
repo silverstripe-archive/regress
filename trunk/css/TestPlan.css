@@ -129,9 +129,11 @@ p.showHideIndex a {
 	border-style: none;
 }
 
-
 .passfail {
 	float: right;
+	background-color: #F0F0F0;
+	text-align: right;
+	width: 100%;
 }
 
 .passfail label {
@@ -421,7 +423,8 @@ ul.steps li.scenario {
 }
 
 .scenario div.content {
-	margin-top: 30px;
+	margin-top: 50px;
+	border-top: 1px solid #000;
 }
 
 .resolutionInfo {
@@ -477,8 +480,6 @@ fieldset {
 	border: 0px;
 }
 
-
-
 .index_subsection {
 	padding-left: 30px;
 }
@@ -507,4 +508,18 @@ fieldset {
 .index_scenarios .steps li.scenario, .index_scenarios .steps li.fail, .index_scenarios .steps li.pass, .index_scenarios .steps li.skip {
 	background-color: #FFF;
 	border: 1px #EEE solid;
+}
+
+.failseverity {
+	float: right;
+	background-color: #F0F0F0;
+	border-bottom: 1px solid #000000;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	text-align: right;
+	width: 100%;
+}
+
+.failseverity label {
+	padding: 3px;
 }
