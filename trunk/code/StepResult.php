@@ -13,11 +13,19 @@
  */ 
 class StepResult extends DataObject {
 	
+	static $severity_map = array(
+		'' => 'not available',
+		'Severity1' => 'Critical',
+		'Severity2' => 'High',
+		'Severity3' => 'Medium',
+		'Severity4' => 'Low',
+	);
+	
 	static $db = array(
-		"Outcome"        => "Enum(',pass,fail,skip','')",
+		"Outcome"         => "Enum(',pass,fail,skip','')",
 		"Severity"        => "Enum(',Severity1,Severity2,Severity3,Severity4','')",
-		"Note"           => "Text",
-		"ResolutionDate" => "Datetime"
+		"Note"            => "Text",
+		"ResolutionDate"  => "Datetime"
 	);
 	
 	static $has_one = array(
@@ -63,6 +71,31 @@ class StepResult extends DataObject {
 	function IsTopSeverityRating() {
 		return ($this->Severity == 'Severity1' || $this->Severity == 'Severity2');
 	}
+	
+	function IsSeverity1() {
+		return $this->Severity == 'Severity1';
+	}
+
+	function IsSeverity2() {
+		return $this->Severity == 'Severity2';
+	}
+
+	function IsSeverity3() {
+		return $this->Severity == 'Severity3';
+	}
+
+	function IsSeverity4() {
+		return $this->Severity == 'Severity4';
+	}	
+	
+	function IsSeverityUnselected() {
+		return $this->Severity == '';
+	}
+		
+	function getSeverityNice() {
+		return StepResult::$severity_map[$this->Severity];
+		
+	}
 }
 
 /**
@@ -98,6 +131,32 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	}
 
 	/**
+	 * Change the severity status of the failed step-result.
+	 */
+	function setSeverityStatus($sr, $Severity) {
+
+		$currentStatus = $sr->Outcome;
+		$statusMessage = "%s: change status from '%s' to '%s'.";
+	
+		$currentSeverity = $sr->Severity;
+		if (!$currentSeverity) {
+			$currentSeverity = 'not available';
+		}
+
+		$StepResultNote = new StepResultNote();
+		$StepResultNote->Status = "Commented";
+		$StepResultNote->Note = sprintf($statusMessage,Member::currentUser()->getName(),$currentSeverity, $Severity);
+		$StepResultNote->Date = date('Y-m-d h:i:s');
+		$StepResultNote->StepResultID = $sr->ID;
+		$StepResultNote->write();
+
+		$sr->Outcome = 'fail';
+		$sr->Severity = $Severity;
+
+		$sr->write();
+	}
+
+	/**
 	 * Marks the step-result as resolved.
 	 *
 	 * Set the flag of the step-result to 'resolved'.
@@ -125,17 +184,30 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 		}
 		
 		$sr = $this->StepResult();
+		
+		$Severity = '';
+		if (isset($params['severity'])) {
+			$Severity = trim($params['severity']);
+		}		
+
+		// update severity if required
+		if ($Severity && $Severity != $sr->Severity) {
+			$this->setSeverityStatus($sr, $Severity);
+		}
+				
 		$sr->ResolutionDate = date('Y-m-d h:i:s');
 		$sr->write();
 
 		$StepResultNote = new StepResultNote();
 		$StepResultNote->Status = "Resolved";
-		$StepResultNote->Note = $ResolutionNote;
+		$StepResultNote->Note = sprintf('%s : %s',Member::currentUser()->getName(),$ResolutionNote);
 		$StepResultNote->Date = $sr->ResolutionDate;
 		$StepResultNote->StepResultID = $sr->ID;
 		$StepResultNote->write();
 		
-		Director::redirectBack();
+		// redirect to the anchor of the test-step
+		$url = "session/reportdetail/" . $sr->TestPlan()->ID. "/".$sr->TestSession()->ID."#step_".$sr->ID;
+		Director::redirect($url);
 	}
 	
 	/**
@@ -165,17 +237,30 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 
 		$sr = $this->StepResult();
 
+		$Severity = '';
+		if (isset($params['severity'])) {
+			$Severity = trim($params['severity']);
+		}		
+
+		// update severity if required
+		if ($Severity && $Severity != $sr->Severity) {
+			$this->setSeverityStatus($sr, $Severity);
+		}
+		
 		$sr->ResolutionDate = null;
 
 		$StepResultNote = new StepResultNote();
 		$StepResultNote->Status = "Unresolved";
-		$StepResultNote->Note = $ResolutionNote;
+		$StepResultNote->Note = sprintf('%s : %s',Member::currentUser()->getName(),$ResolutionNote);
 		$StepResultNote->Date  = date('Y-m-d h:i:s');
 		$StepResultNote->StepResultID = $sr->ID;
 		$StepResultNote->write();
 
 		$sr->write();
-		Director::redirectBack();
+
+		// redirect to the anchor of the test-step
+		$url = "session/reportdetail/" . $sr->TestPlan()->ID. "/".$sr->TestSession()->ID."#step_".$sr->ID;
+		Director::redirect($url);
 	}
 	
 	function comment($fields) {
@@ -197,15 +282,27 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 		}
 		
 		$sr = $this->StepResult();
+
+		$Severity = '';
+		if (isset($params['severity'])) {
+			$Severity = trim($params['severity']);
+		}		
+
+		// update severity if required
+		if ($Severity && $Severity != $sr->Severity) {
+			$this->setSeverityStatus($sr, $Severity);
+		}		
 		
 		$StepResultNote = new StepResultNote();
 		$StepResultNote->Status = "Commented";
-		$StepResultNote->Note = $ResolutionNote;
+		$StepResultNote->Note = sprintf('%s : %s',Member::currentUser()->getName(),$ResolutionNote);
 		$StepResultNote->Date  = date('Y-m-d h:i:s');
 		$StepResultNote->StepResultID = $sr->ID;
 		$StepResultNote->write();
 		
-		Director::redirectBack();
+		// redirect to the anchor of the test-step
+		$url = "session/reportdetail/" . $sr->TestPlan()->ID. "/".$sr->TestSession()->ID."#step_".$sr->ID;
+		Director::redirect($url);
 	} 
 }
 

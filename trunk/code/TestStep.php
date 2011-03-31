@@ -72,22 +72,22 @@ class TestStep extends DataObject {
 
 	function IsSeverity1() {
 		$obj = $this->SessionStepResult();		
-		if ($obj) return $obj->Severity == 'Severity1';
+		if ($obj) return $obj->IsSeverity1();
 	}
 
 	function IsSeverity2() {
 		$obj = $this->SessionStepResult();		
-		if ($obj) return $obj->Severity == 'Severity2';
+		if ($obj) return $obj->IsSeverity2();
 	}
 
 	function IsSeverity3() {
 		$obj = $this->SessionStepResult();		
-		if ($obj) return $obj->Severity == 'Severity3';
+		if ($obj) return $obj->IsSeverity3();
 	}
 
 	function IsSeverity4() {
 		$obj = $this->SessionStepResult();		
-		if ($obj) return $obj->Severity == 'Severity4';
+		if ($obj) return $obj->IsSeverity4();
 	}	
 	
 	/**

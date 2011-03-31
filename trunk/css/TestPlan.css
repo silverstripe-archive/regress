@@ -231,7 +231,7 @@ ul#NoteDetail .label {
 }
 
 ul#NoteDetail .content {
-	margin-left: 40px;
+	margin-left: 80px;
 	padding-left: 80px;
 	padding-bottom: 5px;
 	padding-top: 2px;
@@ -387,7 +387,7 @@ div.reportheader .label {
 }
 
 div.reportheader .content {
-	margin-left: 150px;
+	margin-left: 180px;
 	margin-top: 0px;
 }
 

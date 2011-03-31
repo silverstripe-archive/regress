@@ -171,34 +171,34 @@
 	<form id="report" action="session" method="post" name="report">
 		<!-- NOTES -->
 		<% if Notes %>
-		
 		<h2>Notes</h2>
 		<ul id="NoteDetail">
-
 			<% control Notes %>
 			
-			<li class="stepdetail status $Outcome <% if ResolutionDate %>resolved<% end_if %>">
+			<li class="stepdetail status $Outcome <% if ResolutionDate %>resolved<% end_if %>" id='step_$ID'>
+				
+			
 				<div>
 					<div class='label'>
 						<p>Scenario:</p>
 					</div>
 					<div class="content">
 						<% control TestStep %>
-							<p>$StepMarkdown</p>
+						<p>$StepMarkdown</p>
 						<% end_control %>
 					</div>
 				</div>
 		
 				<div>
 					<div class='label'>
-						<p>Note:</p>
+					<p>Note:</p>
 					</div>
 					<div class="content">
 						<p>
 						<% if Note %>
-							$NoteMarkdown
+						$NoteMarkdown
 						<% else %>
-						  Tester has not entered any further information/comments.
+						Tester has not entered any further information/comments.
 						<% end_if %>
 						</p>
 					</div>
@@ -211,6 +211,7 @@
 						<p class="state">$Outcome</p>
 					</div>
 				</div>
+				
 				<% if IsFail %>
 				<div>
 					<div class='label'>
@@ -218,9 +219,9 @@
 					</div>
 					<div class="content">
 						<% if IsTopSeverityRating %>
-						<strong><p class="state">$Severity</p></strong>
+						<strong><p class="state">$SeverityNice</p></strong>
 						<% else %>
-						<p class="state">$Severity</p>
+						<p class="state">$SeverityNice &nbsp;</p>
 						<% end_if %>
 					</div>
 				</div>
@@ -240,7 +241,7 @@
 				<% end_if %>
 				
 				<div>
-					<hr />
+					<hr />					
 					<div class='resolutionComments'>
 						<div class='label'>
 							<p>Comments:</p>
@@ -264,39 +265,45 @@
 								</p>
 							</div>
 						</div>
-						<div class="content actions">
-							<% if ResolutionDate %>
-								<% if canUnresolve %>
-								<textarea id="textarea_$ID" name="resolution_$ID" cols="120" rows="5" class='resolutionNote'></textarea>
-								<br />
-								<div class="resolutionAction">
-									<div class="resolutionButton">
-										<a id="resolution_$ID"  href="$CommentLink" class="commentAction">
-											Comment
-										</a>
-																				
-										<a id="resolution_$ID"  href="$UnresolveActionLink" class="unresolveAction">
-											Mark as not resolved
-										</a>
-									</div>
-								</div>
-								<% end_if %>
-							<% else %>							
-								<% if canResolve %>
-								<textarea id="textarea_$ID" name="resolution_$ID" cols="120" rows="5" class='resolutionNote'></textarea>
-								<br />
-								<div class="resolutionAction">
-									<div class="resolutionButton">
-										<a id="resolution_$ID"  href="$CommentLink" class="commentAction">
-											Comment
-										</a>
 
-										<a id="resolution_$ID" href="$ResolveActionLink" class='resolveAction'>
-											Mark as resolved
-										</a>
-									</div>
+						<div class="content actions">
+							<hr />
+							<% if IsFail %>
+							<div class="failseverity">
+								<label class="severity1"><input type="radio" value="Severity1" title="major impact, testing cannot continue" name="resolution_$ID" <% if IsSeverity1 %>checked="true"<% end_if %> /><strong>Critical</strong></label>
+								<label class="severity2"><input type="radio" value="Severity2" title="major impact, potentially a workaround existis, testing can continue" name="resolution_$ID" <% if IsSeverity2 %>checked="true"<% end_if %> /><strong>High</strong></label>
+								<label class="severity3"><input type="radio" value="Severity3" title="medium impact, e.g., usability problem" name="resolution_$ID" <% if IsSeverity3 %>checked="true"<% end_if %> />Medium</label>
+								<label class="severity4"><input type="radio" value="Severity4" title="minor or no impact, e.g., cosmetic error" name="resolution_$ID" <% if IsSeverity4 %>checked="true"<% end_if %> />Low</label>
+							</div>							
+							<% end_if %>
+							
+							<% if ResolutionDate %>
+							<% if canUnresolve %>
+							<textarea id="textarea_$ID" name="resolution_$ID" cols="115" rows="5" class='resolutionNote'></textarea>
+							<br />
+							<div class="resolutionAction">
+								<div class="resolutionButton">
+									<a id="resolution_$ID"  href="$CommentLink" class="commentAction">
+										Comment
+									</a>
+																				
+									<a id="resolution_$ID"  href="$UnresolveActionLink" class="unresolveAction">
+										Mark as not resolved
+									</a>
 								</div>
-								<% end_if %>
+							</div>
+							<% end_if %>
+							<% else %>							
+							<% if canResolve %>
+							<textarea id="textarea_$ID" name="resolution_$ID" cols="115" rows="5" class='resolutionNote'></textarea>
+							<br />
+							<div class="resolutionAction">
+								<div class="resolutionButton">
+									<a id="resolution_$ID"  href="$CommentLink" class="commentAction">Comment</a>
+									<a id="resolution_$ID" href="$ResolveActionLink" class='resolveAction'>Mark as resolved</a>
+								</div>
+							</div>
+							<% end_if %>
 							<% end_if %>
 						</div>
 					</div>
