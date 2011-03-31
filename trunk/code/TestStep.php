@@ -126,6 +126,13 @@ class TestStep extends DataObject {
 		return Permission::check("CMS_ACCESS_CMSMain");
 	}
 	
+	function ParentClassName() {
+		return $this->Parent()->ClassName;
+	}
+
+	function ParentFeatureID() {
+		return $this->Parent()->FeatureID;
+	}
 }
 
 class TestStep_Controller extends Controller {
