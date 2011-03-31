@@ -1,4 +1,4 @@
-<li class="scenario 			
+<li id='teststep_$ID' class="scenario 			
 	<% if IsOutcomePass %>pass<% end_if %>
 	<% if IsOutcomeFail %>fail<% end_if %>
 	<% if IsOutcomeSkip %>skip<% end_if %>">

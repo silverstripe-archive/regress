@@ -179,14 +179,22 @@
 				
 			
 				<div>
+
+					<% control TestStep %>
+					<div class='label'>
+						<p>Feature:</p>
+					</div>
+					
+					<div class="content">
+						<p>$Parent.FeatureID (<a href='feature/perform/$Parent.ID#teststep_$ID' target='_performnew'>Perform feature</a>)</p>
+					</div>
 					<div class='label'>
 						<p>Scenario:</p>
 					</div>
 					<div class="content">
-						<% control TestStep %>
 						<p>$StepMarkdown</p>
-						<% end_control %>
 					</div>
+					<% end_control %>
 				</div>
 		
 				<div>
