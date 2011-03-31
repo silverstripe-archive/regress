@@ -14,6 +14,10 @@ textarea {
 	padding: 5px;
 }
 
+.resolutionComments textarea {
+	width: 90%;
+}
+
 input {
 	margin-bottom: 5px;
 }
@@ -511,13 +515,12 @@ fieldset {
 }
 
 .failseverity {
-	float: right;
 	background-color: #F0F0F0;
 	border-bottom: 1px solid #000000;
 	padding-bottom: 5px;
 	padding-top: 5px;
 	text-align: right;
-	width: 100%;
+	width: 91%;
 }
 
 .failseverity label {
