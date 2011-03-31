@@ -74,30 +74,67 @@
 
 	<div>
 		<div class='label boxed'>
-			Passes:
+			Summary:
 		</div>
 		<div class="content">
 			<div class="box">
-				$NumPasses  &nbsp;
-			</div>
-		</div>
-		<div class='label boxed'>
-			Failures:
-		</div>
-		<div class="content">
-			<div class="box">
-				$NumFailures  &nbsp;
-			</div>
-		</div>
-		<div class='label boxed'>
-			Skip:
-		</div>
-		<div class="content">
-			<div class="box">
-				$NumSkips  &nbsp;
+			
+			<table class='resulttable'>
+			<tr>
+				<th>Total of tests</th>
+				<th>Missed tests</th>
+				<th>Actual executed</th>
+				<th>Pass</th>
+				<th>Skip</th>
+				<th>Fail</th>
+				<th>Overall</th>
+			</tr>
+			<tr>
+				<td><% if NumberOfTestSteps %>$NumberOfTestSteps<% else %>n/a<% end_if %> &nbsp;</td>
+				<td>$NumOfMissedTestSteps &nbsp;</td>
+				<td>$NumExecutedTests &nbsp;</td>
+				<td>$NumPasses &nbsp;</td>
+				<td>$NumSkips &nbsp;</td>
+				<td>$NumFailures &nbsp;</td>
+				<td>$OverallResult &nbsp;</td>
+			</tr>
+			</table>
+
 			</div>
 		</div>
 	</div>
+
+
+	<div>
+		<div class='label boxed'>
+			Failure Summary:
+		</div>
+		<div class="content">
+			<div class="box">
+
+			<table class='resulttable'>
+			<tr>
+				<th>Fail</th>
+				<th>Critial</th>
+				<th>High</th>
+				<th>Medium</th>
+				<th>Low</th>
+				<th>not available</th>
+			</tr>
+			<tr>
+				<td>$NumFailures &nbsp;</td>
+				<td><strong>$NumSeverityCritial &nbsp;</strong></td>
+				<td><strong>$NumSeverityHigh &nbsp;</strong></td>
+				<td>$NumSeverityMedium &nbsp;</td>
+				<td>$NumSeverityLow &nbsp;</td>
+				<td>$NumSeverityNotAvailable &nbsp;</td>
+			</tr>
+			</table>
+
+			</div>
+		</div>
+	</div>
+	
 	<hr />
 
 	<div>

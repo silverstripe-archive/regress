@@ -536,3 +536,14 @@ fieldset {
 	float: left;
 	width: 91%;
 }
+
+.resulttable th {
+	background-color: #EEE;
+	text-align: center;
+	padding: 5px;
+}
+
+.resulttable td {
+	padding: 5px;
+	text-align: center;
+}

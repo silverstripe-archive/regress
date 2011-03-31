@@ -215,6 +215,8 @@ $(document).ready(function() {
 	 */
 	buildTableOfContent();
 	
+	countTestSteps();
+	
 	$('a#hideIndex').livequery('click', function() {
 		$('#tableOfContent').hide(); 
 		return false;
@@ -259,4 +261,16 @@ $(document).ready(function() {
 		step.removeClass('pass fail skip').addClass(this.value);
 		step.children('div.failseverity').children().children('input').attr('checked',false);
 	});	
+	
+	
+	function countTestSteps() {
+		var list = 0; 
+		var location = window.location;
+
+		$('li.scenario').each( function() { 
+			list ++;
+		});
+		
+		$('input[name=NumTestSteps]')[0].value = list;
+	}	
 })(jQuery);

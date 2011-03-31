@@ -264,6 +264,7 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	}
 	
 	function comment($fields) {
+		
 		if (!Member::currentUser()) {
 			return Security::permissionFailure();
 		}
@@ -283,6 +284,20 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 		
 		$sr = $this->StepResult();
 
+		if($this->request->requestVar('_REDIRECT_BACK_URL')) {
+			$url = $this->request->requestVar('_REDIRECT_BACK_URL');
+		} else if($this->request->getHeader('Referer')) {
+			$url = $this->request->getHeader('Referer');
+		} else {
+			$url = Director::baseURL();
+		}
+
+		// absolute redirection URLs not located on this site may cause phishing
+		if(!Director::is_site_url($url)) {
+			Director::redirectBack();
+		}
+
+		
 		$Severity = '';
 		if (isset($params['severity'])) {
 			$Severity = trim($params['severity']);
@@ -301,8 +316,7 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 		$StepResultNote->write();
 		
 		// redirect to the anchor of the test-step
-		$url = "session/reportdetail/" . $sr->TestPlan()->ID. "/".$sr->TestSession()->ID."#step_".$sr->ID;
-		Director::redirect($url);
+		Director::redirect($url."#step_".$sr->ID);
 	} 
 }
 

@@ -145,6 +145,7 @@ class Session_Controller extends Controller {
 		$testSessionData["Browser"]     = NULL;
 		$testSessionData["CodeRevision"]= NULL;
 		$testSessionData["TestPlanVersion"]= NULL;
+		$testSessionData["NumTestSteps"]  = NULL;
 		
 		
 		if (isset($_REQUEST['TestSessionObjID'])) { 
@@ -176,6 +177,10 @@ class Session_Controller extends Controller {
 			$testSessionData["TestPlanVersion"] = $_REQUEST['TestPlanVersion'];
 		}
 		
+		if (isset($_REQUEST['NumTestSteps'])) { 
+			$testSessionData["NumTestSteps"] = (int) $_REQUEST['NumTestSteps'];
+		}
+				
 		// default: tests are always performed via test-plans.
 		if ($_REQUEST['SessionType'] == 'TestSection') {
 			$testSessionData["TestSectionID"] = (int)$_REQUEST['ParentID'];
@@ -185,6 +190,7 @@ class Session_Controller extends Controller {
 			$testSessionData["TestPlanID"] = (int)$_REQUEST['ParentID'];
 		}
 		
+	
 		$session = $this->prepareTestSessionObj($testSessionData);
 		
 		if (!$session->isEditable()) {
@@ -204,6 +210,7 @@ class Session_Controller extends Controller {
 		$session->Browser       = $testSessionData["Browser"];
 		$session->CodeRevision  = $testSessionData["CodeRevision"];
 		$session->TestPlanVersion = $testSessionData["TestPlanVersion"];
+		$session->NumberOfTestSteps = $testSessionData["NumTestSteps"];
 		
 		if (isset($_REQUEST['action_doSaveSession']) && ($_REQUEST['action_doSaveSession'] == 'Execute')) {
 			$session->Status = 'draft';

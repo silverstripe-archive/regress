@@ -16,7 +16,8 @@ class TestSessionObj extends DataObject {
 		'Status'      => "Enum(array('new','draft','submitted','archived'),'new')",
 		'BaseURL' => 'Text',
 		'Browser' => 'Text',
-		'TestPlanVersion' => 'Varchar(1024)'
+		'TestPlanVersion' => 'Varchar(1024)',
+		'NumberOfTestSteps' => 'Int'
 	);
 	
 	static $has_one = array(
@@ -51,6 +52,12 @@ class TestSessionObj extends DataObject {
 		}
 	}
 	
+	function NumExecutedTests() {
+		$num = DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID")->value();
+		if (!$num) $num = 'n/a';
+		return $num;
+	}
+		
 	function Passes() {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND Outcome = 'pass'");
 	}
@@ -66,7 +73,23 @@ class TestSessionObj extends DataObject {
 	function Notes() {
 		return DataObject::get("StepResult", "TestSessionID = $this->ID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL))");
 	}
+
+	function NumOfMissedTestSteps() {
+		if ($this->NumberOfTestSteps) {
+			return $this->NumberOfTestSteps - $this->NumExecutedTests();
+		} else {
+			return 'n/a';
+		}
+	}
 	
+	function OverallResult() {
+		if ($this->NumberOfTestSteps) {
+			return (1 / $this->NumberOfTestSteps * $this->getNumPasses()) ;
+		} else {
+			return 'n/a';
+		}
+	}
+		
 	/**
 	 * Return number (as string) of passed scenarios for the feature.
 	 *
@@ -85,6 +108,52 @@ class TestSessionObj extends DataObject {
 		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail'")->value();
 	}
 	
+	
+	/**
+	 * Return number (as string) of failed scenarios for the feature.
+	 *
+	 * @return String value of the first item of the {@link SS_Query} object
+	 */
+	function getNumSeverityNotAvailable() {
+		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail' AND Severity = ''")->value();
+	}	
+	
+	/**
+	 * Return number (as string) of failed scenarios for the feature.
+	 *
+	 * @return String value of the first item of the {@link SS_Query} object
+	 */
+	function getNumSeverityCritial() {
+		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail' AND Severity = 'Severity1'")->value();
+	}	
+
+	/**
+	 * Return number (as string) of failed scenarios for the feature.
+	 *
+	 * @return String value of the first item of the {@link SS_Query} object
+	 */
+	function getNumSeverityHigh() {
+		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail' AND Severity = 'Severity2'")->value();
+	}	
+
+	/**
+	 * Return number (as string) of failed scenarios for the feature.
+	 *
+	 * @return String value of the first item of the {@link SS_Query} object
+	 */
+	function getNumSeverityMedium() {
+		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail' AND Severity = 'Severity3'")->value();
+	}	
+
+	/**
+	 * Return number (as string) of failed scenarios for the feature.
+	 *
+	 * @return String value of the first item of the {@link SS_Query} object
+	 */
+	function getNumSeverityLow() {
+		return DB::query("SELECT COUNT(*) FROM StepResult WHERE TestSessionID = $this->ID AND Outcome = 'fail' AND Severity = 'Severity4'")->value();
+	}	
+
 	/**
 	 * Return number (as string) of skipped scenarios for the feature.
 	 *

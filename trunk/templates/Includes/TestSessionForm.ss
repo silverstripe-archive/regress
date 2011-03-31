@@ -2,6 +2,7 @@
 <form action="session/saveperformance/$ID" method="post" name="session" enctype="multipart/form-data">
 	<input type="hidden" name="ParentID" value="$ID" />
 	<input type="hidden" name="SessionType" value="$ClassName" />
+	<input type="hidden" name="NumTestSteps" size="30" value=""/>
 
 	<% if ClassName = TestSection %>
 		<% control TestPlan %>
