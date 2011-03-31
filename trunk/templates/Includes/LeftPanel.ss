@@ -18,6 +18,9 @@
 		<p class="utilityLinks">
 			<a class="editModeLink" href="#">Change to Edit Mode</a>
 		</p>
+		<p class="utilityLinks">
+			<a href="Security/logout">Logout</a>
+		</p>
 		
 	</div>	
 	<div id="statusmessage">		

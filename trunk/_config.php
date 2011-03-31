@@ -28,7 +28,7 @@ Director::addRules(2, array(
 ));
 
 Director::addRules(100, array(
-	'' => '->admin/'
+	'' => '->testplan'
 ));
 
 // R.Spittel - BasicAuth::disable is depreciated.

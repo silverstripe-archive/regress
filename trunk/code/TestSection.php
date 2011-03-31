@@ -269,8 +269,10 @@ class TestSection_Controller extends Controller {
 	 * @return TestSection 
 	 */
 	public function TestSection() {
-		$obj = DataObject::get_by_id("TestSection", $this->urlParams['ID']);
-		return $obj;
+		if (isset($this->urlParams['ID'])) {
+			return DataObject::get_by_id("TestSection", $this->urlParams['ID']);
+		} 
+		return null;
 	}
 	
 	/**
@@ -293,6 +295,7 @@ class TestSection_Controller extends Controller {
 	 */
 	function TestSessionObj() {
 		if($this->urlParams['OtherID']) {
+			return true;
 			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
 		}
 	}	

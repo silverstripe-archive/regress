@@ -198,7 +198,8 @@ class TestPlan_Controller extends Controller {
 	static $allowed_actions = array(
 		'perform',
 		'report',
-		'error'
+		'error',
+		'index'
 	);	
 	
 	/**
@@ -215,11 +216,13 @@ class TestPlan_Controller extends Controller {
 		$testplan = $this->TestPlan();
 
 		if ($testplan) {
+			
 			if (!$testplan->canView(Member::currentUser())) {
 				Director::redirect('testplan/error');
 				return;
 			}
 		}
+
 		
 		// add required javascript
 		Requirements::javascript(THIRDPARTY_DIR."/behaviour/behaviour.js");
@@ -235,6 +238,30 @@ class TestPlan_Controller extends Controller {
 		Requirements::javascript("regress/javascript/StepResultAttachements.js");
 	}
 
+	
+	function index(){
+		
+		if(isset($this->urlParams['ID'])){
+			return array();
+		} else {
+			$MyTests = new DataObjectSet();
+			$TestPlans = DataObject::get('TestPlan');
+			if($TestPlans) foreach($TestPlans as $TestPlan){
+				if($TestPlan->canView(Member::currentUser())){
+					$MyTests->push($TestPlan);
+				} 
+			}
+			return array(
+				'MyTests' => $MyTests,
+				'Dashbord' => true
+			);
+		} 
+
+		Director::redirect('testplan/error');
+		return;
+	}
+	
+
 	/**
 	 * Returns the test plan of a given ID. The ID is passed in as a HTTP
 	 * parameter.
@@ -246,6 +273,12 @@ class TestPlan_Controller extends Controller {
 			return DataObject::get_by_id("TestPlan", $this->urlParams['ID']);
 		}
 		return null;
+	}
+	
+	function FrontEndEditing(){
+		return true;
+		if(Member::currentUser() && Permission::checkMember(Member::currentUserID(), array("ADMIN", "SITETREE_EDIT_ALL"))) return true;
+
 	}
 
 	/**
