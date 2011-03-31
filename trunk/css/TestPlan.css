@@ -515,14 +515,24 @@ fieldset {
 }
 
 .failseverity {
+	float: right;
 	background-color: #F0F0F0;
 	border-bottom: 1px solid #000000;
 	padding-bottom: 5px;
 	padding-top: 5px;
 	text-align: right;
-	width: 91%;
+	width: 100%;
 }
 
 .failseverity label {
 	padding: 3px;
+}
+
+.resolutionComments textarea {
+	width: 90%;
+}
+
+.resolutionComments .failseverity {
+	float: left;
+	width: 91%;
 }
