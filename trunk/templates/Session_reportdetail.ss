@@ -81,13 +81,13 @@
 			
 			<table class='resulttable'>
 			<tr>
-				<th>Total of tests</th>
+				<th># of tests</th>
 				<th>Missed tests</th>
 				<th>Actual executed</th>
 				<th>Pass</th>
 				<th>Skip</th>
 				<th>Fail</th>
-				<th>Overall</th>
+				<th>% passing tests</th>
 			</tr>
 			<tr>
 				<td><% if NumberOfTestSteps %>$NumberOfTestSteps<% else %>n/a<% end_if %> &nbsp;</td>
@@ -114,12 +114,12 @@
 
 			<table class='resulttable'>
 			<tr>
-				<th>Fail</th>
-				<th>Critial</th>
+				<th># of failures</th>
+				<th>Critical</th>
 				<th>High</th>
 				<th>Medium</th>
 				<th>Low</th>
-				<th>not available</th>
+				<th>none selected</th>
 			</tr>
 			<tr>
 				<td>$NumFailures &nbsp;</td>
