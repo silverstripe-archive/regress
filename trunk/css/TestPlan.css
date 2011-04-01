@@ -535,6 +535,58 @@ fieldset {
 .resolutionComments .failseverity {
 	float: left;
 	width: 91%;
+<<<<<<< .mine
+}
+
+/* ----------------------Results view-------------------------- */
+.resultsListHeader {
+	width:100%;
+	font-weight:bold;
+	float:left;
+}
+
+	.resultsListHeader span {
+		float: left;
+		width:16%;
+	}
+	
+.resultsList {
+	width:100%;
+	float:left;
+	padding:2px 0;
+}
+	.resultsList.odd{
+		background-color:#E0E0FF;
+	}
+
+	.resultsList span {
+		float: left;
+		width:16%;
+		margin-bottom:4px;
+	}
+	
+/* --------------------- Dashboard -------------------------- */
+.dashboardTestTitle {
+	float:left;
+	width: 100%;
+}
+	.dashboardTestTitle h2 {
+		float:left;
+	}
+	
+	.dashboardTestTitle a {
+		float:left;
+		margin:12px 0 0 12px;
+	}
+	
+li.featureSecondLevel {
+	margin-left:22px;
+	list-style: circle;
+}
+
+.rightPanel ul li {
+	margin-bottom:6px;
+
 }
 
 .resulttable th {
@@ -546,4 +598,5 @@ fieldset {
 .resulttable td {
 	padding: 5px;
 	text-align: center;
+
 }

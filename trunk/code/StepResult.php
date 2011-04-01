@@ -107,7 +107,8 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	static $allowed_actions = array(
 		'resolve',
 		'unresolve',
-		'comment'
+		'comment',
+		'results'
 	);
 	
 	function providePermissions() {
@@ -128,6 +129,23 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	 */
 	function StepResult() {
 		return DataObject::get_by_id("StepResult", $this->urlParams['ID']);
+	}
+	
+	function ListResults(){
+		$testID = (int)$this->urlParams['ID'];
+		$TestPlan = DataObject::get_by_id('TestPlan',$testID);
+		if(!$TestPlan->canView(Member::currentUser())) return false;
+		return DataObject::get("TestSessionObj","\"TestPlanID\" = $testID");
+	}
+	
+	function TestTitle(){
+		$Test = DataObject::get_by_id("TestPlan",$this->urlParams['ID']);
+		if($Test) return $Test->Title;
+		return '';
+	}
+	
+	function ShowLeftOptions(){
+		return false;
 	}
 
 	/**

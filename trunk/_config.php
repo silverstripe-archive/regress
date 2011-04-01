@@ -24,6 +24,7 @@ Director::addRules(2, array(
 	'feature/$Action/$ID/$OtherID' => "TestSection_Controller",
 	'session/$Action/$ID/$OtherID' => "Session_Controller",
 	'scenario/$Action/$ID/$OtherID' => "TestStep_Controller",
+	'results/$Action/$ID/$OtherID' => "StepResult_Controller",
 	'' => '->'
 ));
 

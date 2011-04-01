@@ -74,7 +74,7 @@ class TestPlan extends Page {
 		$urlReport = $this->baseHref().$this->getcontrollerurl()."/report/".$this->ID;
 		
 		return new FieldSet(			
-			new LiteralField("Link", "<a href='".$urlReport."' target='createreport_$this->title'>Create Test Report</a>"),
+			new LiteralField("Link", "<a href='".$urlReport."' target='createreport_$this->title'>View Test Script</a>"),
 			new LiteralField("Link", "<a href='".$url."' target='performtest_$this->title'>Perform Test</a>"),
 			new FormAction("save", "Save changes")
 		);
@@ -135,6 +135,8 @@ class TestPlan extends Page {
 		
 		return $steps;
 	}
+	
+
 	
 	/**
 	 * @todo $sort doesn't work with merge()
@@ -259,6 +261,14 @@ class TestPlan_Controller extends Controller {
 
 		Director::redirect('testplan/error');
 		return;
+	}
+	
+	function ShowLeftOptions(){
+		if(isset($this->urlParams['ID'])){
+			return true;
+		} else{
+			return false;
+		}
 	}
 	
 
