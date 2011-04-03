@@ -84,7 +84,7 @@ class TestSessionObj extends DataObject {
 	
 	function OverallResult() {
 		if ($this->NumberOfTestSteps) {
-			return (1 / $this->NumberOfTestSteps * $this->getNumPasses()) ;
+			return sprintf('%1\$.2f%%',(1 / $this->NumberOfTestSteps * $this->getNumPasses())*100)) ;
 		} else {
 			return 'n/a';
 		}
