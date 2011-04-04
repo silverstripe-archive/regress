@@ -306,6 +306,7 @@ function saveDraft(successMsg) {
 		
 		var featureID = $(this).siblings('.addStepFeatureID').val();
 		var sort = $(this).siblings('#addStepSortValue').val();
+		if(sort == 0) sort = 1;
 		var content = $(this).siblings('.newStepInput').val();
 		var addURL = 'teststep/add/' + featureID + '/' + sort + '/' + escape(content);
 		
