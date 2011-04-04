@@ -195,7 +195,7 @@ class TestStep_Controller extends Controller {
 		if (Member::currentUser() == null) {
 			$this->getResponse()->setStatusCode(401);
 			return TestPlan::$permission_denied_text;
-		}		
+		}
 		
 		$vars       = $request->postVars();
 		$stepid_raw = $vars['id'];
@@ -231,35 +231,77 @@ class TestStep_Controller extends Controller {
 	 * @return Boolean
 	 */
 	function delete(){
-		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') return false;
+		$retValue = false;
 		
-		$Step = DataObject::get_by_id("TestStep",(int)$this->urlParams['ID']);
-		if($Step) $TestSection = DataObject::get_by_id("TestSection",$Step->ParentID);
-		
-		if($TestSection && $TestSection->canEdit(Member::currentUser())){
-			$Step->delete();
-			$Step->destroy();
-			return true;
+		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') {
+			return $retValue;
 		}
-		return false;
-	}
-	
-	function add(){
-		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') return false;
-		
-		$Feature = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
-		$featureID = $Feature->ID;
-		$Step = new TestStep();
-		$Step->Sort = $this->urlParams['OtherID'] + 1;
-		$Step->UpdatedViaFrontend = 1;
-		$Step->UpdatedByID = Member::currentUserID();
-		$Step->ParentID = $featureID;
-		$Step->Step = Convert::raw2sql($this->urlParams['ExtraID']);
-		$Step->write();
 
-		return true;
+		if (Member::currentUser() == null) {
+			$this->getResponse()->setStatusCode(401);
+			return TestPlan::$permission_denied_text;
+		}
+				
+		$Step = DataObject::get_by_id("TestStep",(int)$this->urlParams['ID']);
+		$TestSection = null;
+
+		if($Step) {
+			$TestSection = DataObject::get_by_id("TestSection",$Step->ParentID);
+		}
+		
+		if($TestSection) {
+			if ($TestSection->canEdit(Member::currentUser())) {
+				$Step->delete();
+				$Step->destroy();
+				$retValue = true;
+			} else {
+				$this->getResponse()->setStatusCode(401);
+				return TestPlan::$permission_denied_text;
+			}
+		}
+		return $retValue;
 	}
 	
+	/** 
+	 * Add a test step after the seleted test step. 
+	 * Test step identification is prodivded by the URL parameters (ID).
+	 */ 
+	function add() {
+		$retValue = false;
+		
+		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') {
+			return $retValue;
+		}
+
+		if (Member::currentUser() == null) {
+			$this->getResponse()->setStatusCode(401);
+			return TestPlan::$permission_denied_text;
+		}
+
+		$TestSection = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
+		
+		if (!$TestSection->canEdit(Member::currentUser())) {
+			$this->getResponse()->setStatusCode(401);
+			return TestPlan::$permission_denied_text;
+		}
+		
+		if ($TestSection) {
+			$TestSectionID = $TestSection->ID;
+			
+			$Step = new TestStep();
+			$Step->ParentID = $TestSectionID;
+			$Step->Sort = $this->urlParams['OtherID'] + 1;
+			
+			$Step->UpdatedViaFrontend = 1;
+			$Step->UpdatedByID = Member::currentUserID();
+			
+			$Step->Step = Convert::raw2sql($this->urlParams['ExtraID']);
+			$Step->write();
+			
+			$retValue = true;
+		}
+		return $retValue;
+	}	
 }
 
 ?>

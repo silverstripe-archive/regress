@@ -308,12 +308,6 @@ class TestPlan_Controller extends Controller {
 		return null;
 	}
 	
-	function FrontEndEditing(){
-		return true;
-		if(Member::currentUser() && Permission::checkMember(Member::currentUserID(), array("ADMIN", "SITETREE_EDIT_ALL"))) return true;
-
-	}
-
 	/**
 	 * Helper method which returns the test section data object. Used for 
 	 * rendering the templates.
