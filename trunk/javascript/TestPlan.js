@@ -274,6 +274,70 @@ function saveDraft(successMsg) {
 		return false;
 	});
 	
+	/******** ADD STEPS FRONT-END ****************/
+	
+	$('.addNewStep').livequery('click', function(){
+		
+		$('.newStepForm').each(function(){
+			if($(this).children('li').children('.addStepFeatureID').length > 0 && $(this).children('li').children('#addStepSortValue').length > 0){
+				var ParentID = $(this).children('li').children('.addStepFeatureID').val();
+				var Sort = $(this).children('li').children('#addStepSortValue').val();
+				if(ParentID != 'undefined' && Sort != 'undefined') $(this).html('<a href="teststep/add/' + ParentID + '/' + Sort + '" class="addNewStep">[add a new step here]</a>');
+			}
+		});
+		var values = $(this).attr('href');
+		values = values.split('/');
+		if(values.length){
+			var controller = values[0];
+			var action = values[1];
+			var featureID = values[2];
+			var sort = values[3];
+		} else {
+			alert('It has been an error, please try again');
+			return false;
+		}
+		var htmlText = "<li class='scenario'><label>New Step Scenario:</label><textarea name='markdown' id='markdown' class='newStepInput'></textarea><input type='hidden' value='" + featureID + "' name='addStepFeatureID' id='addStepFeatureID' class='addStepFeatureID' /><input type='hidden' value='" + sort + "' name='addStepSortValue' id='addStepSortValue' /><a href='#' class='cancelAddStep'>[cancel]</a> <input type='button' value='save' class='addStepButton' /></li>";
+		$(this).parent().html(htmlText);
+	
+		return false;
+	});
+	
+	$('.addStepButton').livequery('click', function(){
+		
+		var featureID = $(this).siblings('.addStepFeatureID').val();
+		var sort = $(this).siblings('#addStepSortValue').val();
+		var content = $(this).siblings('.newStepInput').val();
+		var addURL = 'teststep/add/' + featureID + '/' + sort + '/' + escape(content);
+		
+		$.ajax({
+		  url: addURL,
+		  success: function(){
+		    window.location.reload();
+		  }
+		});
+	});
+	
+	$('.cancelAddStep').livequery('click', function(){
+		var ParentID = $(this).parent('li').children('.addStepFeatureID').val();
+		var Sort = $(this).parent('li').children('#addStepSortValue').val();
+		if(ParentID != 'undefined' && Sort != 'undefined') $(this).parents('.newStepForm').html('<a href="teststep/add/' + ParentID + '/' + Sort + '" class="addNewStep">[add a new step here]</a>');
+		return false;
+	});
+	
+	function hideDeleteLink(){
+		$('.deleteStep').each(function(){
+			$(this).hide();
+		});
+	}
+	
+	function showDeleteLink(){
+		$('.deleteStep').each(function(){
+			$(this).show();
+		});
+	}
+	
+	
+	/********  DELETE STEPS FRONT-END ************/
 	$('.deleteStep').livequery('click', function(){
 		
 		var confOpt = confirm('Do you want to permanently delete this test step?');

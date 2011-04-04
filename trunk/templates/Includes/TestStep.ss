@@ -112,3 +112,7 @@
 	</div>
 
 </li>
+<div class="newStepForm">
+	<a href="teststep/add/$ParentID/$Sort" class="addNewStep">[add a new step here]</a>
+</div>
+

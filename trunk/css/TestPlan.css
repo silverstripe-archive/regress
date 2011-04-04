@@ -620,3 +620,11 @@ li.featureSecondLevel {
 	font-size:0.9em;
 	float: left;
 }
+
+.newStepInput {
+	width:99%;
+}
+
+/*.addStepButton {
+	float:right;
+}*/

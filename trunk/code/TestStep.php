@@ -141,7 +141,8 @@ class TestStep_Controller extends Controller {
 	static $allowed_actions = array(
 		'load',
 		'save',
-		'delete'
+		'delete',
+		'add'
 	);
 	
 	/**
@@ -241,6 +242,22 @@ class TestStep_Controller extends Controller {
 			return true;
 		}
 		return false;
+	}
+	
+	function add(){
+		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') return false;
+		
+		$Feature = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
+		$featureID = $Feature->ID;
+		$Step = new TestStep();
+		$Step->Sort = $this->urlParams['OtherID'] + 1;
+		$Step->UpdatedViaFrontend = 1;
+		$Step->UpdatedByID = Member::currentUserID();
+		$Step->ParentID = $featureID;
+		$Step->Step = Convert::raw2sql($this->urlParams['ExtraID']);
+		$Step->write();
+
+		return true;
 	}
 	
 }
