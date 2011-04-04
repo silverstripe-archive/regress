@@ -72,6 +72,7 @@ function saveDraft(successMsg) {
 (function($) {
 	$(document).ready(function() {
 		hideDeleteLink();
+		hideAddLink();
 		$('form[name=session]').changeAwareForm();
 	
 		/**
@@ -107,6 +108,7 @@ function saveDraft(successMsg) {
 			// the link/page is in edit mode, change to readonly mode 
 			if ($(this).hasClass(editModeClass)) {
 				hideDeleteLink();
+				hideAddLink();
 				// disable the editing
 				$('.content').editable('disable', null);
 			
@@ -128,6 +130,7 @@ function saveDraft(successMsg) {
 			
 			} else { // change to editable mode
 				showDeleteLink();
+				showAddLink();
 				if (initialised == false) {
 					$('.content').editable('scenario/save', {
 						loadurl   : 'scenario/load',
@@ -317,6 +320,18 @@ function saveDraft(successMsg) {
 		  }
 		});
 	});
+	
+	function hideAddLink(){
+		$('.addNewStep').each(function(){
+			$(this).hide();
+		})
+	}
+	
+	function showAddLink(){
+		$('.addNewStep').each(function(){
+			$(this).show();
+		});
+	}
 	
 	$('.cancelAddStep').livequery('click', function(){
 		var ParentID = $(this).parent('li').children('.addStepFeatureID').val();

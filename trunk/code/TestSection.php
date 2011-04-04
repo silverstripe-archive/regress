@@ -148,7 +148,7 @@ class TestSection extends Page {
 		$steps = $this->getComponents(
 			'Steps',
 			null, // filter
-			'Sort ASC'
+			'Sort ASC, ID ASC'
 		);
 		return $steps;
 	}
