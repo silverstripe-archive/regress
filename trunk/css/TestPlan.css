@@ -625,6 +625,10 @@ li.featureSecondLevel {
 	width:99%;
 }
 
+.noborder {
+	border: 0px solid;
+}
+
 /*.addStepButton {
 	float:right;
 }*/

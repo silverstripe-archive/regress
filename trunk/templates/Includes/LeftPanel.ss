@@ -1,7 +1,9 @@
 <div class="leftPanel">
 	<div class="actions">
 
-	<a href="testplan" title="go back to your dashboard"><img src='regress/images/ss-logo.gif' /></a>
+		<a href="testplan" title="go back to your dashboard" class='noborder'>
+			<img src='regress/images/ss-logo.gif' class='noborder' />
+		</a>
 
 		<% if TestRootObject %>
 		<% control TestRootObject %>
