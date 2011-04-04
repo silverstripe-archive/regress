@@ -226,6 +226,7 @@ class TestSection extends Page {
 	function RenderReport() {
 		return $this->renderWith(array("TestSectionReport"));
 	}	
+
 }
 
 /**
@@ -314,7 +315,28 @@ class TestSection_Controller extends Controller {
 		}
 	}	
 	
+	function ShowCanEdit(){
+		if(isset($this->urlParams['ID'])){
+			$TestSection = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
+			if($TestSection){
+				return $TestSection->getTestPlan()->canEdit();
+			} 
+			else return false;
+		} else {
+			return false;
+		}
+	}
 	
+	function ShowLeftOptions(){
+
+		if(isset($this->urlParams['ID'])){
+			$TestPlan = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
+			
+			return true;
+		} else{
+			return false;
+		}
+	}
 	
 }
 ?>
