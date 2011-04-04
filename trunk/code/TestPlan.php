@@ -140,11 +140,7 @@ class TestPlan extends Page {
 		
 		if(!$member) $member = Member::currentUser();
 		if($member->isAdmin()) return true;
-		elseif(
-			$this->CanEditType == 'OnlyTheseUsers' 
-			&& $member 
-			&& $member->inGroups($this->EditorGroups())
-		) return true;
+		elseif($this->CanEditType == 'OnlyTheseUsers' && $member && $member->inGroups($this->EditorGroups())) return true;
 		
 		return false;
 	}

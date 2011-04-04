@@ -94,6 +94,7 @@
 	<div id="note-{$ID}" class="note">
 		<label>Comments:<textarea name="Note[$ID]">$SessionStepResult.Note.Raw</textarea> </label>
 		<p class="noteAttachments">
+			<a href="teststep/delete/$ID" class="deleteStep" id="Step$ID">[delete this step]</a>
 			<label>Attachments</label>
 			<input class="ajaxupload" id="ajaxupload-{$ID}" name="Attachment[$ID]" type="file" />
 			
@@ -107,7 +108,7 @@
 				</ul>
 			<% end_control %>
 		</p>
-		<a href="teststep/delete/$ID" class="deleteStep" id="Step$ID">[delete this step]</a>
+		
 	</div>
 
 </li>

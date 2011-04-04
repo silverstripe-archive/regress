@@ -71,7 +71,7 @@ function saveDraft(successMsg) {
 
 (function($) {
 	$(document).ready(function() {
-	
+		hideDeleteLink();
 		$('form[name=session]').changeAwareForm();
 	
 		/**
@@ -92,18 +92,21 @@ function saveDraft(successMsg) {
 			saveDraft('');
 			return false;
 		});
-
+		
+		
+		
+		
 		/**
 		 * Toggle the status of the perform test form so that tester can modify the
 		 * scenarios during the test.
 		 */
 		$('a.editModeLink').livequery('click', function(){
-		
+			
 			var editModeClass = 'inEditMode';
 		
 			// the link/page is in edit mode, change to readonly mode 
 			if ($(this).hasClass(editModeClass)) {
-			
+				hideDeleteLink();
 				// disable the editing
 				$('.content').editable('disable', null);
 			
@@ -124,7 +127,7 @@ function saveDraft(successMsg) {
 				$(this).toggleClass(editModeClass);
 			
 			} else { // change to editable mode
-			
+				showDeleteLink();
 				if (initialised == false) {
 					$('.content').editable('scenario/save', {
 						loadurl   : 'scenario/load',
@@ -280,13 +283,25 @@ function saveDraft(successMsg) {
 			$.ajax({
 			  url: deleteURL,
 			  success: function(){
-			    self.parent().parent("li.scenario").hide('slow');
+			    self.parents("li.scenario").hide('slow');
 			  }
 			});
 			
 		}
 		return false;
 	});
+	
+	function hideDeleteLink(){
+		$('.deleteStep').each(function(){
+			$(this).hide();
+		});
+	}
+	
+	function showDeleteLink(){
+		$('.deleteStep').each(function(){
+			$(this).show();
+		});
+	}
 	
 	function buildTableOfContent() {
 		var html = '';

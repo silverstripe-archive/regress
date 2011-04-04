@@ -235,7 +235,7 @@ class TestStep_Controller extends Controller {
 		$Step = DataObject::get_by_id("TestStep",(int)$this->urlParams['ID']);
 		if($Step) $TestSection = DataObject::get_by_id("TestSection",$Step->ParentID);
 		
-		if($TestSection && $TestSection->canView(Member::currentUser())){
+		if($TestSection && $TestSection->canEdit(Member::currentUser())){
 			$Step->delete();
 			$Step->destroy();
 			return true;
