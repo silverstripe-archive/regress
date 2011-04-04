@@ -16,7 +16,7 @@
 			<input type="radio" value="Severity1" name="Severity[$ID]" <% if IsSeverity1 %>checked="true"<% end_if %> />
 			<strong>Critical</strong>
 		</label>
-		<label class="severity2" title="major impact, potentially a workaround existis, testing can continue" style="display: none;">
+		<label class="severity2" title="major impact, potentially a workaround exists, testing can continue" style="display: none;">
 			<input type="radio" value="Severity2" name="Severity[$ID]" <% if IsSeverity2 %>checked="true"<% end_if %> />
 			<strong>High</strong>
 		</label>
