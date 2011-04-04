@@ -37,8 +37,8 @@ class Session_Controller extends Controller {
 	 * @return TestSessionObj|null Instance of the session object.
 	 */
 	function TestSessionObj() {
-		if($this->urlParams['OtherID']) {
-			$obj = DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
+		if($this->urlParams['ID']) {
+			$obj = DataObject::get_by_id("TestSessionObj", $this->urlParams['ID']);
 			return $obj;
 		}
 		return null;

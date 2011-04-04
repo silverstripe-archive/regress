@@ -11,7 +11,7 @@ class TestPageDecorator extends DataObjectDecorator {
 		return array(
 			'db' => array(
 			),
-			'has_one' => array (
+			'has_one' => array(
 			),
 			'defaults' => array(
 			),

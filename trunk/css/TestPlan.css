@@ -535,7 +535,7 @@ fieldset {
 .resolutionComments .failseverity {
 	float: left;
 	width: 91%;
-<<<<<<< .mine
+
 }
 
 /* ----------------------Results view-------------------------- */
@@ -547,8 +547,13 @@ fieldset {
 
 	.resultsListHeader span {
 		float: left;
-		width:16%;
+		width:15%;
 	}
+	
+		.resultsListHeader span.options {
+			float: left;
+			width:5%;
+		}
 	
 .resultsList {
 	width:100%;
@@ -561,9 +566,14 @@ fieldset {
 
 	.resultsList span {
 		float: left;
-		width:16%;
+		width:15%;
 		margin-bottom:4px;
 	}
+	
+		.resultsList span.options {
+			float: left;
+			width:5%;
+		}
 	
 /* --------------------- Dashboard -------------------------- */
 .dashboardTestTitle {
@@ -580,8 +590,12 @@ fieldset {
 	}
 	
 li.featureSecondLevel {
-	margin-left:22px;
+	margin-left:30px;
 	list-style: circle;
+}
+
+.rightPanel ul {
+	list-style-position:inside;
 }
 
 .rightPanel ul li {
@@ -599,4 +613,9 @@ li.featureSecondLevel {
 	padding: 5px;
 	text-align: center;
 
+}
+
+/* ------------------ */
+.deleteStep {
+	font-size:0.8em;
 }

@@ -2,7 +2,7 @@
 	<% if IsOutcomePass %>pass<% end_if %>
 	<% if IsOutcomeFail %>fail<% end_if %>
 	<% if IsOutcomeSkip %>skip<% end_if %>">
-
+	
 	<div class="passfail">
 		<label class="pass"><input type="radio" value="pass" name="Outcome[$ID]" <% if IsOutcomePass %>checked="true"<% end_if %> />pass</label>
 		<label class="fail fail_$ID"><input type="radio" value="fail" name="Outcome[$ID]" <% if IsOutcomeFail %>checked="true"<% end_if %> />fail</label>
@@ -107,6 +107,7 @@
 				</ul>
 			<% end_control %>
 		</p>
+		<a href="teststep/delete/$ID" class="deleteStep" id="Step$ID">[delete this step]</a>
 	</div>
 
 </li>

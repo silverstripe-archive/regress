@@ -127,6 +127,20 @@ class TestSection extends Page {
 		return $clone;
 	}
 	
+	function ListResults(){
+		$Items = $this->Sessions()->items;
+		if($Items){
+			$Results = new DataObjectSet();
+			foreach($Items as $Item){
+				if($Item->Status == 'submitted') $Results->push($Item);
+			}
+			//var_dump($Results); die;
+			return $Results;
+		}
+		return false;
+		
+	}
+	
 	/**
 	 * Returns all steps for this feature. 
 	 */
@@ -299,6 +313,7 @@ class TestSection_Controller extends Controller {
 			return DataObject::get_by_id("TestSessionObj", $this->urlParams['OtherID']);
 		}
 	}	
+	
 	
 	
 }

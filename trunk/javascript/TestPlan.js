@@ -270,7 +270,47 @@ function saveDraft(successMsg) {
 		$('#tableOfContent').show(); 
 		return false;
 	});
+	
+	$('.deleteStep').livequery('click', function(){
 		
+		var confOpt = confirm('Do you want to permanently delete this test step?');
+		if(confOpt === true){
+			var self = $(this);
+			var deleteURL = $(this).attr('href');
+			$.ajax({
+			  url: deleteURL,
+			  success: function(){
+			    self.parent().parent("li.scenario").hide('slow');
+			  }
+			});
+			
+		}
+		return false;
+	});
+	
+	function buildTableOfContent() {
+		var html = '';
+		var list = ''; 
+		var location = window.location;
+		var url = location.protocol + '//' + location.host + location.pathname;
+
+		$('.anchor').each( function() { 
+			list += '<li><a href="' + url + '#' + $(this).attr('id') + '">' + $(this).text() + '</a></li>'; 
+		});
+
+		topLink = location.href.replace(/#/g, '') + "#body";
+		var currentURL = window.location.pathname;
+		
+		// add show table of content link to the leftPanel
+		if(currentURL.indexOf('perform') > 0) $('.leftPanel').prepend('<p class="showHideIndex"><a id="showIndex" href="#">Show Index</a></p>')
+		
+		html = '<div id="tableOfContent">';
+		html += '<p class="showHideIndex"><a id="hideIndex" href="#">Hide Index</a></p>'
+		html += '<h3>Index <a id="topLink" href="javascript:scroll(0,0)">(Go to top)</a></h3>';
+		html += '<ul>' + list + '</ul></div>';
+		$('body').append(html);
+	}
+
 	$('div.failseverity input').livequery('click', function() {
 		var step = $(this).parents('li.scenario');
 		step.addClass('fail').removeClass('pass skip');

@@ -14,17 +14,18 @@
 
 <div class="rightPanel">
 	
-	<% if ListResults %>
-		<h1>Results for '$TestTitle'</h1>
+	<% if ListResults(submitted) %>
+		<h1>Results for '$TestPlan.Title'</h1>
 		<div class="resultsListHeader">
 			<span>Session #</span>
 			<span>Date</span>
 			<span># Passes</span>
 			<span># Failures</span>
 			<span># Skips</span>
-			<span>Author</span>
+			<span>Tester</span>
+			<span class="options"></span>
 		</div>
-		<% control ListResults %>
+		<% control ListResults(submitted) %>
 			<div class="resultsList $evenodd">
 				<span>$ID</span>
 				<span>$Created.Nice</span>
@@ -32,10 +33,41 @@
 				<span>$NumFailures</span>
 				<span>$NumSkips</span>
 				<span>$Author.Name</span>
+				<span class="options"><a href="session/reportdetail/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
 			</div>
 		<% end_control %>
 	<% else %>
-		<p>We are sorry, but you don't have permissions to access this page.</p><a href="javascript:history.back(-1);">go back</a>
+		<p>We are sorry, but we couldn't find Results for this test.</p><a href="javascript:history.back(-1);">go back</a>
+	<% end_if %>
+	
+	<% if TestPlan %>
+		<% control TestPlan %>
+			<% control Children %>
+				<% if ListResults %>
+					<h2>$Title</h2>
+					<div class="resultsListHeader">
+						<span>Session #</span>
+						<span>Date</span>
+						<span># Passes</span>
+						<span># Failures</span>
+						<span># Skips</span>
+						<span>Tester</span>
+						<span class="options"></span>
+					</div>
+					<% control ListResults %>
+						<div class="resultsList $evenodd">
+							<span>$ID</span>
+							<span>$Created.Nice</span>
+							<span>$NumPasses</span>
+							<span>$NumFailures</span>
+							<span>$NumSkips</span>
+							<span>$Author.Name</span>
+							<span class="options"><a href="session/reportdetail/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
+						</div>
+					<% end_control %>
+				<% end_if %>
+			<% end_control %>
+		<% end_control %>
 	<% end_if %>
 
 </div>

@@ -25,6 +25,7 @@ Director::addRules(2, array(
 	'session/$Action/$ID/$OtherID' => "Session_Controller",
 	'scenario/$Action/$ID/$OtherID' => "TestStep_Controller",
 	'results/$Action/$ID/$OtherID' => "StepResult_Controller",
+	'teststep/$Action/$ID/$OtherID' => "TestStep_Controller",
 	'' => '->'
 ));
 
@@ -42,6 +43,7 @@ Object::add_extension('TestPlan', 'TestPageDecorator');
 Object::add_extension('TestSection', 'TestPageDecorator');
 Object::add_extension('File', 'StepResultFileDecorator');
 Object::add_extension('LeftAndMain', 'PageLeftAndMainDecorator');
+Object::add_extension('SiteConfig', 'SiteConfigDecorator');
 
 // run following sql update after updating:
 // update SiteTree set CanViewType='Inherit', CanEditType='Inherit'

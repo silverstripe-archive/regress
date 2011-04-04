@@ -133,13 +133,15 @@ class TestStep extends DataObject {
 	function ParentFeatureID() {
 		return $this->Parent()->FeatureID;
 	}
+
 }
 
 class TestStep_Controller extends Controller {
 	
 	static $allowed_actions = array(
 		'load',
-		'save'
+		'save',
+		'delete'
 	);
 	
 	/**
@@ -220,6 +222,25 @@ class TestStep_Controller extends Controller {
 		
 		$this->getResponse()->setStatusCode(500);
 		return "Invalid parameters.";
+	}
+	
+	/**
+	 * Deletes an step (called from an ajax request)
+	 *
+	 * @return Boolean
+	 */
+	function delete(){
+		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') return false;
+		
+		$Step = DataObject::get_by_id("TestStep",(int)$this->urlParams['ID']);
+		if($Step) $TestSection = DataObject::get_by_id("TestSection",$Step->ParentID);
+		
+		if($TestSection && $TestSection->canView(Member::currentUser())){
+			$Step->delete();
+			$Step->destroy();
+			return true;
+		}
+		return false;
 	}
 	
 }

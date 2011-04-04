@@ -312,5 +312,9 @@ class TestPlan_Controller extends Controller {
 	public function getPermissionDeniedMessage() {
 		return TestPlan::$permission_denied_text;
 	}
+	
+	function DashboardIndroduction(){
+		return (DataObject::get_one("SiteConfig")) ? DataObject::get_one("SiteConfig") : false;
+	}
 }
 ?>

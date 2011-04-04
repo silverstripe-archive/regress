@@ -128,21 +128,27 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	 * @return StepResult|null
 	 */
 	function StepResult() {
-		return DataObject::get_by_id("StepResult", $this->urlParams['ID']);
+		$Plan = DataObject::get_by_id("StepResult", $this->urlParams['ID']);
 	}
 	
-	function ListResults(){
+	function ListResults($status = null){
 		$testID = (int)$this->urlParams['ID'];
-		$TestPlan = DataObject::get_by_id('TestPlan',$testID);
+		$level = $this->urlParams['OtherID'];
+		if($level == 'plan') $class = 'TestPlan';
+		else $class = 'TestSection';
+		
+		$TestPlan = DataObject::get_by_id($class,$testID);
 		if(!$TestPlan->canView(Member::currentUser())) return false;
-		return DataObject::get("TestSessionObj","\"TestPlanID\" = $testID");
+		if(!$status) $resp = DataObject::get("TestSessionObj","\"{$class}ID\" = $testID","\"Created\" Desc");
+		else $resp = DataObject::get("TestSessionObj","\"{$class}ID\" = $testID AND \"Status\" = '$status'","\"Created\" Desc");
+		
+		return $resp;
 	}
 	
-	function TestTitle(){
-		$Test = DataObject::get_by_id("TestPlan",$this->urlParams['ID']);
-		if($Test) return $Test->Title;
-		return '';
+	function TestPlan(){
+		return (DataObject::get_by_id("TestPlan",(int)$this->urlParams['ID'])) ? DataObject::get_by_id("TestPlan",(int)$this->urlParams['ID']) : DataObject::get_by_id("TestSection",(int)$this->urlParams['ID']);
 	}
+
 	
 	function ShowLeftOptions(){
 		return false;

@@ -13,15 +13,14 @@
 <% include LeftPanel %>
 
 <div class="rightPanel">
-
-	<h1>Please choose an test below</h1>
+	<h1>$DashboardIndroduction.DashboardIndroduction</h1>
 	<% control MyTests %>
-		<div class="dashboardTestTitle"><h2>$Title</h2> <a href="testplan/perform/$ID">[perform test]</a> <a href="testplan/report/$ID">[view test script]</a> <a href="results/results/$ID">[view results]</a></div>
+		<div class="dashboardTestTitle"><h2>$Title</h2> <a href="testplan/perform/$ID">[perform test]</a> <a href="testplan/report/$ID">[view test script]</a> <a href="results/results/$ID/plan">[view results]</a></div>
 		<ul>
 		<% control Children %>
-			<li>$Title <a href="feature/perform/$ID">[perform test]</a> | <a href="feature/report/$ID">[view test script]</a> | <a href="">[view results]</a></li>
+			<li>$Title <a href="feature/perform/$ID">[perform test]</a> | <a href="feature/report/$ID">[view test script]</a> | <a href="results/results/$ID/section">[view results]</a></li>
 				<% control Children %>
-					<li class="featureSecondLevel">$Title <a href="feature/perform/$ID">[perform test]</a> | <a href="feature/report/$ID">[view test script]</a> | <a href="">[view results]</a></li>
+					<li class="featureSecondLevel">$Title <a href="feature/perform/$ID">[perform test]</a> | <a href="feature/report/$ID">[view test script]</a> | <a href="results/results/$ID/section">[view results]</a></li>
 				<% end_control %>
 		<% end_control %>
 		</ul>
