@@ -136,6 +136,19 @@ class TestPlan extends Page {
 		return $steps;
 	}
 	
+	function canEdit($member = null){
+		
+		if(!$member) $member = Member::currentUser();
+		if($member->isAdmin()) return true;
+		elseif(
+			$this->CanEditType == 'OnlyTheseUsers' 
+			&& $member 
+			&& $member->inGroups($this->EditorGroups())
+		) return true;
+		
+		return false;
+	}
+	
 
 	
 	/**
@@ -264,9 +277,23 @@ class TestPlan_Controller extends Controller {
 	}
 	
 	function ShowLeftOptions(){
+
 		if(isset($this->urlParams['ID'])){
+			$TestPlan = DataObject::get_by_id('TestPlan',(int)$this->urlParams['ID']);
+			
 			return true;
 		} else{
+			return false;
+		}
+	}
+	
+	function ShowCanEdit(){
+
+		if(isset($this->urlParams['ID'])){
+			$TestPlan = DataObject::get_by_id('TestPlan',(int)$this->urlParams['ID']);
+			if($TestPlan) return $TestPlan->canEdit(Member::currentUser());
+			else return false;
+		} else {
 			return false;
 		}
 	}

@@ -4,7 +4,11 @@
 	<% include Favicon %>
 	<% base_tag %>
 	<% control TestPlan %>
-	<title>Perform a Test: '$Title' (Test Plan)</title>
+	<% if Title %>
+		<title>Perform a Test: '$Title' (Test Plan)</title>
+	<% else %>
+		<title>SilverStripe Regress - Dashboard</title>
+	<% end_if %>
 	<% end_control %>
 </head>
 <!-- HTML-BODY -->

@@ -11,14 +11,15 @@
 		
 		<br />
 		<% if ShowLeftOptions %>
-		<div class="helptext">
-			If you close your browser after saving, you can return to the current 
-			session via the Drafts tab in the CMS.		
-		</div>
-		
-		<p class="utilityLinks">
-			<a class="editModeLink" href="#">Change to Edit Mode</a>
-		</p>
+			<div class="helptext">
+				If you close your browser after saving, you can return to the current 
+				session via the Drafts tab in the CMS.		
+			</div>
+			<% if ShowCanEdit %>
+				<p class="utilityLinks">
+					<a class="editModeLink" href="#">Change to Edit Mode</a>
+				</p>
+			<% end_if %>
 		<% end_if %>
 		<p class="utilityLinks">
 			<a href="Security/logout">Logout</a>
