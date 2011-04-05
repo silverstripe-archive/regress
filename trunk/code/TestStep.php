@@ -169,12 +169,23 @@ class TestStep_Controller extends Controller {
 		$tmp = explode ("_",$stepid_raw);
 		if ($tmp[0] == 'scenarioContent') {
 			$id       = (int)$tmp[1];
-			$testStep = DataObject::get_by_id("TestStep", $id);
 			
-			if (!$testStep->Parent()->canEdit()) {
-				$this->getResponse()->setStatusCode(401);
-				return TestPlan::$permission_denied_text;
-			}		
+			$testStep = DataObject::get_by_id("TestStep", $id);
+			$testSection = $testStep->Parent();
+			if ($testSection) {
+				$testPlan = $testSection->getTestPlan();
+				
+				if ($testPlan) {
+					if (!$testPlan->canEdit()) {
+						$this->getResponse()->setStatusCode(401);
+						return TestPlan::$permission_denied_text;
+					}		
+				} else {
+					return "Internal error. Please contact system administrator.";
+				}
+			} else {
+				return "Internal error. Please contact system administrator.";
+			}
 			return $testStep->getField('Step');
 		}
 	}
@@ -207,7 +218,7 @@ class TestStep_Controller extends Controller {
 			$id = (int)$tmp[1];
 			$testStep = DataObject::get_by_id("TestStep", $id);
 			
-			if (!$testStep->Parent()->canEdit(Member::currentUser())) {
+			if (!$testStep || !$testStep->Parent() || !$testStep->Parent()->canEdit(Member::currentUser())) {
 				$this->getResponse()->setStatusCode(401);
 				return TestPlan::$permission_denied_text;
 			}		
@@ -248,6 +259,7 @@ class TestStep_Controller extends Controller {
 		if($Step) {
 			$TestSection = DataObject::get_by_id("TestSection",$Step->ParentID);
 		}
+		else return false;
 		
 		if($TestSection) {
 			if ($TestSection->canEdit(Member::currentUser())) {
@@ -267,41 +279,24 @@ class TestStep_Controller extends Controller {
 	 * Test step identification is prodivded by the URL parameters (ID).
 	 */ 
 	function add() {
-		$retValue = false;
+		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') return false;
 		
-		if(!isset($this->urlParams['ID']) || $this->urlParams['ID'] == '') {
-			return $retValue;
-		}
+		$Feature = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
+		$featureID = $Feature->ID;
+		$Step = new TestStep();
+		$Step->Sort = $this->urlParams['OtherID'];
+		$Step->UpdatedViaFrontend = 1;
+		$Step->UpdatedByID = Member::currentUserID();
+		$Step->ParentID = $featureID;
+		$Step->Step = Convert::raw2sql($this->urlParams['ExtraID']);
+		$Step->write();
+		
+		return $Step->renderWith('TestStep');
 
-		if (Member::currentUser() == null) {
-			$this->getResponse()->setStatusCode(401);
-			return TestPlan::$permission_denied_text;
-		}
+		//return true;
+	}
+	
 
-		$TestSection = DataObject::get_by_id('TestSection',(int)$this->urlParams['ID']);
-		
-		if (!$TestSection->canEdit(Member::currentUser())) {
-			$this->getResponse()->setStatusCode(401);
-			return TestPlan::$permission_denied_text;
-		}
-		
-		if ($TestSection) {
-			$TestSectionID = $TestSection->ID;
-			
-			$Step = new TestStep();
-			$Step->ParentID = $TestSectionID;
-			$Step->Sort = $this->urlParams['OtherID'] + 1;
-			
-			$Step->UpdatedViaFrontend = 1;
-			$Step->UpdatedByID = Member::currentUserID();
-			
-			$Step->Step = Convert::raw2sql($this->urlParams['ExtraID']);
-			$Step->write();
-			
-			$retValue = true;
-		}
-		return $retValue;
-	}	
 }
 
 ?>
