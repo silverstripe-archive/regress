@@ -217,10 +217,16 @@ class TestStep_Controller extends Controller {
 		if ($tmp[0] == 'scenarioContent') {
 			$id = (int)$tmp[1];
 			$testStep = DataObject::get_by_id("TestStep", $id);
-			
-			if (!$testStep || !$testStep->Parent() || !$testStep->Parent()->canEdit(Member::currentUser())) {
-				$this->getResponse()->setStatusCode(401);
-				return TestPlan::$permission_denied_text;
+			if($testStep) {
+				$TestSection = DataObject::get_by_id("TestSection",$testStep->ParentID);
+			}
+			else return false;
+		
+			if($TestSection) {
+				if (!$TestSection->getTestPlan()->canEdit(Member::currentUser())) {
+					$this->getResponse()->setStatusCode(401);
+					return TestPlan::$permission_denied_text;
+				}
 			}		
 			
 			$testStep->setField('Step',$value );			
