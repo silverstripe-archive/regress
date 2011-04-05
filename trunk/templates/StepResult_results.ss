@@ -36,8 +36,6 @@
 				<span class="options"><a href="session/reportdetail/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
 			</div>
 		<% end_control %>
-	<% else %>
-		<p>We are sorry, but we couldn't find Results for this test.</p><a href="javascript:history.back(-1);">go back</a>
 	<% end_if %>
 	
 	<% if TestPlan %>
@@ -68,6 +66,11 @@
 				<% end_if %>
 			<% end_control %>
 		<% end_control %>
+	<% end_if %>
+	<% if ListResults || TestPlan %>
+	
+	<% else %>
+		<p>We are sorry, but we couldn't find Results for this test.</p><a href="javascript:history.back(-1);">go back</a>
 	<% end_if %>
 
 </div>
