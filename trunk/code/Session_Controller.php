@@ -29,6 +29,23 @@ class Session_Controller extends Controller {
 		Requirements::javascript(THIRDPARTY_DIR."/jquery-form/jquery.form.js");
 		Requirements::javascript("regress/javascript/Session.js");
 	}
+	
+	function reportdetail() {
+
+		if (!Member::currentUser()) {
+			return Security::permissionFailure();
+		}
+		
+		$session = $this->TestSessionObj();
+		if (!$session) {
+			return 'Test report not found.';
+		}
+		
+		if (!$session->getMainTestPlan()->canView()) {
+			return Security::permissionFailure();
+		}		
+		return $this->render();
+	}
 		
 	/**
 	 * Returns the test session object of a given ID. The ID is passed in as a
@@ -37,8 +54,8 @@ class Session_Controller extends Controller {
 	 * @return TestSessionObj|null Instance of the session object.
 	 */
 	function TestSessionObj() {
-		if($this->urlParams['ID']) {
-			$obj = DataObject::get_by_id("TestSessionObj", $this->urlParams['ID']);
+		if((int)$this->urlParams['ID']) {
+			$obj = DataObject::get_by_id("TestSessionObj", (int)$this->urlParams['ID']);
 			return $obj;
 		}
 		return null;

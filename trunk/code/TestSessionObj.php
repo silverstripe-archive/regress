@@ -201,6 +201,18 @@ class TestSessionObj extends DataObject {
 		return $value;
 	}
 	
+	function getMainTestPlan() {
+		if ($this->TestPlanID) {
+			return $this->TestPlan();
+		}
+		
+		if ($this->TestSectionID) {
+			return $this->TestSection()->getTestPlan();			
+		}
+
+		return null;
+	}
+	
 	/**
 	 * A bit too much presentation in the model, but its just too handy
 	 * to have around for TableListFields etc.
