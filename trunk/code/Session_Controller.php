@@ -54,8 +54,10 @@ class Session_Controller extends Controller {
 	 * @return TestSessionObj|null Instance of the session object.
 	 */
 	function TestSessionObj() {
-		if((int)$this->urlParams['ID']) {
-			$obj = DataObject::get_by_id("TestSessionObj", (int)$this->urlParams['ID']);
+		
+		if((int)$this->urlParams['OtherID']) {
+			$obj = DataObject::get_by_id("TestSessionObj", (int)$this->urlParams['OtherID']);
+			
 			return $obj;
 		}
 		return null;
@@ -268,7 +270,7 @@ class Session_Controller extends Controller {
 			return json_encode($responseArray);
 		}
 		
-		Director::redirect("session/reportdetail/" . (int)$_REQUEST['ParentID'] . "/$session->ID");
+		Director::redirect("session/reportdetail/" . (int)$_REQUEST['ParentID'] . "/" . $session->ID);
 	}
 	
 	/**
