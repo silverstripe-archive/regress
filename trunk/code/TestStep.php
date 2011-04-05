@@ -297,7 +297,7 @@ class TestStep_Controller extends Controller {
 		$Step->Step = Convert::raw2sql($this->urlParams['ExtraID']);
 		$Step->write();
 		
-		return $Step->renderWith('TestStep');
+		return json_encode(array('content' => $Step->renderWith('TestStep'), 'ID' => $Step->ID));
 
 		//return true;
 	}

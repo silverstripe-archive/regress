@@ -67,11 +67,7 @@
 			<% end_control %>
 		<% end_control %>
 	<% end_if %>
-	<% if ListResults || TestPlan %>
-	
-	<% else %>
-		<p>We are sorry, but we couldn't find Results for this test.</p><a href="javascript:history.back(-1);">go back</a>
-	<% end_if %>
+
 
 </div>
 

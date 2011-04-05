@@ -148,6 +148,10 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	function TestPlan(){
 		return (DataObject::get_by_id("TestPlan",(int)$this->urlParams['ID'])) ? DataObject::get_by_id("TestPlan",(int)$this->urlParams['ID']) : DataObject::get_by_id("TestSection",(int)$this->urlParams['ID']);
 	}
+	
+	function ErrorMessage(){
+		
+	}
 
 	
 	function ShowLeftOptions(){

@@ -214,7 +214,7 @@ function saveDraft(successMsg) {
 		var list = 0; 
 		var location = window.location;
 		$('li.scenario').each( function() { list ++; });		
-		$('input[name=NumTestSteps]')[0].value = list;
+		if($('input[name=NumTestSteps]').length > 0) $('input[name=NumTestSteps]')[0].value = list;
 	}	
 	
 	/**
@@ -279,6 +279,7 @@ function saveDraft(successMsg) {
 	
 	/******** ADD STEPS FRONT-END ****************/
 	
+	// change the add step link for a form to add the new step
 	$('.addNewStep').livequery('click', function(){
 		
 		$('.newStepForm').each(function(){
@@ -305,6 +306,7 @@ function saveDraft(successMsg) {
 		return false;
 	});
 	
+	// call a php method on teststep controller to save the new step
 	$('.addStepButton').livequery('click', function(){
 		
 		var featureID = $(this).siblings('.addStepFeatureID').val();
@@ -312,27 +314,50 @@ function saveDraft(successMsg) {
 		if(sort == 0) sort = 1;
 		var content = $(this).siblings('.newStepInput').val();
 		var addURL = 'teststep/add/' + featureID + '/' + sort + '/' + escape(content);
-		
+		var container = $(this).parents('.newStepForm');
+		var self = $(this);
 		$.ajax({
 		  url: addURL,
-		  success: function(){
-		    window.location.reload();
+		  success: function(data){
+			var obj = jQuery.parseJSON(data);
+			self.parents('.newStepForm').replaceWith(obj['content']);
+			var newContainer = $('#teststep_' + obj['ID']);
+			var newEditableContainer = $(newContainer).children('.content');
+			
+			newEditableContainer.editable('scenario/save', {
+				loadurl   : 'scenario/load',
+				loadtext  : 'Loading data from server...',
+				type      : 'textarea',
+		        indicator : 'Saving...',
+		        tooltip   : 'Click to edit...',
+		        cancel    : 'Cancel',
+		        submit    : 'OK',
+				rows      : 15,
+				width	  : '99%',
+				onblur	  : 'ignore',
+				indicator : "<img src='images/indicator.gif"
+			});
+			newEditableContainer.addClass('changeable');
+			newEditableContainer.editable('enable', null);
 		  }
 		});
 	});
 	
+	// hide add links in read-only mode
 	function hideAddLink(){
 		$('.addNewStep').each(function(){
 			$(this).hide();
 		})
 	}
 	
+	// show add step links in edit-mode
 	function showAddLink(){
 		$('.addNewStep').each(function(){
 			$(this).show();
 		});
 	}
 	
+	// close add step form
 	$('.cancelAddStep').livequery('click', function(){
 		var ParentID = $(this).parent('li').children('.addStepFeatureID').val();
 		var Sort = $(this).parent('li').children('#addStepSortValue').val();
@@ -340,12 +365,14 @@ function saveDraft(successMsg) {
 		return false;
 	});
 	
+	// hide delete links in readonly-mode
 	function hideDeleteLink(){
 		$('.deleteStep').each(function(){
 			$(this).hide();
 		});
 	}
 	
+	// show delete links in edit-mode
 	function showDeleteLink(){
 		$('.deleteStep').each(function(){
 			$(this).show();
@@ -363,7 +390,10 @@ function saveDraft(successMsg) {
 			$.ajax({
 			  url: deleteURL,
 			  success: function(){
-			    self.parents("li.scenario").hide('slow');
+				var StepLi = self.parents("li.scenario");
+				var stepID = StepLi.attr('id').substring(9);
+				$('#newStepForm_' + stepID).hide();
+			    StepLi.hide('slow');
 			  }
 			});
 			
