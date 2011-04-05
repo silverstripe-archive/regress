@@ -33,7 +33,7 @@
 				<span>$NumFailures</span>
 				<span>$NumSkips</span>
 				<span>$Author.Name</span>
-				<span class="options"><a href="session/reportdetail/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
+				<span class="options"><a href="session/reportdetail/$TestPlanID/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
 			</div>
 		<% end_control %>
 	<% end_if %>
@@ -60,7 +60,7 @@
 							<span>$NumFailures</span>
 							<span>$NumSkips</span>
 							<span>$Author.Name</span>
-							<span class="options"><a href="session/reportdetail/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
+							<span class="options"><a href="session/reportdetail/$TestSectionID/$ID"><img src="cms/images/show.png" alt="details" /></a></span>
 						</div>
 					<% end_control %>
 				<% end_if %>
