@@ -128,7 +128,8 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	 * @return StepResult|null
 	 */
 	function StepResult() {
-		$Plan = DataObject::get_by_id("StepResult", $this->urlParams['ID']);
+		$step = DataObject::get_by_id("StepResult", $this->urlParams['ID']);
+		return $step;
 	}
 	
 	function ListResults($status = null){
@@ -150,7 +151,6 @@ class StepResult_Controller extends Controller implements PermissionProvider {
 	}
 	
 	function ErrorMessage(){
-		
 	}
 
 	
