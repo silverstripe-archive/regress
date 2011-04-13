@@ -122,7 +122,27 @@ class Session_Controller extends Controller {
 		else return DataObject::get("StepResult", "TestPlanID = $planID AND (Outcome = 'fail' OR (Outcome IN ('pass','skip') AND Note != '' AND Note IS NOT NULL)) 
 			AND ResolutionDate IS NULL");
 	}
-		
+	
+	/**
+	 * Creates an empty array structure for the save-session action.
+	 *
+	 * @return array
+	 */
+	private function createSessionDataArray() {
+		// get test session object data
+		$testSessionData = array();
+
+		$testSessionData["ID"]          = NULL;
+		$testSessionData["Tester"]      = NULL;
+		$testSessionData["OverallNote"] = NULL;
+		$testSessionData["BaseURL"]     = NULL;
+		$testSessionData["Browser"]     = NULL;
+		$testSessionData["CodeRevision"]= NULL;
+		$testSessionData["TestPlanVersion"]= NULL;
+		$testSessionData["NumTestSteps"]  = NULL;
+		return $testSessionData;
+	}
+	
 	/**
 	 * Form action 'saveperformance'. The website user is able to save the 
 	 * results of the test into a session object and closes the current test
@@ -154,22 +174,10 @@ class Session_Controller extends Controller {
 		}
 
 		// get test session object data
-		$testSessionData = array();
-		$new_session     = true;
-
-		$testSessionData["ID"]          = NULL;
-		$testSessionData["Tester"]      = NULL;
-		$testSessionData["OverallNote"] = NULL;
-		$testSessionData["BaseURL"]     = NULL;
-		$testSessionData["Browser"]     = NULL;
-		$testSessionData["CodeRevision"]= NULL;
-		$testSessionData["TestPlanVersion"]= NULL;
-		$testSessionData["NumTestSteps"]  = NULL;
-		
+		$testSessionData = $this->createSessionDataArray();
 		
 		if (isset($_REQUEST['TestSessionObjID'])) { 
 			$testSessionData["ID"] = $_REQUEST['TestSessionObjID'];
-			$new_session = false;
 		}
 
 		if (isset($_REQUEST['Tester'])) { 
@@ -209,7 +217,6 @@ class Session_Controller extends Controller {
 			$testSessionData["TestPlanID"] = (int)$_REQUEST['ParentID'];
 		}
 		
-	
 		$session = $this->prepareTestSessionObj($testSessionData);
 		
 		if (!$session->isEditable()) {
